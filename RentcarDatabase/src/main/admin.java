@@ -61,8 +61,8 @@ public class admin extends JFrame implements ActionListener{
 	JMenuItem mntmNewMenuItem_1_4_1;
 	JMenuItem mntmNewMenuItem_1_4_2;
 	JTextArea returnresulttxt=new JTextArea();
-	JButton backbtn = new JButton("¡¶ µÚ·Î°¡±â");
-	JButton resetbtn = new JButton("ÃÊ±âÈ­");
+	JButton backbtn = new JButton("ã€Š ë’¤ë¡œê°€ê¸°");
+	JButton resetbtn = new JButton("ì´ˆê¸°í™”");
 	JTextArea srchtxt = new JTextArea();
     JTextField torepair;
     JTextArea grgtxt = new JTextArea();
@@ -85,7 +85,7 @@ public class admin extends JFrame implements ActionListener{
 			}
 		});
 	}
-	// SQL ¿¬°á
+	// SQL ì—°ê²°
 	static Connection con;
 	   Statement stmt,stmt1,stmt2,stmt3,stmt4;
 	   ResultSet rs,rs2,rs4;
@@ -98,21 +98,21 @@ public class admin extends JFrame implements ActionListener{
 	public void conDB() { 
 	     try {
 	       Class.forName("com.mysql.cj.jdbc.Driver");   
-	       //System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø");
+	       //System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ");
 	     } catch(ClassNotFoundException e1) {
 	         e1.printStackTrace();
 	     }
 	   try {
-	       //System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ...");
+	       //System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤€ë¹„...");
 	       con=DriverManager.getConnection(url, userid, pwd); 
-	       //System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¼º°ø");
+	       //System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì„±ê³µ");
 	     } catch(SQLException e1) {
 	         e1.printStackTrace();
 	       }
 	   }
 	public void returnresult(){
 		try {
-			returnresulttxt.setText("¾ÕÂÊ \t ¿À¸¥ÂÊ \t ¿ŞÂÊ \t µÚÂÊ \t ¼ö¸®¿©ºÎ \t Ä·ÇÎÄ«ID \t °íÀ¯´ë¿©ID\n");
+			returnresulttxt.setText("ì•ìª½ \t ì˜¤ë¥¸ìª½ \t ì™¼ìª½ \t ë’¤ìª½ \t ìˆ˜ë¦¬ì—¬ë¶€ \t ìº í•‘ì¹´ID \t ê³ ìœ ëŒ€ì—¬ID\n");
 			stmt = con.createStatement();
 			String query="SELECT * FROM campingcar_return;";
 			rs = stmt.executeQuery(query);
@@ -138,7 +138,7 @@ public class admin extends JFrame implements ActionListener{
 	JMenuItem cpcedit_2;
 	JMenuItem cpcdelete_2;
 	public admin() {
-		setTitle("17013152 ÃÖÁ¾Çõ -°ü¸®ÀÚÆäÀÌÁö");
+		setTitle("17013152 ìµœì¢…í˜ -ê´€ë¦¬ìí˜ì´ì§€");
 		conDB();
 		returnresult();
 		grgresult();
@@ -163,14 +163,14 @@ public class admin extends JFrame implements ActionListener{
 		menuBar.setBorderPainted(false);
 		menuBar.setAlignmentY(Component.CENTER_ALIGNMENT);
 		setJMenuBar(menuBar);
-		//´ë¿©È¸»ç---------------------------------------------------------------------
-		JMenu mnNewMenu = new JMenu("´ë¿©È¸»ç");
+		//ëŒ€ì—¬íšŒì‚¬---------------------------------------------------------------------
+		JMenu mnNewMenu = new JMenu("ëŒ€ì—¬íšŒì‚¬");
 		mnNewMenu.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnNewMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu.setIconTextGap(60);
 		menuBar.add(mnNewMenu);
 		
-		mntmNewMenuItem_1_4 = new JMenuItem("µî·Ï");
+		mntmNewMenuItem_1_4 = new JMenuItem("ë“±ë¡");
 		mntmNewMenuItem_1_4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -183,7 +183,7 @@ public class admin extends JFrame implements ActionListener{
 		mntmNewMenuItem_1_4.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu.add(mntmNewMenuItem_1_4);
 		//---------------------------------------------------------------------
-		mntmNewMenuItem_1_4_1 = new JMenuItem("¼öÁ¤");
+		mntmNewMenuItem_1_4_1 = new JMenuItem("ìˆ˜ì •");
 		mntmNewMenuItem_1_4_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -197,7 +197,7 @@ public class admin extends JFrame implements ActionListener{
 		mnNewMenu.add(mntmNewMenuItem_1_4_1);
 		//---------------------------------------------------------------------
 		
-		mntmNewMenuItem_1_4_2 = new JMenuItem("»èÁ¦");
+		mntmNewMenuItem_1_4_2 = new JMenuItem("ì‚­ì œ");
 		mntmNewMenuItem_1_4_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -209,14 +209,14 @@ public class admin extends JFrame implements ActionListener{
 		mntmNewMenuItem_1_4_2.setHorizontalTextPosition(SwingConstants.CENTER);
 		mntmNewMenuItem_1_4_2.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu.add(mntmNewMenuItem_1_4_2);
-		//´ë¿©È¸»ç---------------------------------------------------------------------
-		JMenu mnNewMenu_1 = new JMenu("Ä·ÇÎÄ«");
+		//ëŒ€ì—¬íšŒì‚¬---------------------------------------------------------------------
+		JMenu mnNewMenu_1 = new JMenu("ìº í•‘ì¹´");
 		mnNewMenu_1.setIconTextGap(55);
 		mnNewMenu_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnNewMenu_1.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnNewMenu_1);
 		
-		cpcregist = new JMenuItem("µî·Ï");
+		cpcregist = new JMenuItem("ë“±ë¡");
 		cpcregist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -229,7 +229,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcregist.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_1.add(cpcregist);
 		
-		cpcedit = new JMenuItem("¼öÁ¤");
+		cpcedit = new JMenuItem("ìˆ˜ì •");
 		cpcedit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -242,7 +242,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcedit.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_1.add(cpcedit);
 		
-		cpcdelete = new JMenuItem("»èÁ¦");
+		cpcdelete = new JMenuItem("ì‚­ì œ");
 		cpcdelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -254,14 +254,14 @@ public class admin extends JFrame implements ActionListener{
 		cpcdelete.setHorizontalTextPosition(SwingConstants.CENTER);
 		cpcdelete.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_1.add(cpcdelete);
-		//Ä·ÇÎÄ«---------------------------------------------------------------------
-		JMenu mnNewMenu_2 = new JMenu("°í°´");
+		//ìº í•‘ì¹´---------------------------------------------------------------------
+		JMenu mnNewMenu_2 = new JMenu("ê³ ê°");
 		mnNewMenu_2.setIconTextGap(55);
 		mnNewMenu_2.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnNewMenu_2.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnNewMenu_2);
 		
-		cpcregist_1 = new JMenuItem("µî·Ï");
+		cpcregist_1 = new JMenuItem("ë“±ë¡");
 		cpcregist_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -275,7 +275,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcregist_1.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_2.add(cpcregist_1);
 		
-		cpcedit_1 = new JMenuItem("¼öÁ¤");
+		cpcedit_1 = new JMenuItem("ìˆ˜ì •");
 		cpcedit_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -287,7 +287,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcedit_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		cpcedit_1.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_2.add(cpcedit_1);
-		cpcdelete_1 = new JMenuItem("»èÁ¦");
+		cpcdelete_1 = new JMenuItem("ì‚­ì œ");
 		cpcdelete_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -299,15 +299,15 @@ public class admin extends JFrame implements ActionListener{
 		cpcdelete_1.setHorizontalTextPosition(SwingConstants.CENTER);
 		cpcdelete_1.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_2.add(cpcdelete_1);
-		//°í°´---------------------------------------------------------------------
+		//ê³ ê°---------------------------------------------------------------------
 		
-		JMenu mnNewMenu_3 = new JMenu("Á¤ºñ¼Ò");
+		JMenu mnNewMenu_3 = new JMenu("ì •ë¹„ì†Œ");
 		mnNewMenu_3.setIconTextGap(55);
 		mnNewMenu_3.setHorizontalTextPosition(SwingConstants.CENTER);
 		mnNewMenu_3.setHorizontalAlignment(SwingConstants.CENTER);
 		menuBar.add(mnNewMenu_3);
 		
-		cpcregist_2 = new JMenuItem("µî·Ï");
+		cpcregist_2 = new JMenuItem("ë“±ë¡");
 		cpcregist_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -321,7 +321,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcregist_2.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_3.add(cpcregist_2);
 		
-		cpcedit_2 = new JMenuItem("¼öÁ¤");
+		cpcedit_2 = new JMenuItem("ìˆ˜ì •");
 		cpcedit_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -334,7 +334,7 @@ public class admin extends JFrame implements ActionListener{
 		cpcedit_2.setHorizontalAlignment(SwingConstants.CENTER);
 		mnNewMenu_3.add(cpcedit_2);
 		
-		cpcdelete_2 = new JMenuItem("»èÁ¦");
+		cpcdelete_2 = new JMenuItem("ì‚­ì œ");
 		cpcdelete_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
@@ -354,7 +354,7 @@ public class admin extends JFrame implements ActionListener{
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		JButton grgbtn = new JButton("Á¤ºñ¼Ò·Îº¸³»±â");
+		JButton grgbtn = new JButton("ì •ë¹„ì†Œë¡œë³´ë‚´ê¸°");
 		grgbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String r_log = rlog.getText();
@@ -387,7 +387,7 @@ public class admin extends JFrame implements ActionListener{
 					}
 					
 					
-					if(fixtest.equals("1")) { //¼ö¸®ÇÒ¶§
+					if(fixtest.equals("1")) { //ìˆ˜ë¦¬í• ë•Œ
 						stmt3 = con.createStatement();
 						String query3 = "insert into repair_list(r_log,r_date,r_price,r_due_date,r_other_repair,customer_license_id,campingcar_rent_company_id,garage_id,campingcar_list_id) "
 								+ "values('"+r_log+"','"+r_date+"','"+r_price+"','"+r_duedate+"','"+r_otherinfo+"','"+lisenceid+"','"+companyid+"','"+grg_id+"','"+cpcid+"');";
@@ -397,32 +397,32 @@ public class admin extends JFrame implements ActionListener{
 						String query4="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+cpcid+"'";
 						int result4 = stmt4.executeUpdate(query4);
 						if(result == 1 && result4==1) {
-							JOptionPane.showMessageDialog(grgbtn, "¼ö¸®Ã³¸® ¿Ï·áµÇ¾ú½À´Ï´Ù.");
+							JOptionPane.showMessageDialog(grgbtn, "ìˆ˜ë¦¬ì²˜ë¦¬ ì™„ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
 							datareset();
 							returnresult();
 							datareset();
 						}
-					}else if(fixtest.equals("0")) {//¼ö¸®ÇÊ¿ä¾øÀ»¶§
-						JOptionPane.showMessageDialog(grgbtn, "¼ö¸®ÇÒÇÊ¿ä¾ø½À´Ï´Ù. ¹İÈ¯ÇÏ¼¼¿ä.");
+					}else if(fixtest.equals("0")) {//ìˆ˜ë¦¬í•„ìš”ì—†ì„ë•Œ
+						JOptionPane.showMessageDialog(grgbtn, "ìˆ˜ë¦¬í• í•„ìš”ì—†ìŠµë‹ˆë‹¤. ë°˜í™˜í•˜ì„¸ìš”.");
 					}
 					
 					
 				}catch(Exception e1) {
 					if(r_log.length()==0||r_date.length()==0||r_price.length()==0||
 							r_duedate.length()==0||r_otherinfo.length()==0||grg_id.length()==0||cpcid.length()==0) {
-						JOptionPane.showMessageDialog(grgbtn, "ºóÄ­À» ¸ğµÎ Ã¤¿öÁÖ¼¼¿ä!");
+						JOptionPane.showMessageDialog(grgbtn, "ë¹ˆì¹¸ì„ ëª¨ë‘ ì±„ì›Œì£¼ì„¸ìš”!");
 					}
-					//System.out.println("¿©±âÀÓ?"+e1);
+					//System.out.println("ì—¬ê¸°ì„?"+e1);
 				}
 				
 				
 			}
 		});
-		grgbtn.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		grgbtn.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		grgbtn.setBounds(889, 315, 142, 77);
 		panel.add(grgbtn);
-		JButton toreturnbtn = new JButton("¹İ È¯ ÇÏ ±â");
-		toreturnbtn.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		JButton toreturnbtn = new JButton("ë°˜ í™˜ í•˜ ê¸°");
+		toreturnbtn.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		toreturnbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cpcid = torepair.getText();
@@ -462,8 +462,8 @@ public class admin extends JFrame implements ActionListener{
 	             }
 	             
 	            	  if(fixtest.equals("1")) {
-	            		  JOptionPane.showMessageDialog(toreturnbtn, "¼ö¸®°¡ÇÊ¿äÇÑ Ä·ÇÎÄ«ÀÔ´Ï´Ù."); 
-	            	  }else if(fixtest.equals("0")) {//¹İÈ¯ÇÏ±â!
+	            		  JOptionPane.showMessageDialog(toreturnbtn, "ìˆ˜ë¦¬ê°€í•„ìš”í•œ ìº í•‘ì¹´ì…ë‹ˆë‹¤."); 
+	            	  }else if(fixtest.equals("0")) {//ë°˜í™˜í•˜ê¸°!
 	            		  
 	            		  stmt3 = con.createStatement();
 	            		  String query2="insert into rentcar_list values"
@@ -477,12 +477,12 @@ public class admin extends JFrame implements ActionListener{
 	      				String query3="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+cpcid+"'";
 	      				int result3 = stmt3.executeUpdate(query3);
 	      				
-	      				JOptionPane.showMessageDialog(toreturnbtn, "¹İÈ¯ ¿Ï·á!"); 
+	      				JOptionPane.showMessageDialog(toreturnbtn, "ë°˜í™˜ ì™„ë£Œ!"); 
 	            		  returnresult();	            		  
 	            	  }
 				}catch(Exception e1) {
 					if(cpcid.length()==0) {
-						JOptionPane.showMessageDialog(grgbtn, "Ä·ÇÎÄ«ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä!");
+						JOptionPane.showMessageDialog(grgbtn, "ìº í•‘ì¹´IDë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”!");
 					}
 					//System.out.println(e1);
 				}
@@ -492,7 +492,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(toreturnbtn);
 		
 		JLabel lblNewLabel = new JLabel("\uBC18\uD658 \uB0B4\uC5ED");
-		lblNewLabel.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		lblNewLabel.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 		lblNewLabel.setBounds(12, 10, 110, 21);
 		panel.add(lblNewLabel);
 		
@@ -504,7 +504,7 @@ public class admin extends JFrame implements ActionListener{
 		scrollPane.setViewportView(returnresulttxt);
 		
 		JLabel lblNewLabel_1 = new JLabel();
-		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		lblNewLabel_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(12, 210, 110, 21);
 		panel.add(lblNewLabel_1);
 		
@@ -514,7 +514,7 @@ public class admin extends JFrame implements ActionListener{
 		torepair.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("\uAC80\uC0C9");
-		lblNewLabel_2.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		lblNewLabel_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 		lblNewLabel_2.setBounds(614, 10, 110, 21);
 		panel.add(lblNewLabel_2);
 		
@@ -524,12 +524,12 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(srchtxt);
 		
 		JLabel lblNewLabel_3 = new JLabel("\uCEA0\uD551\uCE74\uC815\uBE44\uC18C \uC120\uD0DD");
-		lblNewLabel_3.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		lblNewLabel_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(12, 251, 193, 21);
 		panel.add(lblNewLabel_3);
 		
 		JLabel lblNewLabel_1_5 = new JLabel("\uC815\uBE44\uC18CID");
-		lblNewLabel_1_5.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_5.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_5.setBounds(614, 342, 73, 21);
 		panel.add(lblNewLabel_1_5);
 		
@@ -539,7 +539,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(grgid);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("\uC815\uBE44\uB0B4\uC5ED");
-		lblNewLabel_1_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_1.setBounds(614, 364, 73, 21);
 		panel.add(lblNewLabel_1_1);
 		
@@ -549,7 +549,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(rlog);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("\uC218\uB9AC\uB0A0\uC9DC");
-		lblNewLabel_1_1_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_1_1.setBounds(614, 389, 73, 21);
 		panel.add(lblNewLabel_1_1_1);
 		
@@ -559,7 +559,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(rfixdate);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("\uC218\uB9AC\uBE44\uC6A9");
-		lblNewLabel_1_2.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_2.setBounds(614, 413, 73, 21);
 		panel.add(lblNewLabel_1_2);
 		
@@ -569,7 +569,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(rprice);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("\uB0A9\uC785\uAE30\uD55C");
-		lblNewLabel_1_3.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_3.setBounds(614, 437, 73, 21);
 		panel.add(lblNewLabel_1_3);
 		
@@ -579,7 +579,7 @@ public class admin extends JFrame implements ActionListener{
 		panel.add(rduedate);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("\uAE30\uD0C0\uB0B4\uC5ED\uC815\uBCF4");
-		lblNewLabel_1_4.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_1_4.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_4.setBounds(614, 461, 101, 21);
 		panel.add(lblNewLabel_1_4);
 		
@@ -590,26 +590,26 @@ public class admin extends JFrame implements ActionListener{
 		
 		
 		
-		JLabel lblNewLabel_1_5_1 = new JLabel("Ä·ÇÎÄ«ID");
-		lblNewLabel_1_5_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		JLabel lblNewLabel_1_5_1 = new JLabel("ìº í•‘ì¹´ID");
+		lblNewLabel_1_5_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_1_5_1.setBounds(614, 318, 88, 21);
 		panel.add(lblNewLabel_1_5_1);
 		
-		JLabel lblNewLabel_4 = new JLabel("¼ö¸®¿©ºÎ 1 : ¼ö¸®ÇÊ¿ä");
-		lblNewLabel_4.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		JLabel lblNewLabel_4 = new JLabel("ìˆ˜ë¦¬ì—¬ë¶€ 1 : ìˆ˜ë¦¬í•„ìš”");
+		lblNewLabel_4.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(113, 12, 142, 21);
 		panel.add(lblNewLabel_4);
 		
-		JLabel lblNewLabel_5 = new JLabel("¡Ø ¼ö¸®¿©ºÎ°¡ 1ÀÎ Ä·ÇÎÄ«ÀÇ °íÀ¯´ë¿©ID¿Í Á¤ºñ¼ÒID¸¦ ÀÔ·Â ÈÄ  Ãß°¡Á¤º¸¸¦ ÀÔ·Â");
+		JLabel lblNewLabel_5 = new JLabel("â€» ìˆ˜ë¦¬ì—¬ë¶€ê°€ 1ì¸ ìº í•‘ì¹´ì˜ ê³ ìœ ëŒ€ì—¬IDì™€ ì •ë¹„ì†ŒIDë¥¼ ì…ë ¥ í›„  ì¶”ê°€ì •ë³´ë¥¼ ì…ë ¥");
 		lblNewLabel_5.setBounds(614, 279, 446, 26);
 		panel.add(lblNewLabel_5);
 		
 		
 		
-		JButton btn1 = new JButton("°Ë»ö1");
+		JButton btn1 = new JButton("ê²€ìƒ‰1");
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("°Ë»ö1 °á°ú\n");
+				srchtxt.setText("ê²€ìƒ‰1 ê²°ê³¼\n");
 				try {
 				stmt = con.createStatement();
 				String query = "select c_name\r\n" + 
@@ -639,10 +639,10 @@ public class admin extends JFrame implements ActionListener{
 		btn1.setBounds(955, 26, 105, 23);
 		panel.add(btn1);
 		
-		JButton btn2 = new JButton("°Ë»ö2");
+		JButton btn2 = new JButton("ê²€ìƒ‰2");
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("°Ë»ö2 °á°ú\n");
+				srchtxt.setText("ê²€ìƒ‰2 ê²°ê³¼\n");
 				try {
 				stmt = con.createStatement();
 				String query = "select c_name\r\n" + 
@@ -671,10 +671,10 @@ public class admin extends JFrame implements ActionListener{
 			}
 		});
 		
-		JButton btn3 = new JButton("°Ë»ö3");
+		JButton btn3 = new JButton("ê²€ìƒ‰3");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("°Ë»ö3 °á°ú\n");
+				srchtxt.setText("ê²€ìƒ‰3 ê²°ê³¼\n");
 				try {
 				stmt = con.createStatement();
 				String query = "select g_name\r\n" + 
@@ -703,10 +703,10 @@ public class admin extends JFrame implements ActionListener{
 		btn3.setBounds(955, 79, 105, 23);
 		panel.add(btn3);
 		
-		JButton bnt4 = new JButton("°Ë»ö4");
+		JButton bnt4 = new JButton("ê²€ìƒ‰4");
 		bnt4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("°Ë»ö4 °á°ú\n");
+				srchtxt.setText("ê²€ìƒ‰4 ê²°ê³¼\n");
 				try {
 				stmt = con.createStatement();
 				String query = "select c_name\r\n" + 
@@ -742,20 +742,20 @@ public class admin extends JFrame implements ActionListener{
 		lblNewLabel_7.setBounds(614, 30, 321, 15);
 		panel.add(lblNewLabel_7);
 		
-		JLabel lblNewLabel_8 = new JLabel("2.   Ä·ÇÎÄ«ÀÇ Ã»±¸¿ä±İÀÌ 50¸¸¿ø ÀÌ»ó ÁöºÒÇØ¾ß ÇÒ °í°´ÀÌ¸§");
+		JLabel lblNewLabel_8 = new JLabel("2.   ìº í•‘ì¹´ì˜ ì²­êµ¬ìš”ê¸ˆì´ 50ë§Œì› ì´ìƒ ì§€ë¶ˆí•´ì•¼ í•  ê³ ê°ì´ë¦„");
 		lblNewLabel_8.setBounds(614, 57, 329, 15);
 		panel.add(lblNewLabel_8);
 		
-		JLabel lblNewLabel_9 = new JLabel("3.   ¼ö¸®ÇÒ ÇÊ¿ä°¡ ¾ø´Â, ¼ö¸®ÇÊ¿ä¿©ºÎ°¡ 1ÀÎ Ä·ÇÎÄ«");
+		JLabel lblNewLabel_9 = new JLabel("3.   ìˆ˜ë¦¬í•  í•„ìš”ê°€ ì—†ëŠ”, ìˆ˜ë¦¬í•„ìš”ì—¬ë¶€ê°€ 1ì¸ ìº í•‘ì¹´");
 		lblNewLabel_9.setBounds(614, 83, 329, 15);
 		panel.add(lblNewLabel_9);
 		
-		JLabel lblNewLabel_10 = new JLabel("4.   ´ë¿©±â°£ÀÌ 10ÀÏÀÌ»óÀÎ °í°´ÀÌ¸§");
+		JLabel lblNewLabel_10 = new JLabel("4.   ëŒ€ì—¬ê¸°ê°„ì´ 10ì¼ì´ìƒì¸ ê³ ê°ì´ë¦„");
 		lblNewLabel_10.setBounds(614, 109, 321, 15);
 		panel.add(lblNewLabel_10);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("¼ö¸®¿©ºÎ 0 : ¼ö¸®ÇÊ¿ä¾øÀ½");
-		lblNewLabel_4_1.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		JLabel lblNewLabel_4_1 = new JLabel("ìˆ˜ë¦¬ì—¬ë¶€ 0 : ìˆ˜ë¦¬í•„ìš”ì—†ìŒ");
+		lblNewLabel_4_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_4_1.setBounds(267, 13, 171, 18);
 		panel.add(lblNewLabel_4_1);
 		resetbtn.setForeground(Color.WHITE);
@@ -813,7 +813,7 @@ public class admin extends JFrame implements ActionListener{
 	                 stmt1.executeUpdate(query);
 	                 query="DROP TABLE IF EXISTS `campingcar_rent_company`;";
 	                 stmt1.executeUpdate(query);
-	                 //   System.out.println("»èÁ¦¿Ï·á!");
+	                 //   System.out.println("ì‚­ì œì™„ë£Œ!");
 	                    
 	               query="CREATE TABLE IF NOT EXISTS `campingcar_rent_company` (\r\n" + 
 	               		"  `camping_rent_company_id` INT NOT NULL AUTO_INCREMENT,\r\n" + 
@@ -978,185 +978,185 @@ public class admin extends JFrame implements ActionListener{
 	               		"  `cc_price` INT NOT NULL,\r\n" + 
 	               		"  PRIMARY KEY (`rent_id`))";
 	               stmt1.executeUpdate(query);
-		            //System.out.println("Å×ÀÌºí ÃÊ±âÈ­ ¿Ï·á");
+		            //System.out.println("í…Œì´ë¸” ì´ˆê¸°í™” ì™„ë£Œ");
 		            
-	               query="insert into campingcar_rent_company values('1','SAMSUNG','¼­¿ï½Ã ¼­ÃÊ±¸','02-345-5676','samsungcprent@naver.com','±è»ï¼º'),"+
-	            		 "('2','LG','¼­¿ï½Ã °­³²±¸','02-546-5474','lgcprent@naver.com','ÃÖ¿¤Áã'),"+
-	                     "('3','HYUNDAI','¼­¿ï½Ã °­¼­±¸','02-368-7374','hyundaicprent@naver.com','°­Çö´ë'),"+
-	                     "('4','BOOGATI','¼­¿ï½Ã °­ºÏ±¸','02-485-9536','boogaticprent@naver.com','°íºÎÁö'),"+
-	                     "('5','SHEVORAE','¼­¿ï½Ã ¿ë»ê±¸','02-854-9642','shevoraecprent@naver.com','½¦º¸·¹'),"+
-	                     "('6','PORCHE','¼­¿ï½Ã Á¾·Î±¸','02-458-4736','porchecprent@naver.com','±èÆ÷½¦'),"+
-	                     "('7','SYOUNG','¼­¿ï½Ã ¸¶Æ÷±¸','02-146-9074','sangyoungcprent@naver.com','ÁÖ½Ö¿ë'),"+
-	                     "('8','BMW','¼­¿ï½Ã ¿µµîÆ÷±¸','02-136-9654','bmwcprent@naver.com','ºö´ıÀ¯'),"+
-	                     "('9','GMC','°æ±âµµ ¼º³²','02-725-0526','gmccprent@naver.com','ÁÖ¿¥½Ã'),"+
-	                     "('10','TOYOTA','¼­¿ï½Ã µ¿ÀÛ±¸','02-6427-3743','toyotacprent@naver.com','Åä¿äÅ¸'),"+
-	                     "('11','HONDA','¼­¿ï½Ã °ü¾Ç±¸','02-9558-1584','hondacprent@naver.com','ÀáÈ¥´Ù'),"+
-	                     "('12','KIA','¼­¿ï½Ã ¿µµîÆ÷±¸','02-435-3023','kiacprent@naver.com','ÃÖÅ°¾Æ'),"+
-	                     "('13','RAMBORG','¼­¿ï½Ã ±¤Áø±¸','02-435-3023','ramborgcprent@naver.com','ÀÌ¶÷º¸'),"+
-	                     "('14','SAMSUNG','¼­¿ï½Ã Á¾·Î±¸','02-345-5348','samsung2cprent@naver.com','ÃÖ»ï¼ö'),"+
-	                     "('15','HYUNDAI','¼­¿ï½Ã °­µ¿±¸','02-546-2346','hyndai2cprent@naver.com','±èÇö¼ö');";
+	               query="insert into campingcar_rent_company values('1','SAMSUNG','ì„œìš¸ì‹œ ì„œì´ˆêµ¬','02-345-5676','samsungcprent@naver.com','ê¹€ì‚¼ì„±'),"+
+	            		 "('2','LG','ì„œìš¸ì‹œ ê°•ë‚¨êµ¬','02-546-5474','lgcprent@naver.com','ìµœì—˜ì¥'),"+
+	                     "('3','HYUNDAI','ì„œìš¸ì‹œ ê°•ì„œêµ¬','02-368-7374','hyundaicprent@naver.com','ê°•í˜„ëŒ€'),"+
+	                     "('4','BOOGATI','ì„œìš¸ì‹œ ê°•ë¶êµ¬','02-485-9536','boogaticprent@naver.com','ê³ ë¶€ì§€'),"+
+	                     "('5','SHEVORAE','ì„œìš¸ì‹œ ìš©ì‚°êµ¬','02-854-9642','shevoraecprent@naver.com','ì‰ë³´ë ˆ'),"+
+	                     "('6','PORCHE','ì„œìš¸ì‹œ ì¢…ë¡œêµ¬','02-458-4736','porchecprent@naver.com','ê¹€í¬ì‰'),"+
+	                     "('7','SYOUNG','ì„œìš¸ì‹œ ë§ˆí¬êµ¬','02-146-9074','sangyoungcprent@naver.com','ì£¼ìŒìš©'),"+
+	                     "('8','BMW','ì„œìš¸ì‹œ ì˜ë“±í¬êµ¬','02-136-9654','bmwcprent@naver.com','ë¹”ë¤ìœ '),"+
+	                     "('9','GMC','ê²½ê¸°ë„ ì„±ë‚¨','02-725-0526','gmccprent@naver.com','ì£¼ì— ì‹œ'),"+
+	                     "('10','TOYOTA','ì„œìš¸ì‹œ ë™ì‘êµ¬','02-6427-3743','toyotacprent@naver.com','í† ìš”íƒ€'),"+
+	                     "('11','HONDA','ì„œìš¸ì‹œ ê´€ì•…êµ¬','02-9558-1584','hondacprent@naver.com','ì í˜¼ë‹¤'),"+
+	                     "('12','KIA','ì„œìš¸ì‹œ ì˜ë“±í¬êµ¬','02-435-3023','kiacprent@naver.com','ìµœí‚¤ì•„'),"+
+	                     "('13','RAMBORG','ì„œìš¸ì‹œ ê´‘ì§„êµ¬','02-435-3023','ramborgcprent@naver.com','ì´ëŒë³´'),"+
+	                     "('14','SAMSUNG','ì„œìš¸ì‹œ ì¢…ë¡œêµ¬','02-345-5348','samsung2cprent@naver.com','ìµœì‚¼ìˆ˜'),"+
+	                     "('15','HYUNDAI','ì„œìš¸ì‹œ ê°•ë™êµ¬','02-546-2346','hyndai2cprent@naver.com','ê¹€í˜„ìˆ˜');";
 	                    stmt1.executeUpdate(query);
 	                   
-	                   query="insert into campingcar_list values('1','TIGERJK','23ÇÏ 4534','8','samsung','1945','20000','30','2017-04-20','1')," + 
-	                         "('2','LIONG2','45È£ 3453','6','LG','1975','31000','30','2019-05-20','2')," + 
-	                         "('3','DOG46','33È£ 4245','8','HYUNDAI','2021','68000','20','2021-05-20','3')," + 
-	                         "('4','CAT32','36ÇÏ 8553','7','BOOGATI','2020','99000','50','2020-04-25','4')," + 
-	                         "('5','PENCILMANIA','26ÇÏ 4525','9','SHEVORAE','2020','300000','30','2020-01-20','5')," + 
-	                         "('6','CORANDO','25ÇÏ 9626','10','PORCHE','1945','294033','32','2017-04-20','6')," + 
-	                         "('7','CAMPFILE','95ÇÏ 4216','5','SSANGYOUNG','2015','305924','54','2017-07-20','7')," + 
-	                         "('8','BOOMBA','73ÇÏ 4791','8','HYUNDAI','2017','24924','43','2018-01-05','3')," + 
-	                         "('9','GARGARRI','743ÇÏ 5274','8','samsung','2014','12353','65','2017-03-06','1')," + 
-	                         "('10','GOMAN','937ÇÏ 5930','8','HYUNDAI','2015','402044','85','2017-03-10','3')," + 
-	                         "('11','GOODSCORE','793ÇÏ 4362','5','HYUNDAI','2017','500','12','2017-07-19','3')," + 
-	                         "('12','DAMBOO','274ÇÏ 6927','8','samsung','2012','7942','53','2017-04-13','1')," + 
-	                         "('13','EARLYBURN','407ÇÏ 2423','4','KIA','2018','13414','84','2018-06-10','13')," + 
-	                         "('14','BESTY','501ÇÏ 5035','8','KIA','2019','93423','894','2019-07-30','15')," + 
-	                         "('15','ROLEBACK','36ÇÏ 6959','10','KIA','2020','19494','15','2020-05-20','11')," +
-	                         "('16','NONEBREAK','34ÇÏ 2423','13','HYUNDAI','2020','19494','15','2020-06-09','3'),"+
-	                         "('17','ROLEBACK','54ÇÏ 6959','5','KIA','1944','19494','15','1944-05-20','13')," + 
-	                         "('18','RANDY','23ÇÏ 3421','6','HYUNDAI','1967','35421','45','1967-05-20','6')," + 
-	                         "('19','ROMA','347ÇÏ 3462','7','samsung','2020','34133','46','2020-05-20','8')," + 
-	                         "('20','ROOMER','45ÇÏ 5684','4','SHEVORAE','2020','31546','36','2020-05-20','7')," + 
-	                         "('21','RANAD','613ÇÏ 9578','7','HYUNDAI','2020','23431','38','2020-05-20','8')," + 
-	                         "('22','CODEA','35ÇÏ 5684','8','HYUNDAI','2020','345425','35','2020-05-20','4')," + 
-	                         "('23','FEDCRT','38ÇÏ 3456','9','HYUNDAI','2020','34345','83','2020-05-20','1')," + 
-	                         "('24','NFRSV','84ÇÏ 3458','4','KIA','2020','3533','76','2020-05-20','2')," + 
-	                         "('25','EFCGE','29ÇÏ 3559','6','HYUNDAI','2020','2454','34','2020-05-20','3')," + 
-	                         "('26','ECC4','68ÇÏ 3354','8','KIA','2020','4624','47','2020-05-20','7')," + 
-	                         "('27','FEVSR5','35ÇÏ 3482','9','HYUNDAI','2020','34563','26','2020-05-20','9')," + 
-	                         "('28','NSXCT3','74ÇÏ 4594','4','KIA','2020','23462','34','2020-05-20','9')," + 
-	                         "('29','DDDDEF','28ÇÏ 9563','8','HYUNDAI','2020','24624','100','2020-05-20','4')," + 
-	                         "('30','EREER3','83ÇÏ 2348','9','KIA','2020','134345','120','2020-05-20','7'),"+
-	                         "('31','BESTCAR','83ÇÏ 3231','10','KIA','2020','111311','120','2020-05-20','14')";
+	                   query="insert into campingcar_list values('1','TIGERJK','23í•˜ 4534','8','samsung','1945','20000','30','2017-04-20','1')," + 
+	                         "('2','LIONG2','45í˜¸ 3453','6','LG','1975','31000','30','2019-05-20','2')," + 
+	                         "('3','DOG46','33í˜¸ 4245','8','HYUNDAI','2021','68000','20','2021-05-20','3')," + 
+	                         "('4','CAT32','36í•˜ 8553','7','BOOGATI','2020','99000','50','2020-04-25','4')," + 
+	                         "('5','PENCILMANIA','26í•˜ 4525','9','SHEVORAE','2020','300000','30','2020-01-20','5')," + 
+	                         "('6','CORANDO','25í•˜ 9626','10','PORCHE','1945','294033','32','2017-04-20','6')," + 
+	                         "('7','CAMPFILE','95í•˜ 4216','5','SSANGYOUNG','2015','305924','54','2017-07-20','7')," + 
+	                         "('8','BOOMBA','73í•˜ 4791','8','HYUNDAI','2017','24924','43','2018-01-05','3')," + 
+	                         "('9','GARGARRI','743í•˜ 5274','8','samsung','2014','12353','65','2017-03-06','1')," + 
+	                         "('10','GOMAN','937í•˜ 5930','8','HYUNDAI','2015','402044','85','2017-03-10','3')," + 
+	                         "('11','GOODSCORE','793í•˜ 4362','5','HYUNDAI','2017','500','12','2017-07-19','3')," + 
+	                         "('12','DAMBOO','274í•˜ 6927','8','samsung','2012','7942','53','2017-04-13','1')," + 
+	                         "('13','EARLYBURN','407í•˜ 2423','4','KIA','2018','13414','84','2018-06-10','13')," + 
+	                         "('14','BESTY','501í•˜ 5035','8','KIA','2019','93423','894','2019-07-30','15')," + 
+	                         "('15','ROLEBACK','36í•˜ 6959','10','KIA','2020','19494','15','2020-05-20','11')," +
+	                         "('16','NONEBREAK','34í•˜ 2423','13','HYUNDAI','2020','19494','15','2020-06-09','3'),"+
+	                         "('17','ROLEBACK','54í•˜ 6959','5','KIA','1944','19494','15','1944-05-20','13')," + 
+	                         "('18','RANDY','23í•˜ 3421','6','HYUNDAI','1967','35421','45','1967-05-20','6')," + 
+	                         "('19','ROMA','347í•˜ 3462','7','samsung','2020','34133','46','2020-05-20','8')," + 
+	                         "('20','ROOMER','45í•˜ 5684','4','SHEVORAE','2020','31546','36','2020-05-20','7')," + 
+	                         "('21','RANAD','613í•˜ 9578','7','HYUNDAI','2020','23431','38','2020-05-20','8')," + 
+	                         "('22','CODEA','35í•˜ 5684','8','HYUNDAI','2020','345425','35','2020-05-20','4')," + 
+	                         "('23','FEDCRT','38í•˜ 3456','9','HYUNDAI','2020','34345','83','2020-05-20','1')," + 
+	                         "('24','NFRSV','84í•˜ 3458','4','KIA','2020','3533','76','2020-05-20','2')," + 
+	                         "('25','EFCGE','29í•˜ 3559','6','HYUNDAI','2020','2454','34','2020-05-20','3')," + 
+	                         "('26','ECC4','68í•˜ 3354','8','KIA','2020','4624','47','2020-05-20','7')," + 
+	                         "('27','FEVSR5','35í•˜ 3482','9','HYUNDAI','2020','34563','26','2020-05-20','9')," + 
+	                         "('28','NSXCT3','74í•˜ 4594','4','KIA','2020','23462','34','2020-05-20','9')," + 
+	                         "('29','DDDDEF','28í•˜ 9563','8','HYUNDAI','2020','24624','100','2020-05-20','4')," + 
+	                         "('30','EREER3','83í•˜ 2348','9','KIA','2020','134345','120','2020-05-20','7'),"+
+	                         "('31','BESTCAR','83í•˜ 3231','10','KIA','2020','111311','120','2020-05-20','14')";
 	                         
 	                stmt1.executeUpdate(query);
 	                
-	                   query="insert into customer values('1111111','±è¸¶´ç','¼­¿ï½Ã ¿µµîÆ÷±¸','010-3735-2396','uiurihappy@naver.com')," + 
-	                         "('2235235','ÃÖÁ¾Çõ','¼­¿ï½Ã ¼­ÃÊ±¸','010-9773-5873','cjh@naver.com')," + 
-	                         "('3235245','ÀÌ¼ö','¼­¿ï½Ã °­³²±¸','010-2135-1343','isu@gmail.com')," + 
-	                         "('4353522','½ÎÀÌ','¼­¿ï½Ã °­µ¿±¸','010-4787-9133','psy@nate.com')," + 
-	                         "('5356356','¾ç´ÙÀÏ','°æ±âµµ ÀÏ»ê','010-1377-6464','dail@naver.com')," + 
-	                         "('6235565','ÀÌÁö±İ','¼­¿ï½Ã °­µ¿±¸','010-5468-1381','dlwlrma@naver.com')," + 
-	                         "('7245245','ÃÖ¿øÀç','¼­¿ï½Ã ¸¶Æ÷±¸','010-7893-5133','kidcozyboy@naver.com')," + 
-	                         "('8567433','¹®ÁöÈÆ','¼­¿ï½Ã ¸¶Æ÷±¸','010-4861-1669','porkcutlet@naver.com')," + 
-	                         "('9467242','¿ì¿øÀç','ÀÎÃµ½Ã °è¾ç±¸','010-1384-8319','santakiller@gmail.com')," + 
-	                         "('1023454','¿°Çö¼ö','¼­¿ï½Ã °­ºÏ±¸','010-1731-9997','yumdda@naver.com')," + 
-	                         "('1124635','ÇÑ¿äÇÑ','°æ±âµµ ºĞ´ç±¸','010-3656-3961','yohans@gmail.com')," + 
-	                         "('1256735','±¸Ã¢¸ğ','¼­¿ï½Ã ¿µµîÆ÷±¸','010-4881-8386','ganggang@hanmail.net')," + 
-	                         "('1323554','À±Áø¿µ','¼­¿ï½Ã ¸¶Æ÷±¸','010-0203-3080','clloud@naver.com')," + 
-	                         "('1473565','±è¹Î°æ','¼­¿ï½Ã °­¼­±¸','010-8816-8479','liik@naver.com')," + 
-	                         "('1484534','½Åµ¿°©','¼­¿ï½Ã ¿µµîÆ÷±¸','010-8403-9930','thequiet@naver.com');";
+	                   query="insert into customer values('1111111','ê¹€ë§ˆë‹¹','ì„œìš¸ì‹œ ì˜ë“±í¬êµ¬','010-3735-2396','uiurihappy@naver.com')," + 
+	                         "('2235235','ìµœì¢…í˜','ì„œìš¸ì‹œ ì„œì´ˆêµ¬','010-9773-5873','cjh@naver.com')," + 
+	                         "('3235245','ì´ìˆ˜','ì„œìš¸ì‹œ ê°•ë‚¨êµ¬','010-2135-1343','isu@gmail.com')," + 
+	                         "('4353522','ì‹¸ì´','ì„œìš¸ì‹œ ê°•ë™êµ¬','010-4787-9133','psy@nate.com')," + 
+	                         "('5356356','ì–‘ë‹¤ì¼','ê²½ê¸°ë„ ì¼ì‚°','010-1377-6464','dail@naver.com')," + 
+	                         "('6235565','ì´ì§€ê¸ˆ','ì„œìš¸ì‹œ ê°•ë™êµ¬','010-5468-1381','dlwlrma@naver.com')," + 
+	                         "('7245245','ìµœì›ì¬','ì„œìš¸ì‹œ ë§ˆí¬êµ¬','010-7893-5133','kidcozyboy@naver.com')," + 
+	                         "('8567433','ë¬¸ì§€í›ˆ','ì„œìš¸ì‹œ ë§ˆí¬êµ¬','010-4861-1669','porkcutlet@naver.com')," + 
+	                         "('9467242','ìš°ì›ì¬','ì¸ì²œì‹œ ê³„ì–‘êµ¬','010-1384-8319','santakiller@gmail.com')," + 
+	                         "('1023454','ì—¼í˜„ìˆ˜','ì„œìš¸ì‹œ ê°•ë¶êµ¬','010-1731-9997','yumdda@naver.com')," + 
+	                         "('1124635','í•œìš”í•œ','ê²½ê¸°ë„ ë¶„ë‹¹êµ¬','010-3656-3961','yohans@gmail.com')," + 
+	                         "('1256735','êµ¬ì°½ëª¨','ì„œìš¸ì‹œ ì˜ë“±í¬êµ¬','010-4881-8386','ganggang@hanmail.net')," + 
+	                         "('1323554','ìœ¤ì§„ì˜','ì„œìš¸ì‹œ ë§ˆí¬êµ¬','010-0203-3080','clloud@naver.com')," + 
+	                         "('1473565','ê¹€ë¯¼ê²½','ì„œìš¸ì‹œ ê°•ì„œêµ¬','010-8816-8479','liik@naver.com')," + 
+	                         "('1484534','ì‹ ë™ê°‘','ì„œìš¸ì‹œ ì˜ë“±í¬êµ¬','010-8403-9930','thequiet@naver.com');";
 	                  stmt1.executeUpdate(query);
 	                  
-	                 query="insert into customer_rent_list values('1','2019-11-14','7','2019-11-11','Ä·ÇÎÀÇÀÚ','2','1','1023454','17','30')," + 
-	                       "('2','2019-01-04','4','2019-01-01','¹Ùº£Å¥±×¸±','4','2','1124635','18','20')," + 
-	                       "('3','2019-07-12','3','2019-07-09','ºÎÅº°¡½º','1','3','1256735','19','15')," + 
-	                       "('4','2019-08-31','5','2019-08-28','ÀÏÈ¸¿ëÇ°','1','4','1323554','20','25')," + 
-	                       "('5','2019-10-10','10','2019-10-07','¹Ùº£Å¥±×¸±','4','5','1111111','21','42')," + 
-	                       "('6','2019-06-14','8','2019-06-11','ºÎÅº°¡½º','1','6','1473565','22','35')," + 
-	                       "('7','2019-12-25','7','2019-12-22','½¡','2','7','1484534','23','30')," + 
-	                       "('8','2019-05-04','15','2019-05-01','ÀÏÈ¸¿ëÇ°','1','8','2235235','24','65')," + 
-	                       "('9','2019-08-25','12','2019-08-22','Ä·ÇÎÀÇÀÚ','2','9','3235245','25','50')," + 
-	                       "('10','2019-07-06','9','2019-07-03','Ãµ¸·','3','10','4353522','26','40')," + 
-	                       "('11','2019-04-25','7','2019-04-22','³¬½Ã´ë','6','11','5356356','27','30')," + 
-	                       "('12','2019-02-14','6','2019-02-11','Ãµ¸·','3','12','6235565','28','26')," + 
-	                       "('13','2019-01-13','15','2019-01-10','ÀÏÈ¸¿ëÇ°','1','13','7245245','29','65')," + 
-	                       "('14','2019-05-16','11','2019-05-13','Ä·ÇÎÀÇÀÚ','2','14','8567433','30','46')," + 
-	                       "('15','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','31','30')";
+	                 query="insert into customer_rent_list values('1','2019-11-14','7','2019-11-11','ìº í•‘ì˜ì','2','1','1023454','17','30')," + 
+	                       "('2','2019-01-04','4','2019-01-01','ë°”ë² íê·¸ë¦´','4','2','1124635','18','20')," + 
+	                       "('3','2019-07-12','3','2019-07-09','ë¶€íƒ„ê°€ìŠ¤','1','3','1256735','19','15')," + 
+	                       "('4','2019-08-31','5','2019-08-28','ì¼íšŒìš©í’ˆ','1','4','1323554','20','25')," + 
+	                       "('5','2019-10-10','10','2019-10-07','ë°”ë² íê·¸ë¦´','4','5','1111111','21','42')," + 
+	                       "('6','2019-06-14','8','2019-06-11','ë¶€íƒ„ê°€ìŠ¤','1','6','1473565','22','35')," + 
+	                       "('7','2019-12-25','7','2019-12-22','ìˆ¯','2','7','1484534','23','30')," + 
+	                       "('8','2019-05-04','15','2019-05-01','ì¼íšŒìš©í’ˆ','1','8','2235235','24','65')," + 
+	                       "('9','2019-08-25','12','2019-08-22','ìº í•‘ì˜ì','2','9','3235245','25','50')," + 
+	                       "('10','2019-07-06','9','2019-07-03','ì²œë§‰','3','10','4353522','26','40')," + 
+	                       "('11','2019-04-25','7','2019-04-22','ë‚šì‹œëŒ€','6','11','5356356','27','30')," + 
+	                       "('12','2019-02-14','6','2019-02-11','ì²œë§‰','3','12','6235565','28','26')," + 
+	                       "('13','2019-01-13','15','2019-01-10','ì¼íšŒìš©í’ˆ','1','13','7245245','29','65')," + 
+	                       "('14','2019-05-16','11','2019-05-13','ìº í•‘ì˜ì','2','14','8567433','30','46')," + 
+	                       "('15','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','31','30')";
 	                       
 	                    stmt1.executeUpdate(query);
 	                    
-	                    query="insert into campingcar_return values('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','30','17')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','29','18')," + 
-	                          "('¾çÈ£','¾çÈ£','ºÒ·®','¾çÈ£','1','28','19')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','27','20')," + 
-	                          "('¾çÈ£','¾çÈ£','ºÒ·®','¾çÈ£','1','26','21')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','25','22')," + 
-	                          "('ºÒ·®','¾çÈ£','¾çÈ£','¾çÈ£','1','24','23')," + 
-	                          "('¾çÈ£','ºÒ·®','¾çÈ£','¾çÈ£','1','23','24')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','22','25')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','20','27')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','ºÒ·®','1','19','28')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','18','29')," + 
-	                          "('¾çÈ£','¾çÈ£','¾çÈ£','¾çÈ£','0','17','30')," +
-	                          "('¾çÈ£','ºÒ·®','¾çÈ£','¾çÈ£','1','16','31');";
+	                    query="insert into campingcar_return values('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','30','17')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','29','18')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ë¶ˆëŸ‰','ì–‘í˜¸','1','28','19')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','27','20')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ë¶ˆëŸ‰','ì–‘í˜¸','1','26','21')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','25','22')," + 
+	                          "('ë¶ˆëŸ‰','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','1','24','23')," + 
+	                          "('ì–‘í˜¸','ë¶ˆëŸ‰','ì–‘í˜¸','ì–‘í˜¸','1','23','24')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','22','25')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','20','27')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ë¶ˆëŸ‰','1','19','28')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','18','29')," + 
+	                          "('ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','ì–‘í˜¸','0','17','30')," +
+	                          "('ì–‘í˜¸','ë¶ˆëŸ‰','ì–‘í˜¸','ì–‘í˜¸','1','16','31');";
 	                       stmt1.executeUpdate(query);
 	                       
-	                    query="insert into garage values('1','Á¤ÀÇ·Î¿îÄ«¼¾ÅÍ','¼­¿ï½Ã ¾çÃµ±¸','010-0943-5493','Á¤Ä«ÅÍ','justice@naver.com')," + 
-	                          "('2','Àß°íÄ§Ä«¼¾ÅÍ','¼­¿ï½Ã ±İÃµ±¸','010-2343-5454','Àß¼ö¿ä','sdgse@naver.com')," + 
-	                          "('3','KIAPROF','¼­¿ï½Ã ±¸·Î±¸','010-6756-7856','ÀÌ¹ÎÈ£','sefsfsd@naver.com')," + 
-	                          "('4','DENTIST','¼­¿ï½Ã °­µ¿±¸','010-4536-5643','¿øºó','asdfsadf@naver.com')," + 
-	                          "('5','AMZACAR','¼­¿ï½Ã ¼ÛÆÄ±¸','010-1233-4543','Á¤¿ì¼º','sdfsdf@naver.com')," + 
-	                          "('6','READYCL','¼­¿ï½Ã ±¤Áø±¸','010-7533-2364','°­³²','wefwef@naver.com')," + 
-	                          "('7','ÀÌÁö±İÄ«¼¾ÅÍ','¼­¿ï½Ã Á¾·Î±¸','010-4537-8543','¾ÆÀÌÀ¯','sdvsv@naver.com')," + 
-	                          "('8','¼­ÃÊ±¸Ä«¼¾ÅÍ','¼­¿ï½Ã Áø±¸','010-3424-7345','ÀÌÁö¿ø','sewewe@naver.com')," + 
-	                          "('9','°­¼­±¸Ä«¼¾ÅÍ','¼­¿ï½Ã ¿ë»ê±¸','010-7342-9774','°­¸¸¿ù','dgasdd@naver.com')," + 
-	                          "('10','Èæ¼®µ¿Ä«¼¾ÅÍ','¼­¿ï½Ã ¼ººÏ±¸','010-3425-6542','ÃÖ¼öÇõ','asdfsdfe@naver.com')," + 
-	                          "('11','½Å¿ì¿ÀÄ«¼¾ÅÍ','¼­¿ï½Ã ´ö¾ç±¸','010-7934-2346','ÀÌ°­»ê','wefwefd@naver.com')," + 
-	                          "('12','°¨°í±¸Ä«¼¾ÅÍ','¼­¿ï½Ã ¾çÃµ±¸','010-9357-4935','ÀÌ½Â¹è','bdadvasd@naver.com')," + 
-	                          "('13','ÃæÇÏ¿ÀÄ«¼¾ÅÍ','¼­¿ï½Ã ¼­ÃÊ±¸','010-4824-1293','ÀÌ¼¼Á¾','sdfasdfae@naver.com')," + 
-	                          "('14','°¨»çÄ«¼¾ÅÍ','¼­¿ï½Ã °­³²±¸','010-6319-0372','°­±º¹«','wefwefwq@naver.com')," + 
-	                          "('15','ºò¸¶¸¶Ä«¼¾ÅÍ','¼­¿ï½Ã °­³²±¸','010-3589-4524','Å·ÈÆ³²','sdadsd@naver.com');";
+	                    query="insert into garage values('1','ì •ì˜ë¡œìš´ì¹´ì„¼í„°','ì„œìš¸ì‹œ ì–‘ì²œêµ¬','010-0943-5493','ì •ì¹´í„°','justice@naver.com')," + 
+	                          "('2','ì˜ê³ ì¹¨ì¹´ì„¼í„°','ì„œìš¸ì‹œ ê¸ˆì²œêµ¬','010-2343-5454','ì˜ìˆ˜ìš”','sdgse@naver.com')," + 
+	                          "('3','KIAPROF','ì„œìš¸ì‹œ êµ¬ë¡œêµ¬','010-6756-7856','ì´ë¯¼í˜¸','sefsfsd@naver.com')," + 
+	                          "('4','DENTIST','ì„œìš¸ì‹œ ê°•ë™êµ¬','010-4536-5643','ì›ë¹ˆ','asdfsadf@naver.com')," + 
+	                          "('5','AMZACAR','ì„œìš¸ì‹œ ì†¡íŒŒêµ¬','010-1233-4543','ì •ìš°ì„±','sdfsdf@naver.com')," + 
+	                          "('6','READYCL','ì„œìš¸ì‹œ ê´‘ì§„êµ¬','010-7533-2364','ê°•ë‚¨','wefwef@naver.com')," + 
+	                          "('7','ì´ì§€ê¸ˆì¹´ì„¼í„°','ì„œìš¸ì‹œ ì¢…ë¡œêµ¬','010-4537-8543','ì•„ì´ìœ ','sdvsv@naver.com')," + 
+	                          "('8','ì„œì´ˆêµ¬ì¹´ì„¼í„°','ì„œìš¸ì‹œ ì§„êµ¬','010-3424-7345','ì´ì§€ì›','sewewe@naver.com')," + 
+	                          "('9','ê°•ì„œêµ¬ì¹´ì„¼í„°','ì„œìš¸ì‹œ ìš©ì‚°êµ¬','010-7342-9774','ê°•ë§Œì›”','dgasdd@naver.com')," + 
+	                          "('10','í‘ì„ë™ì¹´ì„¼í„°','ì„œìš¸ì‹œ ì„±ë¶êµ¬','010-3425-6542','ìµœìˆ˜í˜','asdfsdfe@naver.com')," + 
+	                          "('11','ì‹ ìš°ì˜¤ì¹´ì„¼í„°','ì„œìš¸ì‹œ ë•ì–‘êµ¬','010-7934-2346','ì´ê°•ì‚°','wefwefd@naver.com')," + 
+	                          "('12','ê°ê³ êµ¬ì¹´ì„¼í„°','ì„œìš¸ì‹œ ì–‘ì²œêµ¬','010-9357-4935','ì´ìŠ¹ë°°','bdadvasd@naver.com')," + 
+	                          "('13','ì¶©í•˜ì˜¤ì¹´ì„¼í„°','ì„œìš¸ì‹œ ì„œì´ˆêµ¬','010-4824-1293','ì´ì„¸ì¢…','sdfasdfae@naver.com')," + 
+	                          "('14','ê°ì‚¬ì¹´ì„¼í„°','ì„œìš¸ì‹œ ê°•ë‚¨êµ¬','010-6319-0372','ê°•êµ°ë¬´','wefwefwq@naver.com')," + 
+	                          "('15','ë¹…ë§ˆë§ˆì¹´ì„¼í„°','ì„œìš¸ì‹œ ê°•ë‚¨êµ¬','010-3589-4524','í‚¹í›ˆë‚¨','sdadsd@naver.com');";
 	                    stmt1.executeUpdate(query);
 	                    
-	                    query= "insert into repair_list values('1','Å¸ÀÌ¾î','2019-11-25','4','2019-11-28','¹üÆÛ', '1111111', '1', '1', '342')," + 
-	                          "('2','¶óµğ¿¡ÀÌÅÍ','2019-01-11','8','2019-01-14','¹èÅÍ¸®', '2235235', '2', '2', '342')," + 
-	                          "('3','Å¬·¯Ä¡','2019-07-18','7','2019-07-21','¿îÀü´ë', '3235245', '3', '3', '45')," + 
-	                          "('4','±â¾î','2019-09-08','9','2019-09-11','Â÷Ãà', '4353522', '4', '4', '655')," + 
-	                          "('5','¼ÒÀ½±â','2019-10-23','13','2019-10-26','ÃßÁøÃà', '5356356', '5', '5', '956')," + 
-	                          "('6','ºê·¹ÀÌÅ©','2019-06-25','5','2019-06-28','Å¸ÀÌ¾î', '6235565', '6', '6', '453')," + 
-	                          "('7','¿îÀü´ë','2020-01-04','18','2019-01-07','¿¢¼¿', '7245245', '7', '7', '457')," + 
-	                          "('8','¶óµğ¿¡ÀÌÅÍ','2019-05-22','9','2019-05-25','¹è±â°ü', '8567433', '8', '8', '97')," + 
-	                          "('9','¹ßÀü±â','2019-09-09','7','2019-09-12','¹èÅÍ¸®', '9467242', '9', '9', '78')," + 
-	                          "('10','º¸´Ö','2019-07-18','11','2019-07-21','Å¬·¯Ä¡', '1023454', '10', '10', '57')," + 
-	                          "('11','±â¾î','2019-05-05','13','2019-05-08','¿¢¼¿', '1124635', '11', '11', '89')," + 
-	                          "('12','Æ®··Å©','2019-02-23','12','2019-02-26','¼ÒÀ½±â', '1256735', '12', '12', '56')," + 
-	                          "('13','ºê·¹ÀÌÅ©','2019-01-31','5','2019-02-03','³Ã°¢ Ææ', '1323554', '13', '13', '86')," + 
-	                          "('14','¿£Áø','2019-05-30','16','2019-06-03','¹è±â°ü', '1473565', '14', '14', '76')," + 
-	                          "('15','¹ßÀü±â','2019-12-05','13','2019-12-08','ÃßÁøÃà', '1484534', '15', '15', '54');";
+	                    query= "insert into repair_list values('1','íƒ€ì´ì–´','2019-11-25','4','2019-11-28','ë²”í¼', '1111111', '1', '1', '342')," + 
+	                          "('2','ë¼ë””ì—ì´í„°','2019-01-11','8','2019-01-14','ë°°í„°ë¦¬', '2235235', '2', '2', '342')," + 
+	                          "('3','í´ëŸ¬ì¹˜','2019-07-18','7','2019-07-21','ìš´ì „ëŒ€', '3235245', '3', '3', '45')," + 
+	                          "('4','ê¸°ì–´','2019-09-08','9','2019-09-11','ì°¨ì¶•', '4353522', '4', '4', '655')," + 
+	                          "('5','ì†ŒìŒê¸°','2019-10-23','13','2019-10-26','ì¶”ì§„ì¶•', '5356356', '5', '5', '956')," + 
+	                          "('6','ë¸Œë ˆì´í¬','2019-06-25','5','2019-06-28','íƒ€ì´ì–´', '6235565', '6', '6', '453')," + 
+	                          "('7','ìš´ì „ëŒ€','2020-01-04','18','2019-01-07','ì—‘ì…€', '7245245', '7', '7', '457')," + 
+	                          "('8','ë¼ë””ì—ì´í„°','2019-05-22','9','2019-05-25','ë°°ê¸°ê´€', '8567433', '8', '8', '97')," + 
+	                          "('9','ë°œì „ê¸°','2019-09-09','7','2019-09-12','ë°°í„°ë¦¬', '9467242', '9', '9', '78')," + 
+	                          "('10','ë³´ë‹›','2019-07-18','11','2019-07-21','í´ëŸ¬ì¹˜', '1023454', '10', '10', '57')," + 
+	                          "('11','ê¸°ì–´','2019-05-05','13','2019-05-08','ì—‘ì…€', '1124635', '11', '11', '89')," + 
+	                          "('12','íŠ¸ë í¬','2019-02-23','12','2019-02-26','ì†ŒìŒê¸°', '1256735', '12', '12', '56')," + 
+	                          "('13','ë¸Œë ˆì´í¬','2019-01-31','5','2019-02-03','ëƒ‰ê° íœ', '1323554', '13', '13', '86')," + 
+	                          "('14','ì—”ì§„','2019-05-30','16','2019-06-03','ë°°ê¸°ê´€', '1473565', '14', '14', '76')," + 
+	                          "('15','ë°œì „ê¸°','2019-12-05','13','2019-12-08','ì¶”ì§„ì¶•', '1484534', '15', '15', '54');";
 	                     stmt1.executeUpdate(query);
 	                     
-	               query="insert into rentcar_list values('1','TIGERJK','23ÇÏ 4534','8','SAMSUNG','1945','20000','30','2017-04-20','1')," + 
-	                         "('2','LIONG2','45È£ 3453','6','LG','1975','31000','30','2019-05-20','2')," + 
-	                         "('3','DOG46','33È£ 4245','8','HYUNDAI','2021','68000','20','2021-05-20','3')," + 
-	                         "('4','CAT32','36ÇÏ 8553','7','BOOGATI','2020','99000','50','2020-04-25','4')," + 
-	                         "('5','PENCILMANIA','26ÇÏ 4525','9','SHEVORAE','2020','300000','30','2020-01-20','5')," + 
-	                         "('6','CORANDO','25ÇÏ 9626','10','PORCHE','1945','294033','32','2017-04-20','6')," + 
-	                         "('7','CAMPFILE','95ÇÏ 4216','5','SYOUNG','2015','305924','54','2017-07-20','7')," + 
-	                         "('8','BOOMBA','73ÇÏ 4791','8','HYUNDAI','2017','24924','43','2018-01-05','3')," + 
-	                         "('9','GARGARRI','743ÇÏ 5274','8','samsung','2014','12353','65','2017-03-06','1')," + 
-	                         "('10','GOMAN','937ÇÏ 5930','8','HYUNDAI','2015','402044','85','2017-03-10','3')," + 
-	                         "('11','GOODSCORE','793ÇÏ 4362','5','HYUNDAI','2017','500','12','2017-07-19','3')," + 
-	                         "('12','DAMBOO','274ÇÏ 6927','8','samsung','2012','7942','53','2017-04-13','1')," + 
-	                         "('13','EARLYBURN','407ÇÏ 2423','4','KIA','2018','13414','84','2018-06-10','12')," + 
-	                         "('14','BESTY','501ÇÏ 5035','8','KIA','2019','93423','894','2019-07-30','12')";
+	               query="insert into rentcar_list values('1','TIGERJK','23í•˜ 4534','8','SAMSUNG','1945','20000','30','2017-04-20','1')," + 
+	                         "('2','LIONG2','45í˜¸ 3453','6','LG','1975','31000','30','2019-05-20','2')," + 
+	                         "('3','DOG46','33í˜¸ 4245','8','HYUNDAI','2021','68000','20','2021-05-20','3')," + 
+	                         "('4','CAT32','36í•˜ 8553','7','BOOGATI','2020','99000','50','2020-04-25','4')," + 
+	                         "('5','PENCILMANIA','26í•˜ 4525','9','SHEVORAE','2020','300000','30','2020-01-20','5')," + 
+	                         "('6','CORANDO','25í•˜ 9626','10','PORCHE','1945','294033','32','2017-04-20','6')," + 
+	                         "('7','CAMPFILE','95í•˜ 4216','5','SYOUNG','2015','305924','54','2017-07-20','7')," + 
+	                         "('8','BOOMBA','73í•˜ 4791','8','HYUNDAI','2017','24924','43','2018-01-05','3')," + 
+	                         "('9','GARGARRI','743í•˜ 5274','8','samsung','2014','12353','65','2017-03-06','1')," + 
+	                         "('10','GOMAN','937í•˜ 5930','8','HYUNDAI','2015','402044','85','2017-03-10','3')," + 
+	                         "('11','GOODSCORE','793í•˜ 4362','5','HYUNDAI','2017','500','12','2017-07-19','3')," + 
+	                         "('12','DAMBOO','274í•˜ 6927','8','samsung','2012','7942','53','2017-04-13','1')," + 
+	                         "('13','EARLYBURN','407í•˜ 2423','4','KIA','2018','13414','84','2018-06-10','12')," + 
+	                         "('14','BESTY','501í•˜ 5035','8','KIA','2019','93423','894','2019-07-30','12')";
 
 	                   stmt1.executeUpdate(query);
 	               /*query ="insert into customer_rent_old_list values"+
 	            		   +
-	                       "('17','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('18','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('19','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('20','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('21','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('22','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('23','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('24','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('25','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('26','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('27','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('28','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('29','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30'),"+
-	                       "('30','2019-11-25','7','2019-11-22','¹Ùº£Å¥±×¸±','4','15','9467242','16','30')";
+	                       "('17','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('18','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('19','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('20','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('21','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('22','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('23','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('24','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('25','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('26','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('27','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('28','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('29','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30'),"+
+	                       "('30','2019-11-25','7','2019-11-22','ë°”ë² íê·¸ë¦´','4','15','9467242','16','30')";
 	               stmt1.executeUpdate(query);	    */           
-	               //System.out.println("ÀÔ·Â¿Ï·á!");
-	                   JOptionPane.showMessageDialog(resetbtn, "ÃÊ±âÈ­¿Ï·á"); 
+	               //System.out.println("ì…ë ¥ì™„ë£Œ!");
+	                   JOptionPane.showMessageDialog(resetbtn, "ì´ˆê¸°í™”ì™„ë£Œ"); 
 			            returnresult();
 			            grgresult();
 			            datareset();
 	            }catch(Exception Insert) {
-	               System.out.println("µ¥ÀÌÅÍ ÀÔ·Â¿¡ ¿À·ù ¹ß»ı!\n"+Insert);
-	               JOptionPane.showMessageDialog(resetbtn, "ÃÊ±âÈ­½ÇÆĞ"); 
+	               System.out.println("ë°ì´í„° ì…ë ¥ì— ì˜¤ë¥˜ ë°œìƒ!\n"+Insert);
+	               JOptionPane.showMessageDialog(resetbtn, "ì´ˆê¸°í™”ì‹¤íŒ¨"); 
 	            }
 			}
 		});
@@ -1165,7 +1165,7 @@ public class admin extends JFrame implements ActionListener{
 	
 	public void grgresult(){
 		try {
-			grgtxt.setText("Â÷°íÁöID \t Ä«¼¾ÅÍÀÌ¸§ \t ÁÖ¼Ò \t ¹øÈ£ \t ¸Å´ÏÀúÀÌ¸§ \t ÀÌ¸ŞÀÏÁÖ¼Ò\n");
+			grgtxt.setText("ì°¨ê³ ì§€ID \t ì¹´ì„¼í„°ì´ë¦„ \t ì£¼ì†Œ \t ë²ˆí˜¸ \t ë§¤ë‹ˆì €ì´ë¦„ \t ì´ë©”ì¼ì£¼ì†Œ\n");
 			stmt = con.createStatement();
 			String query="SELECT * FROM garage;";
 			rs = stmt.executeQuery(query);

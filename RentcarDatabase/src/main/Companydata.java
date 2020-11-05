@@ -58,7 +58,7 @@ public class Companydata extends JFrame{
 		});
 	}
 
-	// SQL ¿¬°á
+	// SQL ì—°ê²°
 		static Connection con;
 		   Statement stmt,stmt2;
 		   ResultSet rs,rs2;
@@ -78,20 +78,20 @@ public class Companydata extends JFrame{
 		public void conDB() { 
 		     try {
 		       Class.forName("com.mysql.cj.jdbc.Driver");   
-		       //System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø");
+		       //System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ");
 		     } catch(ClassNotFoundException e1) {
 		         e1.printStackTrace();
 		     }
 		   try {
-		      // System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ...");
+		      // System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤€ë¹„...");
 		       con=DriverManager.getConnection(url, userid, pwd); 
-		      // System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¼º°ø");
+		      // System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì„±ê³µ");
 		     } catch(SQLException e1) {
 		         e1.printStackTrace();
 		       }
 		   }
 		public void printdata() {
-			selectcp.setText("È¸»ç ID \t È¸»ç¸í \t ÁÖ¼Ò \t ÀüÈ­¹øÈ£ \t ´ã´çÀÚÀÌ¸ŞÀÏ \t\t ´ã´çÀÚÀÌ¸§ \n");
+			selectcp.setText("íšŒì‚¬ ID \t íšŒì‚¬ëª… \t ì£¼ì†Œ \t ì „í™”ë²ˆí˜¸ \t ë‹´ë‹¹ìì´ë©”ì¼ \t\t ë‹´ë‹¹ìì´ë¦„ \n");
 			try {
 				stmt2 = con.createStatement();
 				String query=" select * from campingcar_rent_company;";
@@ -107,7 +107,7 @@ public class Companydata extends JFrame{
 		}	
 		
 	public Companydata() {
-		setTitle("17013152 ÃÖÁ¾Çõ -È¸»çÁ¤º¸ °ü¸®ÆäÀÌÁö");
+		setTitle("17013152 ìµœì¢…í˜ -íšŒì‚¬ì •ë³´ ê´€ë¦¬í˜ì´ì§€");
 		conDB();
 		
 		printdata();
@@ -122,7 +122,7 @@ public class Companydata extends JFrame{
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		/* Ãâ·Â ¿µ¿ª */
+		/* ì¶œë ¥ ì˜ì—­ */
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(311, 98, 652, 287);
 		panel.add(scrollPane);
@@ -136,16 +136,16 @@ public class Companydata extends JFrame{
 		panel.add(cpid);
 			
 		
-		JButton btnNewButton = new JButton("°Ë»ö");
-		btnNewButton.setFont(new Font("±¼¸²", Font.PLAIN, 10));
+		JButton btnNewButton = new JButton("ê²€ìƒ‰");
+		btnNewButton.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 10));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					selectcp.setText("");
 					stmt2 = con.createStatement();
 					String id = cpid.getText();
-					selectcp.setText("È¸»ç ID \t È¸»ç¸í \t ÁÖ¼Ò \t ÀüÈ­¹øÈ£ \t ´ã´çÀÚÀÌ¸ŞÀÏ \t\t ´ã´çÀÚÀÌ¸§ \n");
-					String query2=" select * from campingcar_rent_company where camping_rent_company_id='"+id+"';"; /* SQL ¹® */
+					selectcp.setText("íšŒì‚¬ ID \t íšŒì‚¬ëª… \t ì£¼ì†Œ \t ì „í™”ë²ˆí˜¸ \t ë‹´ë‹¹ìì´ë©”ì¼ \t\t ë‹´ë‹¹ìì´ë¦„ \n");
+					String query2=" select * from campingcar_rent_company where camping_rent_company_id='"+id+"';"; /* SQL ë¬¸ */
 					rs2 = stmt2.executeQuery(query2);
 					String str = null;
 					if(rs2.next()) {
@@ -185,7 +185,7 @@ public class Companydata extends JFrame{
 		cpmngname.setColumns(10);
 		cpmngname.setBounds(126, 286, 141, 21);
 		panel.add(cpmngname);
-		btnNewButton_1_3 = new JButton("¼öÁ¤");
+		btnNewButton_1_3 = new JButton("ìˆ˜ì •");
 		btnNewButton_1_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a1 = cpname.getText();
@@ -204,15 +204,15 @@ public class Companydata extends JFrame{
 				
 					int result = stmt.executeUpdate(query);
 					if(result==1) {
-		            JOptionPane.showMessageDialog(btnNewButton_1_3, "¼öÁ¤¿Ï·á"); 
-		            //¼öÁ¤ÇÏ°í³ª¼­Ãâ·Â!
+		            JOptionPane.showMessageDialog(btnNewButton_1_3, "ìˆ˜ì •ì™„ë£Œ"); 
+		            //ìˆ˜ì •í•˜ê³ ë‚˜ì„œì¶œë ¥!
 		            printdata();
 					}else {
-						 JOptionPane.showMessageDialog(btnNewButton_1_3, "´Ù½ÃÀÔ·ÂÇÏ¼¼¿ä!"); 
+						 JOptionPane.showMessageDialog(btnNewButton_1_3, "ë‹¤ì‹œì…ë ¥í•˜ì„¸ìš”!"); 
 					}
 				}catch(Exception e1) {
 					if(a1.length()==0||a2.length()==0||a3.length()==0||a4.length()==0||a5.length()==0||id.length()==0) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3, "ºóÄ­À» ¸ğµÎÃ¤¿öÁÖ¼¼¿ä"); 
+						JOptionPane.showMessageDialog(btnNewButton_1_3, "ë¹ˆì¹¸ì„ ëª¨ë‘ì±„ì›Œì£¼ì„¸ìš”"); 
 						printdata();
 					}
 					//System.out.println(e1);
@@ -220,12 +220,12 @@ public class Companydata extends JFrame{
 			}
 		});
 		btnNewButton_1_3.setForeground(Color.BLACK);
-		btnNewButton_1_3.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3.setBounds(123, 322, 70, 29);
 		panel.add(btnNewButton_1_3);
 		
 		
-		btnNewButton_1_3_1 = new JButton("»èÁ¦");
+		btnNewButton_1_3_1 = new JButton("ì‚­ì œ");
 		btnNewButton_1_3_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -237,12 +237,12 @@ public class Companydata extends JFrame{
 					int result = stmt.executeUpdate(query);
 					
 					if(result == 1) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "»èÁ¦ ¿Ï·á");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ì‚­ì œ ì™„ë£Œ");
 						printdata();
 						cpid.setText("");
 					}else {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-						//System.out.println("½ÇÆĞ");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "IDë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+						//System.out.println("ì‹¤íŒ¨");
 					}
 				}catch(Exception e1) {
 					System.out.println(e1);
@@ -251,17 +251,17 @@ public class Companydata extends JFrame{
 			}
 		});
 		btnNewButton_1_3_1.setForeground(Color.BLACK);
-		btnNewButton_1_3_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3_1.setBounds(205, 322, 70, 29);
 		panel.add(btnNewButton_1_3_1);
 		
-		quit = new JButton("´İ±â");
+		quit = new JButton("ë‹«ê¸°");
 		quit.setForeground(Color.BLACK);
-		quit.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		quit.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		quit.setBounds(123, 361, 70, 22);
 		panel.add(quit);
 		
-		btnNewButton_1 = new JButton("»õ·Î°íÄ§");
+		btnNewButton_1 = new JButton("ìƒˆë¡œê³ ì¹¨");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				printdata();
@@ -270,7 +270,7 @@ public class Companydata extends JFrame{
 		btnNewButton_1.setBounds(16, 18, 96, 20);
 		panel.add(btnNewButton_1);
 		
-		btnNewButton_1_3_2 = new JButton("ÀÔ·Â");
+		btnNewButton_1_3_2 = new JButton("ì…ë ¥");
 		btnNewButton_1_3_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cpname1 = cpname.getText();
@@ -284,12 +284,12 @@ public class Companydata extends JFrame{
 						String query="insert into campingcar_rent_company(cp_name,cp_address,cp_number,cp_mng_email,cp_mng_name) values('"+cpname1+"','"+cpaddress1+"','"+cpnumber1+"','"+cpmngemail1+"','"+cpmngname1+"')";
 						
 						if(cpname1.length()==0||cpaddress1.length()==0||cpnumber1.length()==0||cpmngname1.length()==0||cpmngemail1.length()==0){
-							JOptionPane.showMessageDialog(btnNewButton_1_3_2, "È¸»çID¸¦ Á¦¿ÜÇÑ ³ª¸ÓÁö ºóÄ­À» ¸ğµÎÃ¤¿öÁÖ¼¼¿ä"); 
+							JOptionPane.showMessageDialog(btnNewButton_1_3_2, "íšŒì‚¬IDë¥¼ ì œì™¸í•œ ë‚˜ë¨¸ì§€ ë¹ˆì¹¸ì„ ëª¨ë‘ì±„ì›Œì£¼ì„¸ìš”"); 
 							printdata();
 						}else {
 							int result =  stmt.executeUpdate(query);
 							if (result == 1) {
-								JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ÀÔ·Â¿Ï·á!");
+								JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ì…ë ¥ì™„ë£Œ!");
 								printdata();
 							}
 						}
@@ -299,7 +299,7 @@ public class Companydata extends JFrame{
 			}
 		});
 		btnNewButton_1_3_2.setForeground(Color.BLACK);
-		btnNewButton_1_3_2.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3_2.setBounds(42, 322, 70, 29);
 		panel.add(btnNewButton_1_3_2);
 		
@@ -307,38 +307,38 @@ public class Companydata extends JFrame{
 		lblNewLabel.setBounds(389, 49, 256, 15);
 		panel.add(lblNewLabel);
 		
-		lblNewLabel_1 = new JLabel("È¸»çIDÀÔ·Â");
-		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1 = new JLabel("íšŒì‚¬IDì…ë ¥");
+		lblNewLabel_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1.setBounds(16, 100, 120, 20);
 		panel.add(lblNewLabel_1);
 		
-		lblNewLabel_2 = new JLabel("È¸»ç Á¤º¸ ÀÔ·Â | ¼öÁ¤ | »èÁ¦");
-		lblNewLabel_2.setFont(new Font("¾çÀçÆ°Æ°Ã¼B", Font.BOLD, 28));
+		lblNewLabel_2 = new JLabel("íšŒì‚¬ ì •ë³´ ì…ë ¥ | ìˆ˜ì • | ì‚­ì œ");
+		lblNewLabel_2.setFont(new Font("ì–‘ì¬íŠ¼íŠ¼ì²´B", Font.BOLD, 28));
 		lblNewLabel_2.setBounds(317, 4, 391, 39);
 		panel.add(lblNewLabel_2);
 		
-		lblNewLabel_3 = new JLabel("È¸»ç¸í");
-		lblNewLabel_3.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_3 = new JLabel("íšŒì‚¬ëª…");
+		lblNewLabel_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_3.setBounds(16, 143, 96, 20);
 		panel.add(lblNewLabel_3);
 		
-		lblNewLabel_4 = new JLabel("ÁÖ¼Ò");
-		lblNewLabel_4.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_4 = new JLabel("ì£¼ì†Œ");
+		lblNewLabel_4.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_4.setBounds(16, 176, 96, 20);
 		panel.add(lblNewLabel_4);
 		
-		lblNewLabel_5 = new JLabel("ÀüÈ­¹øÈ£");
-		lblNewLabel_5.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_5 = new JLabel("ì „í™”ë²ˆí˜¸");
+		lblNewLabel_5.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_5.setBounds(16, 215, 96, 20);
 		panel.add(lblNewLabel_5);
 		
-		lblNewLabel_6 = new JLabel("´ã´çÀÚÀÌ¸ŞÀÏ");
-		lblNewLabel_6.setFont(new Font("±¼¸²", Font.BOLD, 16));
+		lblNewLabel_6 = new JLabel("ë‹´ë‹¹ìì´ë©”ì¼");
+		lblNewLabel_6.setFont(new Font("êµ´ë¦¼", Font.BOLD, 16));
 		lblNewLabel_6.setBounds(16, 253, 96, 20);
 		panel.add(lblNewLabel_6);
 		
-		lblNewLabel_7 = new JLabel("´ã´çÀÚÀÌ¸§");
-		lblNewLabel_7.setFont(new Font("±¼¸²", Font.BOLD, 16));
+		lblNewLabel_7 = new JLabel("ë‹´ë‹¹ìì´ë¦„");
+		lblNewLabel_7.setFont(new Font("êµ´ë¦¼", Font.BOLD, 16));
 		lblNewLabel_7.setBounds(16, 289, 96, 20);
 		panel.add(lblNewLabel_7);
 		

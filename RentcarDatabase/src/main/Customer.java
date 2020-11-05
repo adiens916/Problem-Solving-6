@@ -54,7 +54,7 @@ public class Customer extends JFrame implements ActionListener{
 		});
 	}
 
-	    JButton btnNewButton_1 = new JButton("¹İÈ¯ÇÏ·¯°¡±â"); 
+	    JButton btnNewButton_1 = new JButton("ë°˜í™˜í•˜ëŸ¬ê°€ê¸°"); 
 	    JTextArea listarea = new JTextArea();
 		JTextArea starea = new JTextArea();
 		
@@ -85,20 +85,20 @@ public class Customer extends JFrame implements ActionListener{
 	public void conDB() { 
 	     try {
 	       Class.forName("com.mysql.cj.jdbc.Driver");   
-	       //System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø");
+	       //System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ");
 	     } catch(ClassNotFoundException e1) {
 	         e1.printStackTrace();
 	     }
 	   try {
-	       //System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ...");
+	       //System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤€ë¹„...");
 	       con=DriverManager.getConnection(url, userid, pwd); 
-	       //System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¼º°ø");
+	       //System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì„±ê³µ");
 	     } catch(SQLException e1) {
 	         e1.printStackTrace();
 	       }
 	   }
 	public Customer() {
-		setTitle("17013152 ÃÖÁ¾Çõ -°í°´ÆäÀÌÁö");
+		setTitle("17013152 ìµœì¢…í˜ -ê³ ê°í˜ì´ì§€");
 		returncarform = new returncar();
 		returncarform.returnbtn.addActionListener(this);
 		conDB();
@@ -113,7 +113,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("SEJONG CAMPING");
-		lblNewLabel.setFont(new Font("¾çÀç¹éµÎÃ¼B", Font.BOLD, 30));
+		lblNewLabel.setFont(new Font("ì–‘ì¬ë°±ë‘ì²´B", Font.BOLD, 30));
 		lblNewLabel.setBounds(264, 14, 331, 30);
 		contentPane.add(lblNewLabel);
 		listarea.setBorder(new LineBorder(Color.BLACK, 1, true));
@@ -128,7 +128,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(cplist_id);
 		cplist_id.setColumns(10);
 		
-		rentbtn = new JButton("´ë¿©");
+		rentbtn = new JButton("ëŒ€ì—¬");
 		rentbtn.setBackground(Color.WHITE);
 		rentbtn.setBorder(new EmptyBorder(0, 0, 0, 0));
 		rentbtn.addActionListener(new ActionListener() {
@@ -140,12 +140,12 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(rentbtn);
 		
 		JLabel lblNewLabel_1 = new JLabel("\uCEA0\uD551\uCE74 LIST");
-		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 20));
+		lblNewLabel_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(362, 65, 114, 21);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("\uB300\uC5EC \uD604\uD669");
-		lblNewLabel_1_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1.setBounds(902, 14, 103, 21);
 		contentPane.add(lblNewLabel_1_1);
 		starea.setBorder(new LineBorder(Color.BLACK));
@@ -166,18 +166,18 @@ public class Customer extends JFrame implements ActionListener{
 		btnNewButton_1.setBounds(895, 130, 110, 21);
 		contentPane.add(btnNewButton_1);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("Ä·ÇÎÄ«ID");
-		lblNewLabel_1_1_1.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		JLabel lblNewLabel_1_1_1 = new JLabel("ìº í•‘ì¹´ID");
+		lblNewLabel_1_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1.setBounds(844, 192, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1);
 		
 		JLabel lblNewLabel_1_1_2 = new JLabel("\uB300\uC5EC");
-		lblNewLabel_1_1_2.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1_2.setBounds(926, 161, 37, 21);
 		contentPane.add(lblNewLabel_1_1_2);
 		
 		JLabel lblNewLabel_1_1_1_1 = new JLabel("\uB300\uC5EC\uAE30\uAC04");
-		lblNewLabel_1_1_1_1.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		lblNewLabel_1_1_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1_1.setBounds(844, 312, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_1);
 		
@@ -188,7 +188,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(period);
 		
 		JLabel lblNewLabel_1_1_1_2 = new JLabel("\uBA74\uD5C8\uC99D\uBC88\uD638");
-		lblNewLabel_1_1_1_2.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		lblNewLabel_1_1_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1_2.setBounds(844, 234, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_2);
 		
@@ -199,7 +199,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(license_id);
 		
 		JLabel lblNewLabel_1_1_1_3 = new JLabel("\uB300\uC5EC\uC2DC\uC791\uC77C");
-		lblNewLabel_1_1_1_3.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		lblNewLabel_1_1_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1_3.setBounds(844, 274, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_3);
 		
@@ -210,7 +210,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(start);
 		
 		JLabel lblNewLabel_1_1_1_3_1 = new JLabel("\uBB3C\uD488\uAE08\uC561");
-		lblNewLabel_1_1_1_3_1.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		lblNewLabel_1_1_1_3_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1_3_1.setBounds(844, 417, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_3_1);
 		
@@ -221,7 +221,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(addprice);
 		
 		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("\uCD94\uAC00\uBB3C\uD488");
-		lblNewLabel_1_1_1_1_1.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		lblNewLabel_1_1_1_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		lblNewLabel_1_1_1_1_1.setBounds(844, 386, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
 		
@@ -232,7 +232,7 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(add);
 		
 		JLabel duedateerer = new JLabel("\uB0A9\uC785\uAE30\uD55C");
-		duedateerer.setFont(new Font("±¼¸²", Font.BOLD, 14));
+		duedateerer.setFont(new Font("êµ´ë¦¼", Font.BOLD, 14));
 		duedateerer.setBounds(844, 351, 81, 21);
 		contentPane.add(duedateerer);
 		
@@ -248,13 +248,13 @@ public class Customer extends JFrame implements ActionListener{
 		carsearch.setBounds(328, 125, 91, 21);
 		contentPane.add(carsearch);
 		
-		JButton carserchbtn = new JButton("°Ë»ö");
+		JButton carserchbtn = new JButton("ê²€ìƒ‰");
 		carserchbtn.setBorder(new EmptyBorder(0, 0, 0, 0));
 		carserchbtn.setBackground(Color.WHITE);
 		carserchbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					listarea.setText("Ä·ÇÎÄ«ID \t Â÷¸í \t Â÷·®¹øÈ£ \t ½ÂÂ÷ÀÎ¿ø¼ö \t Á¦Á¶È¸»ç \t Á¦Á¶¿¬µµ \t ´©ÀûÁÖÇà°Å¸® \t ´ë¿©ºñ¿ë \tÄ·ÇÎÄ«µî·ÏÀÏÀÚ \t ´ë¿©È¸»çID \n");
+					listarea.setText("ìº í•‘ì¹´ID \t ì°¨ëª… \t ì°¨ëŸ‰ë²ˆí˜¸ \t ìŠ¹ì°¨ì¸ì›ìˆ˜ \t ì œì¡°íšŒì‚¬ \t ì œì¡°ì—°ë„ \t ëˆ„ì ì£¼í–‰ê±°ë¦¬ \t ëŒ€ì—¬ë¹„ìš© \tìº í•‘ì¹´ë“±ë¡ì¼ì \t ëŒ€ì—¬íšŒì‚¬ID \n");
 					stmt = con.createStatement();
 					String searchdata = carsearch.getText();
 					String query = null;
@@ -263,7 +263,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}else if(carnameradio.isSelected()) {
@@ -271,7 +271,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}else if(ra3.isSelected()) {
@@ -279,7 +279,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}else if(ra4.isSelected()) {
@@ -287,7 +287,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}else if(ra5.isSelected()) {
@@ -295,7 +295,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}else if(ra6.isSelected()) {
@@ -303,7 +303,7 @@ public class Customer extends JFrame implements ActionListener{
 						rs = stmt.executeQuery(query);
 			             while(rs.next()) {
 			                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+			                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
 			                listarea.append(str);
 			             }
 					}
@@ -316,11 +316,11 @@ public class Customer extends JFrame implements ActionListener{
 		carserchbtn.setBounds(425, 125, 61, 21);
 		contentPane.add(carserchbtn);
 		
-		cpcradio = new JRadioButton("Ä·ÇÎÄ«ID");
+		cpcradio = new JRadioButton("ìº í•‘ì¹´ID");
 		cpcradio.setBackground(SystemColor.menu);
 		cpcradio.setBounds(138, 92, 81, 23);
 		
-		carnameradio = new JRadioButton("Â÷¸í");
+		carnameradio = new JRadioButton("ì°¨ëª…");
 		carnameradio.setBackground(SystemColor.menu);
 		carnameradio.setBounds(217, 92, 53, 23);
 		
@@ -328,22 +328,22 @@ public class Customer extends JFrame implements ActionListener{
 		contentPane.add(cpcradio);
 		contentPane.add(carnameradio);
 		
-		ra3 = new JRadioButton("ÃÖ¼Ò½ÂÂ÷ÀÎ¿ø");
+		ra3 = new JRadioButton("ìµœì†ŒìŠ¹ì°¨ì¸ì›");
 		ra3.setBackground(SystemColor.menu);
 		ra3.setBounds(270, 92, 101, 23);
 		contentPane.add(ra3);
 		
-		ra4 = new JRadioButton("Á¦Á¶È¸»ç");
+		ra4 = new JRadioButton("ì œì¡°íšŒì‚¬");
 		ra4.setBackground(SystemColor.menu);
 		ra4.setBounds(371, 92, 80, 23);
 		contentPane.add(ra4);
 		
-		ra5 = new JRadioButton("ÃÖ´ëÁÖÇà°Å¸®");
+		ra5 = new JRadioButton("ìµœëŒ€ì£¼í–‰ê±°ë¦¬");
 		ra5.setBackground(SystemColor.menu);
 		ra5.setBounds(446, 92, 101, 23);
 		contentPane.add(ra5);
 		
-		ra6 = new JRadioButton("ÃÖ´ë´ë¿©ºñ¿ë(´ÜÀ§:¸¸¿ø)");
+		ra6 = new JRadioButton("ìµœëŒ€ëŒ€ì—¬ë¹„ìš©(ë‹¨ìœ„:ë§Œì›)");
 		ra6.setBackground(SystemColor.menu);
 		ra6.setBounds(543, 92, 160, 23);
 		contentPane.add(ra6);
@@ -356,7 +356,7 @@ public class Customer extends JFrame implements ActionListener{
 		bg.add(ra5);
 		bg.add(ra6);
 		
-		refresh = new JButton("»õ·Î°íÄ§");
+		refresh = new JButton("ìƒˆë¡œê³ ì¹¨");
 		refresh.setBorder(new EmptyBorder(0, 0, 0, 0));
 		refresh.setBackground(Color.WHITE);
 		refresh.addActionListener(new ActionListener() {
@@ -375,7 +375,7 @@ public class Customer extends JFrame implements ActionListener{
 		refresh.setBounds(489, 125, 91, 21);
 		contentPane.add(refresh);
 		
-		backbtn = new JButton("¡¶ µÚ·Î°¡±â");
+		backbtn = new JButton("ã€Š ë’¤ë¡œê°€ê¸°");
 		backbtn.setBorder(new EmptyBorder(0, 0, 0, 0));
 		backbtn.setBackground(Color.WHITE);
 		backbtn.setBounds(0, 0, 103, 23);
@@ -384,13 +384,13 @@ public class Customer extends JFrame implements ActionListener{
 	}
 	public void returnresult(){
 		try {
-			listarea.setText("Ä·ÇÎÄ«ID \t Â÷¸í \t Â÷·®¹øÈ£ \t ½ÂÂ÷ÀÎ¿ø¼ö \t Á¦Á¶È¸»ç \t Á¦Á¶¿¬µµ \t ´©ÀûÁÖÇà°Å¸® \t ´ë¿©ºñ¿ë \tÄ·ÇÎÄ«µî·ÏÀÏÀÚ \t ´ë¿©È¸»çID \n");
+			listarea.setText("ìº í•‘ì¹´ID \t ì°¨ëª… \t ì°¨ëŸ‰ë²ˆí˜¸ \t ìŠ¹ì°¨ì¸ì›ìˆ˜ \t ì œì¡°íšŒì‚¬ \t ì œì¡°ì—°ë„ \t ëˆ„ì ì£¼í–‰ê±°ë¦¬ \t ëŒ€ì—¬ë¹„ìš© \tìº í•‘ì¹´ë“±ë¡ì¼ì \t ëŒ€ì—¬íšŒì‚¬ID \n");
 			stmt = con.createStatement();
 			String query="SELECT * FROM rentcar_list;";
 			rs = stmt.executeQuery(query);
              while(rs.next()) {
                 String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"¸¸¿ø\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
+                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t"+ rs.getString(7)+"\t"+ rs.getString(8)+"ë§Œì›\t"+ rs.getString(9)+"\t"+ rs.getString(10)+"\n";
                 listarea.append(str);
              }
 		}catch(Exception e1) {
@@ -399,7 +399,7 @@ public class Customer extends JFrame implements ActionListener{
 	}
 	public void madangrentlist() {
 		try {
-			starea.setText("¹øÈ£ \t Ä·ÇÎÄ«ID \t ±İ¾×\n");
+			starea.setText("ë²ˆí˜¸ \t ìº í•‘ì¹´ID \t ê¸ˆì•¡\n");
 			stmt3 = con.createStatement();
 			String query3=" select campingcar_id,cc_price from customer_rent_list where c_license_id='1111111'";
 			rs2 = stmt3.executeQuery(query3);
@@ -440,7 +440,7 @@ public class Customer extends JFrame implements ActionListener{
 			String query2="insert into customer_rent_list(start_date,rent_time,due_date,otherthing,others_price,campingcar_company_id,c_license_id,campingcar_id,cc_price) values('"+strt+"','"+rentperiod+"','"+duedate2+"','"+add2+"','"+addprice2+"','"+campingcpid+"','"+lisence+"','"+ccid+"','"+carprice+"');";
 			int result = stmt2.executeUpdate(query2);
              if( result ==1 ){
-            	 JOptionPane.showMessageDialog(rentbtn, "´ë¿© ¿Ï·á");
+            	 JOptionPane.showMessageDialog(rentbtn, "ëŒ€ì—¬ ì™„ë£Œ");
             	 madangrentlist();
             	 try {
 		    			stmt3 = con.createStatement();
@@ -451,15 +451,15 @@ public class Customer extends JFrame implements ActionListener{
 		    			System.out.println("1"+e1);
 		    		}
              }else {
-            	 JOptionPane.showMessageDialog(rentbtn, "µ¥ÀÌÅÍ°ª ÀçÀÔ·Â");
+            	 JOptionPane.showMessageDialog(rentbtn, "ë°ì´í„°ê°’ ì¬ì…ë ¥");
              }
 		}catch(Exception e1) {
 			//System.out.println("2"+e1);
-			JOptionPane.showMessageDialog(rentbtn, "¿Ç¹Ù¸¥ µ¥ÀÌÅÍ°ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä.");
+			JOptionPane.showMessageDialog(rentbtn, "ì˜³ë°”ë¥¸ ë°ì´í„°ê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš”.");
 			if(ccid.length()==0||lisence.length()==0||rentperiod.length()==0||strt.length()==0||duedate2.length()==0||add2.length()==0||addprice2.length()==0||campingcpid.length()==0||carprice.length()==0) {
-        		JOptionPane.showMessageDialog(rentbtn, "ºóÄ­À» ¸ğµÎÃ¤¿öÁÖ¼¼¿ä");            		
+        		JOptionPane.showMessageDialog(rentbtn, "ë¹ˆì¹¸ì„ ëª¨ë‘ì±„ì›Œì£¼ì„¸ìš”");            		
         	}
-			System.out.println("µ¥ÀÌÅÍ°ªÀ» ÀÔ·ÂÇØÁÖ¼¼¿ä");
+			System.out.println("ë°ì´í„°ê°’ì„ ì…ë ¥í•´ì£¼ì„¸ìš”");
 		}
 	}
 

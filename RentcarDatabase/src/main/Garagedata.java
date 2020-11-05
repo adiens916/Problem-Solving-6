@@ -57,7 +57,7 @@ public class Garagedata extends JFrame{
 		});
 	}
 
-	// SQL ¿¬°á
+	// SQL ì—°ê²°
 		static Connection con;
 		   Statement stmt,stmt2;
 		   ResultSet rs,rs2;
@@ -78,23 +78,23 @@ public class Garagedata extends JFrame{
 		public void conDB() { 
 		     try {
 		       Class.forName("com.mysql.cj.jdbc.Driver");   
-		     //  System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø");
+		     //  System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ");
 		     } catch(ClassNotFoundException e1) {
 		         e1.printStackTrace();
 		     }
 		   try {
-		     //  System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ...");
+		     //  System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤€ë¹„...");
 		       con=DriverManager.getConnection(url, userid, pwd); 
-		      // System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¼º°ø");
+		      // System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì„±ê³µ");
 		     } catch(SQLException e1) {
 		         e1.printStackTrace();
 		       }
 		   }
 		public void printdata() {
-			selectcp.setText("Â÷°íÁöID \t Ä«¼¾ÅÍÀÌ¸§ \t ÁÖ¼Ò \t ¹øÈ£ \t ¸Å´ÏÀúÀÌ¸§ \t ÀÌ¸ŞÀÏÁÖ¼Ò\n");
+			selectcp.setText("ì°¨ê³ ì§€ID \t ì¹´ì„¼í„°ì´ë¦„ \t ì£¼ì†Œ \t ë²ˆí˜¸ \t ë§¤ë‹ˆì €ì´ë¦„ \t ì´ë©”ì¼ì£¼ì†Œ\n");
 			try {
 				stmt2 = con.createStatement();
-				String query2=" select * from garage"; /* SQL ¹® */
+				String query2=" select * from garage"; /* SQL ë¬¸ */
 				rs2 = stmt2.executeQuery(query2);
 				
 				while(rs2.next()) {
@@ -108,7 +108,7 @@ public class Garagedata extends JFrame{
 		}	
 		
 	public Garagedata() {
-		setTitle("17013152 ÃÖÁ¾Çõ -Á¤ºñ¼ÒÁ¤º¸ °ü¸®ÆäÀÌÁö");
+		setTitle("17013152 ìµœì¢…í˜ -ì •ë¹„ì†Œì •ë³´ ê´€ë¦¬í˜ì´ì§€");
 		conDB();
 		
 		printdata();
@@ -123,7 +123,7 @@ public class Garagedata extends JFrame{
 		JPanel panel = new JPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
-		/* Ãâ·Â ¿µ¿ª */
+		/* ì¶œë ¥ ì˜ì—­ */
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(311, 98, 576, 287);
 		panel.add(scrollPane);
@@ -137,16 +137,16 @@ public class Garagedata extends JFrame{
 		panel.add(garageid);
 			
 		
-		JButton btnNewButton = new JButton("°Ë»ö");
-		btnNewButton.setFont(new Font("±¼¸²", Font.PLAIN, 10));
+		JButton btnNewButton = new JButton("ê²€ìƒ‰");
+		btnNewButton.setFont(new Font("êµ´ë¦¼", Font.PLAIN, 10));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
 					selectcp.setText("");
 					stmt2 = con.createStatement();
 					String id = garageid.getText();
-					selectcp.setText("Â÷°íÁöID \t Ä«¼¼ÅÏÀÌ¸§ \t ÁÖ¼Ò \t ¹øÈ£ \t ¸Å´ÏÀúÀÌ¸§ \n");
-					String query2=" select * from garage where garage_id='"+id+"';"; /* SQL ¹® */
+					selectcp.setText("ì°¨ê³ ì§€ID \t ì¹´ì„¸í„´ì´ë¦„ \t ì£¼ì†Œ \t ë²ˆí˜¸ \t ë§¤ë‹ˆì €ì´ë¦„ \n");
+					String query2=" select * from garage where garage_id='"+id+"';"; /* SQL ë¬¸ */
 					rs2 = stmt2.executeQuery(query2);
 					String str = null;
 					if(rs2.next()) {
@@ -181,7 +181,7 @@ public class Garagedata extends JFrame{
 		emailaddress.setColumns(10);
 		emailaddress.setBounds(158, 285, 141, 21);
 		panel.add(emailaddress);
-		btnNewButton_1_3 = new JButton("¼öÁ¤");
+		btnNewButton_1_3 = new JButton("ìˆ˜ì •");
 		btnNewButton_1_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a1 = name.getText();
@@ -198,15 +198,15 @@ public class Garagedata extends JFrame{
 				
 					int result = stmt.executeUpdate(query);
 					if(result==1) {
-		            JOptionPane.showMessageDialog(btnNewButton_1_3, "¼öÁ¤¿Ï·á"); 
-		            //¼öÁ¤ÇÏ°í³ª¼­Ãâ·Â!
+		            JOptionPane.showMessageDialog(btnNewButton_1_3, "ìˆ˜ì •ì™„ë£Œ"); 
+		            //ìˆ˜ì •í•˜ê³ ë‚˜ì„œì¶œë ¥!
 		            printdata();
 					}else {
-						 JOptionPane.showMessageDialog(btnNewButton_1_3, "´Ù½ÃÀÔ·ÂÇÏ¼¼¿ä!"); 
+						 JOptionPane.showMessageDialog(btnNewButton_1_3, "ë‹¤ì‹œì…ë ¥í•˜ì„¸ìš”!"); 
 					}
 				}catch(Exception e1) {
 					if(a1.length()==0||a2.length()==0||a3.length()==0||a4.length()==0||id.length()==0) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3, "ºóÄ­À» ¸ğµÎÃ¤¿öÁÖ¼¼¿ä"); 
+						JOptionPane.showMessageDialog(btnNewButton_1_3, "ë¹ˆì¹¸ì„ ëª¨ë‘ì±„ì›Œì£¼ì„¸ìš”"); 
 						printdata();
 					}
 					//System.out.println(e1);
@@ -214,12 +214,12 @@ public class Garagedata extends JFrame{
 			}
 		});
 		btnNewButton_1_3.setForeground(Color.BLACK);
-		btnNewButton_1_3.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3.setBounds(115, 316, 70, 29);
 		panel.add(btnNewButton_1_3);
 		
 		
-		btnNewButton_1_3_1 = new JButton("»èÁ¦");
+		btnNewButton_1_3_1 = new JButton("ì‚­ì œ");
 		btnNewButton_1_3_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -231,12 +231,12 @@ public class Garagedata extends JFrame{
 					int result = stmt.executeUpdate(query);
 					
 					if(result == 1) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "»èÁ¦ ¿Ï·á");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ì‚­ì œ ì™„ë£Œ");
 						printdata();
 						garageid.setText("");
 					}else {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä.");
-						//ystem.out.println("½ÇÆĞ");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "IDë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”.");
+						//ystem.out.println("ì‹¤íŒ¨");
 					}
 				}catch(Exception e1) {
 					System.out.println(e1);
@@ -245,17 +245,17 @@ public class Garagedata extends JFrame{
 			}
 		});
 		btnNewButton_1_3_1.setForeground(Color.BLACK);
-		btnNewButton_1_3_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3_1.setBounds(197, 316, 70, 29);
 		panel.add(btnNewButton_1_3_1);
 		
-		quit = new JButton("´İ±â");
+		quit = new JButton("ë‹«ê¸°");
 		quit.setForeground(Color.BLACK);
-		quit.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		quit.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		quit.setBounds(115, 355, 70, 22);
 		panel.add(quit);
 		
-		btnNewButton_1 = new JButton("»õ·Î°íÄ§");
+		btnNewButton_1 = new JButton("ìƒˆë¡œê³ ì¹¨");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				printdata();
@@ -269,7 +269,7 @@ public class Garagedata extends JFrame{
 		btnNewButton_1.setBounds(16, 18, 96, 20);
 		panel.add(btnNewButton_1);
 		
-		btnNewButton_1_3_2 = new JButton("ÀÔ·Â");
+		btnNewButton_1_3_2 = new JButton("ì…ë ¥");
 		btnNewButton_1_3_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String a1 = name.getText();
@@ -284,14 +284,14 @@ public class Garagedata extends JFrame{
 							+ " values('"+id+"','"+a1+"','"+a2+"','"+a3+"','"+a4+"','"+a5+"')";
 					int result =  stmt.executeUpdate(query);
 					if (result == 1) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ÀÔ·Â¿Ï·á!");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ì…ë ¥ì™„ë£Œ!");
 						printdata();
 					}else {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "´Ù½ÃÀÔ·ÂÇØÁÖ¼¼¿ä!");
+						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ë‹¤ì‹œì…ë ¥í•´ì£¼ì„¸ìš”!");
 					}
 				}catch(Exception e1) {
 					if(a1.length()==0||a2.length()==0||a3.length()==0||a4.length()==0||a5.length()==0||id.length()==0){
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ºóÄ­À» ¸ğµÎÃ¤¿öÁÖ¼¼¿ä"); 
+						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "ë¹ˆì¹¸ì„ ëª¨ë‘ì±„ì›Œì£¼ì„¸ìš”"); 
 						printdata();
 					}
 					//System.out.println(e1);
@@ -299,11 +299,11 @@ public class Garagedata extends JFrame{
 			}
 		});
 		btnNewButton_1_3_2.setForeground(Color.BLACK);
-		btnNewButton_1_3_2.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		btnNewButton_1_3_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		btnNewButton_1_3_2.setBounds(34, 316, 70, 29);
 		panel.add(btnNewButton_1_3_2);
 		
-		lblNewLabel = new JLabel("Â÷°íÁöID °Ë»öÈÄ ¼öÁ¤,»èÁ¦ÇÏ½Ã¸é ´õ Æí¸®ÇÕ´Ï´Ù.");
+		lblNewLabel = new JLabel("ì°¨ê³ ì§€ID ê²€ìƒ‰í›„ ìˆ˜ì •,ì‚­ì œí•˜ì‹œë©´ ë” í¸ë¦¬í•©ë‹ˆë‹¤.");
 		lblNewLabel.setBounds(329, 55, 294, 15);
 		panel.add(lblNewLabel);
 		
@@ -312,38 +312,38 @@ public class Garagedata extends JFrame{
 		gmanager.setBounds(158, 252, 141, 21);
 		panel.add(gmanager);
 		
-		lblNewLabel_1 = new JLabel("ÀÌ¸§");
-		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1 = new JLabel("ì´ë¦„");
+		lblNewLabel_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1.setBounds(16, 141, 120, 20);
 		panel.add(lblNewLabel_1);
 		
-		lblNewLabel_1_1 = new JLabel("ÁÖ¼Ò");
-		lblNewLabel_1_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1 = new JLabel("ì£¼ì†Œ");
+		lblNewLabel_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1.setBounds(16, 178, 120, 20);
 		panel.add(lblNewLabel_1_1);
 		
-		lblNewLabel_1_1_1 = new JLabel("ÀÌ¸ŞÀÏÁÖ¼Ò");
-		lblNewLabel_1_1_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1_1 = new JLabel("ì´ë©”ì¼ì£¼ì†Œ");
+		lblNewLabel_1_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1_1.setBounds(16, 286, 120, 20);
 		panel.add(lblNewLabel_1_1_1);
 		
-		lblNewLabel_2 = new JLabel("Á¤ºñ¼Ò Á¤º¸ ÀÔ·Â | ¼öÁ¤ | »èÁ¦");
-		lblNewLabel_2.setFont(new Font("¾çÀçÆ°Æ°Ã¼B", Font.BOLD, 28));
+		lblNewLabel_2 = new JLabel("ì •ë¹„ì†Œ ì •ë³´ ì…ë ¥ | ìˆ˜ì • | ì‚­ì œ");
+		lblNewLabel_2.setFont(new Font("ì–‘ì¬íŠ¼íŠ¼ì²´B", Font.BOLD, 28));
 		lblNewLabel_2.setBounds(274, 10, 432, 39);
 		panel.add(lblNewLabel_2);
 		
-		lblNewLabel_1_1_2 = new JLabel("¸Å´ÏÀúÀÌ¸§");
-		lblNewLabel_1_1_2.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1_2 = new JLabel("ë§¤ë‹ˆì €ì´ë¦„");
+		lblNewLabel_1_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1_2.setBounds(16, 255, 120, 20);
 		panel.add(lblNewLabel_1_1_2);
 		
-		lblNewLabel_1_1_3 = new JLabel("Â÷°íÁöIDÀÔ·Â");
-		lblNewLabel_1_1_3.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_1_3 = new JLabel("ì°¨ê³ ì§€IDì…ë ¥");
+		lblNewLabel_1_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1_3.setBounds(16, 102, 120, 20);
 		panel.add(lblNewLabel_1_1_3);
 		
-		lblNewLabel_1_2 = new JLabel("¹øÈ£");
-		lblNewLabel_1_2.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		lblNewLabel_1_2 = new JLabel("ë²ˆí˜¸");
+		lblNewLabel_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_2.setBounds(16, 216, 120, 20);
 		panel.add(lblNewLabel_1_2);
 		

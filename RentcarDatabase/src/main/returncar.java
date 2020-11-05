@@ -42,14 +42,14 @@ public class returncar extends JFrame {
 	public void conDB() { 
 	  try {
 	    Class.forName("com.mysql.cj.jdbc.Driver");   
-	   // System.out.println("µå¶óÀÌ¹ö ·Îµå ¼º°ø");
+	   // System.out.println("ë“œë¼ì´ë²„ ë¡œë“œ ì„±ê³µ");
 	  } catch(ClassNotFoundException e1) {
 	      e1.printStackTrace();
 	  }
 	try {
-	   // System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ÁØºñ...");
+	   // System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì¤€ë¹„...");
 	    con=DriverManager.getConnection(url, userid, pwd); 
-	   // System.out.println("µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á ¼º°ø");
+	   // System.out.println("ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° ì„±ê³µ");
 	  } catch(SQLException e1) {
 	      e1.printStackTrace();
 	    }
@@ -71,7 +71,7 @@ public class returncar extends JFrame {
 	 * Create the frame.
 	 */
 	public returncar() {
-		setTitle("17013152 ÃÖÁ¾Çõ -·£Æ®Ä«¹İÈ¯ÆäÀÌÁö");
+		setTitle("17013152 ìµœì¢…í˜ -ëœíŠ¸ì¹´ë°˜í™˜í˜ì´ì§€");
 		conDB();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 464, 369);
@@ -80,23 +80,23 @@ public class returncar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("¾Õ");
-		lblNewLabel_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		JLabel lblNewLabel_1 = new JLabel("ì•");
+		lblNewLabel_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1.setBounds(12, 106, 27, 22);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("¿À¸¥ÂÊ");
-		lblNewLabel_1_1.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		JLabel lblNewLabel_1_1 = new JLabel("ì˜¤ë¥¸ìª½");
+		lblNewLabel_1_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_1.setBounds(156, 21, 55, 22);
 		contentPane.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("µÚ");
-		lblNewLabel_1_2.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		JLabel lblNewLabel_1_2 = new JLabel("ë’¤");
+		lblNewLabel_1_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_2.setBounds(334, 105, 27, 22);
 		contentPane.add(lblNewLabel_1_2);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("¿ŞÂÊ");
-		lblNewLabel_1_3.setFont(new Font("±¼¸²", Font.BOLD, 18));
+		JLabel lblNewLabel_1_3 = new JLabel("ì™¼ìª½");
+		lblNewLabel_1_3.setFont(new Font("êµ´ë¦¼", Font.BOLD, 18));
 		lblNewLabel_1_3.setBounds(167, 193, 45, 22);
 		contentPane.add(lblNewLabel_1_3);
 		
@@ -120,8 +120,8 @@ public class returncar extends JFrame {
 		left.setBounds(210, 193, 45, 21);
 		contentPane.add(left);
 		
-		JLabel lblNewLabel_2 = new JLabel("¼ö¸®¿©ºÎ(1:¼ö¸®O, 0:¼ö¸®x)");
-		lblNewLabel_2.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		JLabel lblNewLabel_2 = new JLabel("ìˆ˜ë¦¬ì—¬ë¶€(1:ìˆ˜ë¦¬O, 0:ìˆ˜ë¦¬x)");
+		lblNewLabel_2.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_2.setBounds(52, 239, 198, 21);
 		contentPane.add(lblNewLabel_2);
 		
@@ -130,7 +130,7 @@ public class returncar extends JFrame {
 		contentPane.add(fix);
 		fix.setColumns(10);
 		
-		returnbtn = new JButton("¹İÈ¯");
+		returnbtn = new JButton("ë°˜í™˜");
 		returnbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
@@ -166,7 +166,7 @@ public class returncar extends JFrame {
 					String query="insert into campingcar_return values('"+front1+"','"+right1+"','"+left1+"','"+back1+"','"+fix1+"','"+cpid1+"','"+rent_id+"')";
 					int result = stmt.executeUpdate(query);
 		             if( result ==1 ){
-				            JOptionPane.showMessageDialog(returnbtn, "¹İÈ¯¿Ï·á");
+				            JOptionPane.showMessageDialog(returnbtn, "ë°˜í™˜ì™„ë£Œ");
 				            try {
 				            	String query4="insert into customer_rent_old_list values('"+rent_id+"','"+a1+"','"+a2+"','"+a3+"','"+a4+"','"+a5+"','"+a6+"','"+a7+"','"+a8+"','"+a9+"')";
 								int result4 = stmt4.executeUpdate(query4);
@@ -180,11 +180,11 @@ public class returncar extends JFrame {
 		             }
 				}catch(Exception e1) {
 					System.out.println(e1);
-					JOptionPane.showMessageDialog(returnbtn, "Â÷ÀÇ ¸ğµç »óÅÂ ¹× Ä·ÇÎÄ«ID¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+					JOptionPane.showMessageDialog(returnbtn, "ì°¨ì˜ ëª¨ë“  ìƒíƒœ ë° ìº í•‘ì¹´IDë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
 				}
 			}
 		});
-		returnbtn.setFont(new Font("¾çÀçÆ°Æ°Ã¼B", Font.BOLD, 15));
+		returnbtn.setFont(new Font("ì–‘ì¬íŠ¼íŠ¼ì²´B", Font.BOLD, 15));
 		returnbtn.setBounds(309, 237, 74, 52);
 		contentPane.add(returnbtn);
 		
@@ -195,7 +195,7 @@ public class returncar extends JFrame {
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_2_1 = new JLabel("\uCEA0\uD551\uCE74ID");
-		lblNewLabel_2_1.setFont(new Font("±¼¸²", Font.BOLD, 15));
+		lblNewLabel_2_1.setFont(new Font("êµ´ë¦¼", Font.BOLD, 15));
 		lblNewLabel_2_1.setBounds(174, 268, 67, 21);
 		contentPane.add(lblNewLabel_2_1);
 		
