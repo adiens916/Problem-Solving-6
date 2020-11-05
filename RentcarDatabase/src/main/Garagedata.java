@@ -1,5 +1,8 @@
 package main;
 
+import model.DataModel_Garage;
+import view.dataClass.GarageInfo;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -8,7 +11,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
-import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -16,16 +18,11 @@ import java.awt.Color;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JDesktopPane;
-import java.awt.Panel;
 import javax.swing.JLabel;
 
 public class Garagedata extends JFrame{
@@ -73,7 +70,9 @@ public class Garagedata extends JFrame{
 		   private JLabel lblNewLabel_1_1_2;
 		   private JLabel lblNewLabel_1_1_3;
 		   private JLabel lblNewLabel_1_2;
-		   
+
+/* model을 참고할 수 있게 함 [원래는 Controller 부분] */
+		private DataModel_Garage model = new DataModel_Garage();
 		   
 		public void conDB() { 
 		     try {
@@ -92,19 +91,8 @@ public class Garagedata extends JFrame{
 		   }
 		public void printdata() {
 			selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-			try {
-				stmt2 = con.createStatement();
-				String query2=" select * from garage"; /* SQL 문 */
-				rs2 = stmt2.executeQuery(query2);
-				
-				while(rs2.next()) {
-					String str = rs2.getInt(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\t" + rs2.getString(4)
-		            +  "\t" + rs2.getString(5)+"\t"+rs2.getString(6)+"\n";
-					selectcp.append(str);
-				}
-			}catch(Exception e1) {
-				System.out.println(e1);
-			}
+/* 모델에서 결과를 문자열로 처리까지 한 다음, 뷰에서는 처리된 리스트만 가져와서 보여줌 */
+			selectcp.append(model.getGarageList());
 		}	
 		
 	public Garagedata() {
@@ -141,22 +129,8 @@ public class Garagedata extends JFrame{
 		btnNewButton.setFont(new Font("굴림", Font.PLAIN, 10));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					selectcp.setText("");
-					stmt2 = con.createStatement();
-					String id = garageid.getText();
-					selectcp.setText("차고지ID \t 카세턴이름 \t 주소 \t 번호 \t 매니저이름 \n");
-					String query2=" select * from garage where garage_id='"+id+"';"; /* SQL 문 */
-					rs2 = stmt2.executeQuery(query2);
-					String str = null;
-					if(rs2.next()) {
-			            str = rs2.getInt(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\t" + rs2.getString(4)
-			            +  "\t" + rs2.getString(5)+"\n";
-					}
-		            selectcp.append(str);
-				}catch(Exception e1) {
-					System.out.println(e1);
-				}
+/* 메서드 추출 */
+				searchGarage();
 			}
 		});
 		btnNewButton.setBounds(242, 98, 57, 23);
@@ -184,64 +158,20 @@ public class Garagedata extends JFrame{
 		btnNewButton_1_3 = new JButton("수정");
 		btnNewButton_1_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a1 = name.getText();
-				String a2 = address.getText();
-				String a3 = number.getText();
-				String a4 = emailaddress.getText();
-				String a5 = gmanager.getText();
-				String id = garageid.getText();
-				try {
-					selectcp.setText("");
-					stmt = con.createStatement();
-					
-					String query="update garage set g_name='"+a1+"',g_address='"+a2+"',g_number='"+a3+"',g_manager='"+a4+"',g_email='"+a5+"' where garage_id='"+id+"';";
-				
-					int result = stmt.executeUpdate(query);
-					if(result==1) {
-		            JOptionPane.showMessageDialog(btnNewButton_1_3, "수정완료"); 
-		            //수정하고나서출력!
-		            printdata();
-					}else {
-						 JOptionPane.showMessageDialog(btnNewButton_1_3, "다시입력하세요!"); 
-					}
-				}catch(Exception e1) {
-					if(a1.length()==0||a2.length()==0||a3.length()==0||a4.length()==0||id.length()==0) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3, "빈칸을 모두채워주세요"); 
-						printdata();
-					}
-					//System.out.println(e1);
-				}
+/* 메서드 추출 */
+				updateGarage();
 			}
 		});
 		btnNewButton_1_3.setForeground(Color.BLACK);
 		btnNewButton_1_3.setFont(new Font("굴림", Font.BOLD, 15));
 		btnNewButton_1_3.setBounds(115, 316, 70, 29);
 		panel.add(btnNewButton_1_3);
-		
-		
+
 		btnNewButton_1_3_1 = new JButton("삭제");
 		btnNewButton_1_3_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					stmt = con.createStatement();
-					
-					String id = garageid.getText();
-					String query="DELETE FROM garage WHERE garage_id = '"+id+"'";
-					int result = stmt.executeUpdate(query);
-					
-					if(result == 1) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "삭제 완료");
-						printdata();
-						garageid.setText("");
-					}else {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID를 입력해주세요.");
-						//ystem.out.println("실패");
-					}
-				}catch(Exception e1) {
-					System.out.println(e1);
-				}
-			 			
+/* 메서드 추출 */
+				deleteGarage();
 			}
 		});
 		btnNewButton_1_3_1.setForeground(Color.BLACK);
@@ -272,30 +202,8 @@ public class Garagedata extends JFrame{
 		btnNewButton_1_3_2 = new JButton("입력");
 		btnNewButton_1_3_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String a1 = name.getText();
-				String a2 = address.getText();
-				String a3 = number.getText();
-				String a4 = gmanager.getText();
-				String a5 = emailaddress.getText();
-				String id = garageid.getText();
-				try {
-					stmt = con.createStatement();
-					String query="insert into garage(garage_id,g_name,g_address,g_number,g_manager,g_email)"
-							+ " values('"+id+"','"+a1+"','"+a2+"','"+a3+"','"+a4+"','"+a5+"')";
-					int result =  stmt.executeUpdate(query);
-					if (result == 1) {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "입력완료!");
-						printdata();
-					}else {
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "다시입력해주세요!");
-					}
-				}catch(Exception e1) {
-					if(a1.length()==0||a2.length()==0||a3.length()==0||a4.length()==0||a5.length()==0||id.length()==0){
-						JOptionPane.showMessageDialog(btnNewButton_1_3_2, "빈칸을 모두채워주세요"); 
-						printdata();
-					}
-					//System.out.println(e1);
-				}
+/* 메서드 추출 */
+				addGarage();
 			}
 		});
 		btnNewButton_1_3_2.setForeground(Color.BLACK);
@@ -346,9 +254,76 @@ public class Garagedata extends JFrame{
 		lblNewLabel_1_2.setFont(new Font("굴림", Font.BOLD, 18));
 		lblNewLabel_1_2.setBounds(16, 216, 120, 20);
 		panel.add(lblNewLabel_1_2);
-		
-		
+	}
+
+/* 이하 뷰 + 컨트롤러 영역이 섞여 있음 */
+/* 입력 */
+	public void addGarage() {
+		/* 입력란으로부터 정비고 데이터 가져옴 */
+		GarageInfo garage = getGarageInput();
+		/* 결과에 따라 상태 출력 */
+		int result = model.addGarage(garage);
+		if (result == 1) {
+			JOptionPane.showMessageDialog(btnNewButton_1_3_2, "입력완료!");
+			printdata();
+		} else if (result == 2) {
+			JOptionPane.showMessageDialog(btnNewButton_1_3_2, "빈칸을 모두채워주세요");
+			printdata();
+		} else {
+			JOptionPane.showMessageDialog(btnNewButton_1_3_2, "다시입력해주세요!");
+		}
+	}
+/* 검색 */
+	public void searchGarage() {
+		String id = garageid.getText();
+		selectcp.setText("");
+		selectcp.setText("차고지ID \t 카세턴이름 \t 주소 \t 번호 \t 매니저이름 \n");
+		/* 모델에 id를 넘겨주면, 모델에서 id에 해당하는 걸 가져와 돌려 줌 */
+		selectcp.append(model.getGarageById(id));
+	}
+/* 수정 */
+	public void updateGarage() {
+		selectcp.setText("");
+		/* 입력란으로부터 정비고 데이터 가져옴 */
+		GarageInfo garage = getGarageInput();
+		/* 모델에 데이터를 보내고, 반환된 결과값을 살핌 */
+		int result = model.updateGarage(garage);
+		/* 결과에 따라 뷰에서 상태 출력 */
+		if (result == 1) {
+			JOptionPane.showMessageDialog(btnNewButton_1_3, "수정완료");
+			//수정하고나서출력!
+			printdata();
+		} else if (result == 2) {
+			JOptionPane.showMessageDialog(btnNewButton_1_3, "빈칸을 모두채워주세요");
+			printdata();
+		} else {
+			JOptionPane.showMessageDialog(btnNewButton_1_3, "다시입력하세요!");
+		}
+	}
+/* 삭제 */
+	public void deleteGarage() {
+		String garageId = garageid.getText();
+		/* 모델에 id를 넘겨주고, 처리 결과를 가져옴 */
+		int result = model.deleteGarage(garageId);
+		/* 처리 결과에 맞게 뷰에서 상태 출력 */
+		if (result == 1) {
+			JOptionPane.showMessageDialog(btnNewButton_1_3_1, "삭제 완료");
+			printdata();
+			garageid.setText("");
+		}else {
+			JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID를 입력해주세요.");
+			//ystem.out.println("실패");
+		}
+	}
+/* 사용자 입력으로부터 데이터를 가져와서 데이터 클래스에 저장 */
+	public GarageInfo getGarageInput() {
+		GarageInfo garage = new GarageInfo();
+		garage.name = name.getText();
+		garage.address = address.getText();
+		garage.number = number.getText();
+		garage.manager = gmanager.getText();
+		garage.emailAddress = emailaddress.getText();
+		garage.garageId = garageid.getText();
+		return garage;
 	}
 }
-
-
