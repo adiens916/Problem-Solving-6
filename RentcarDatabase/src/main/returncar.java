@@ -1,5 +1,8 @@
 package main;
 
+import model.ReturnModel;
+import view.CarStateInReturn;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -133,55 +136,12 @@ public class returncar extends JFrame {
 		returnbtn = new JButton("반환");
 		returnbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				try {
-					String front1 = front.getText();
-					String right1 = right.getText();
-					String left1 = left.getText();
-					String back1 = back.getText();
-					String fix1 = fix.getText();
-					String cpid1 = cpid.getText();
-					
-					stmt = con.createStatement();
-					stmt2 = con.createStatement();
-					stmt4 = con.createStatement();
-					String query2=" select * from customer_rent_list where campingcar_id='"+cpid1+"'";
-					rs2 = stmt2.executeQuery(query2);
-					String rent_id = null;
-					String a1=null;
-					String a2=null;
-					String a3=null;
-					String a4=null;
-					String a5=null;
-					String a6=null;
-					String a7=null;
-					String a8=null;
-					String a9=null;
-					if(rs2.next()) {
-						rent_id = rs2.getString(1);
-						a1 = rs2.getString(2);a2 = rs2.getString(3);a3 = rs2.getString(4);
-						a4 = rs2.getString(5);a5 = rs2.getString(6);a6 = rs2.getString(7);
-						a7 = rs2.getString(8);a8 = rs2.getString(9);a9 = rs2.getString(10);
-					}
-					
-					String query="insert into campingcar_return values('"+front1+"','"+right1+"','"+left1+"','"+back1+"','"+fix1+"','"+cpid1+"','"+rent_id+"')";
-					int result = stmt.executeUpdate(query);
-		             if( result ==1 ){
-				            JOptionPane.showMessageDialog(returnbtn, "반환완료");
-				            try {
-				            	String query4="insert into customer_rent_old_list values('"+rent_id+"','"+a1+"','"+a2+"','"+a3+"','"+a4+"','"+a5+"','"+a6+"','"+a7+"','"+a8+"','"+a9+"')";
-								int result4 = stmt4.executeUpdate(query4);
-				    			stmt3 = con.createStatement();
-				    			String query3="DELETE FROM customer_rent_list WHERE rent_id = '"+rent_id+"'and c_license_id='1111111'";
-				    			int result2 = stmt3.executeUpdate(query3);
-				    			
-				    		}catch(Exception e1) {
-				    			System.out.println(e1);
-				    		}
-		             }
-				}catch(Exception e1) {
-					System.out.println(e1);
-					JOptionPane.showMessageDialog(returnbtn, "차의 모든 상태 및 캠핑카ID를 확인해주세요.");
-				}
+				/* 이하 Controller 부분 */
+				/* View에서 사용자 입력 받아옴 */
+				CarStateInReturn state = getCarState();
+				/* 받아온 데이터를 Model에 넘겨서 처리*/
+				ReturnModel model = new ReturnModel();
+				model.returnCar(state);
 			}
 		});
 		returnbtn.setFont(new Font("양재튼튼체B", Font.BOLD, 15));
@@ -204,16 +164,16 @@ public class returncar extends JFrame {
 		cpid.setBounds(247, 266, 55, 21);
 		contentPane.add(cpid);
 	}
-	
-	public void deletedata() {
-		try {
-			stmt = con.createStatement();
-			String cpid1 = cpid.getText();
-			String query="DELETE FROM customer_rent_list WHERE rent_id = '"+cpid1+"'";
-			int result = stmt.executeUpdate(query);
-		}catch(Exception e1) {
-			System.out.println(e1);
-		}
-	}
 
+	/* 사용자 입력란에서 데이터를 읽어와 데이터 클래스에 저장 */
+	private CarStateInReturn getCarState() {
+		CarStateInReturn state = new CarStateInReturn();
+		state.front = front.getText();
+		state.right = right.getText();
+		state.left = left.getText();
+		state.back = back.getText();
+		state.fix = fix.getText();
+		state.carId = cpid.getText();
+		return state;
+	}
 }
