@@ -60,7 +60,7 @@ public class Campingcar extends JFrame implements ActionListener {
 		   Statement stmt,stmt1;
 		   ResultSet rs;
 		   String Driver="";
-		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false"; 
+		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false";
 		   String userid="madang";
 		   String pwd="madang";
 		   private JTextField torepair;

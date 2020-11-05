@@ -78,7 +78,7 @@ public class Customer extends JFrame implements ActionListener{
 		   Statement stmt,stmt2,stmt3;
 		   ResultSet rs,rs2,r3;
 		   String Driver="";
-		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false"; 
+		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false";
 		   String userid="madang";
 		   String pwd="madang";
 		   JButton backbtn;

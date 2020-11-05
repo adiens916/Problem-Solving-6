@@ -62,7 +62,7 @@ public class Customerdata extends JFrame{
 		   Statement stmt,stmt2;
 		   ResultSet rs,rs2;
 		   String Driver="";
-		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false"; 
+		   String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false";
 		   String userid="madang";
 		   String pwd="madang";
 		   private JLabel lblNewLabel_1_1_2;
