@@ -194,7 +194,7 @@ public class returncar extends JFrame {
 		lblNewLabel.setBounds(95, 36, 331, 161);
 		contentPane.add(lblNewLabel);
 		
-		JLabel lblNewLabel_2_1 = new JLabel("\uCEA0\uD551\uCE74ID");
+		JLabel lblNewLabel_2_1 = new JLabel("캠핑카ID");
 		lblNewLabel_2_1.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_2_1.setBounds(174, 268, 67, 21);
 		contentPane.add(lblNewLabel_2_1);

@@ -139,12 +139,12 @@ public class Customer extends JFrame implements ActionListener{
 		rentbtn.setBounds(902, 450, 91, 23);
 		contentPane.add(rentbtn);
 		
-		JLabel lblNewLabel_1 = new JLabel("\uCEA0\uD551\uCE74 LIST");
+		JLabel lblNewLabel_1 = new JLabel("캠핑카 LIST");
 		lblNewLabel_1.setFont(new Font("굴림", Font.BOLD, 20));
 		lblNewLabel_1.setBounds(362, 65, 114, 21);
 		contentPane.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("\uB300\uC5EC \uD604\uD669");
+		JLabel lblNewLabel_1_1 = new JLabel("대여 현황");
 		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 18));
 		lblNewLabel_1_1.setBounds(902, 14, 103, 21);
 		contentPane.add(lblNewLabel_1_1);
@@ -171,67 +171,67 @@ public class Customer extends JFrame implements ActionListener{
 		lblNewLabel_1_1_1.setBounds(844, 192, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1);
 		
-		JLabel lblNewLabel_1_1_2 = new JLabel("\uB300\uC5EC");
+		JLabel lblNewLabel_1_1_2 = new JLabel("대여");
 		lblNewLabel_1_1_2.setFont(new Font("굴림", Font.BOLD, 18));
 		lblNewLabel_1_1_2.setBounds(926, 161, 37, 21);
 		contentPane.add(lblNewLabel_1_1_2);
-		
-		JLabel lblNewLabel_1_1_1_1 = new JLabel("\uB300\uC5EC\uAE30\uAC04");
+
+		JLabel lblNewLabel_1_1_1_1 = new JLabel("대여기간");
 		lblNewLabel_1_1_1_1.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_1_1_1_1.setBounds(844, 312, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_1);
-		
+
 		period = new JTextField();
 		period.setBorder(new EmptyBorder(0, 0, 0, 0));
 		period.setColumns(10);
 		period.setBounds(937, 312, 96, 21);
 		contentPane.add(period);
-		
-		JLabel lblNewLabel_1_1_1_2 = new JLabel("\uBA74\uD5C8\uC99D\uBC88\uD638");
+
+		JLabel lblNewLabel_1_1_1_2 = new JLabel("면허증번호");
 		lblNewLabel_1_1_1_2.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_1_1_1_2.setBounds(844, 234, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_2);
-		
+
 		license_id = new JTextField();
 		license_id.setBorder(new EmptyBorder(0, 0, 0, 0));
 		license_id.setColumns(10);
 		license_id.setBounds(937, 234, 96, 21);
 		contentPane.add(license_id);
-		
-		JLabel lblNewLabel_1_1_1_3 = new JLabel("\uB300\uC5EC\uC2DC\uC791\uC77C");
+
+		JLabel lblNewLabel_1_1_1_3 = new JLabel("대여시작일");
 		lblNewLabel_1_1_1_3.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_1_1_1_3.setBounds(844, 274, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_3);
-		
+
 		start = new JTextField();
 		start.setBorder(new EmptyBorder(0, 0, 0, 0));
 		start.setColumns(10);
 		start.setBounds(937, 274, 96, 21);
 		contentPane.add(start);
-		
-		JLabel lblNewLabel_1_1_1_3_1 = new JLabel("\uBB3C\uD488\uAE08\uC561");
+
+		JLabel lblNewLabel_1_1_1_3_1 = new JLabel("물품금액");
 		lblNewLabel_1_1_1_3_1.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_1_1_1_3_1.setBounds(844, 417, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_3_1);
-		
+
 		addprice = new JTextField();
 		addprice.setBorder(new EmptyBorder(0, 0, 0, 0));
 		addprice.setColumns(10);
 		addprice.setBounds(937, 418, 96, 21);
 		contentPane.add(addprice);
-		
-		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("\uCD94\uAC00\uBB3C\uD488");
+
+		JLabel lblNewLabel_1_1_1_1_1 = new JLabel("추가물품");
 		lblNewLabel_1_1_1_1_1.setFont(new Font("굴림", Font.BOLD, 14));
 		lblNewLabel_1_1_1_1_1.setBounds(844, 386, 81, 21);
 		contentPane.add(lblNewLabel_1_1_1_1_1);
-		
+
 		add = new JTextField();
 		add.setBorder(new EmptyBorder(0, 0, 0, 0));
 		add.setColumns(10);
 		add.setBounds(937, 386, 96, 21);
 		contentPane.add(add);
-		
-		JLabel duedateerer = new JLabel("\uB0A9\uC785\uAE30\uD55C");
+
+		JLabel duedateerer = new JLabel("납입기한");
 		duedateerer.setFont(new Font("굴림", Font.BOLD, 14));
 		duedateerer.setBounds(844, 351, 81, 21);
 		contentPane.add(duedateerer);

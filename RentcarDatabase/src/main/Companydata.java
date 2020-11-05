@@ -303,7 +303,7 @@ public class Companydata extends JFrame{
 		btnNewButton_1_3_2.setBounds(42, 322, 70, 29);
 		panel.add(btnNewButton_1_3_2);
 		
-		lblNewLabel = new JLabel("\uD68C\uC0ACID \uAC80\uC0C9\uD6C4 \uC218\uC815,\uC0AD\uC81C\uD558\uC2DC\uBA74 \uB354 \uD3B8\uB9AC\uD569\uB2C8\uB2E4.");
+		lblNewLabel = new JLabel("회사ID 검색후 수정,삭제하시면 더 편리합니다.");
 		lblNewLabel.setBounds(389, 49, 256, 15);
 		panel.add(lblNewLabel);
 		
