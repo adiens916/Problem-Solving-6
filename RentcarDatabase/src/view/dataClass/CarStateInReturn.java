@@ -1,4 +1,4 @@
-package view;
+package view.dataClass;
 
 public class CarStateInReturn {
     public String front;

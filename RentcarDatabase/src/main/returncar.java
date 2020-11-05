@@ -1,9 +1,8 @@
 package main;
 
 import model.ReturnModel;
-import view.CarStateInReturn;
+import view.dataClass.CarStateInReturn;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Image;
 
@@ -12,7 +11,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JTextField;

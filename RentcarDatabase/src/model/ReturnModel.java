@@ -1,6 +1,6 @@
 package model;
 
-import view.CarStateInReturn;
+import view.dataClass.CarStateInReturn;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
