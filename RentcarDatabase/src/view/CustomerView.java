@@ -1,4 +1,4 @@
-package view;
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -59,7 +59,8 @@ public class CustomerView extends JFrame implements ActionListener{
 	
     JTextField period,license_id,start,addprice,add,duedate,cplist_id;
 	JButton btn_Rent,btn_Back,btn_Refresh;
-	JRadioButton ra1,ra2,ra3,ra4,ra5,ra6;
+	JRadioButton raCampingcarID,raCarname,raLeastpeople,
+				 raMfCompany,raMaxdistance,raMaxrentalfare;
 		
 	public CustomerView() {
 		setTitle("캠핑카프로젝트 리팩토링");
@@ -202,45 +203,45 @@ public class CustomerView extends JFrame implements ActionListener{
 		carsearch.setColumns(10);
 		carsearch.setBounds(328, 125, 91, 21);
 		contentPane.add(carsearch);
+
+		raCampingcarID = new JRadioButton("캠핑카ID");
+		raCampingcarID.setBackground(SystemColor.menu);
+		raCampingcarID.setBounds(138, 92, 81, 23);
+		contentPane.add(raCampingcarID);
 		
-		ra1 = new JRadioButton("캠핑카ID");
-		ra1.setBackground(SystemColor.menu);
-		ra1.setBounds(138, 92, 81, 23);
+		raCarname = new JRadioButton("차명");
+		raCarname.setBackground(SystemColor.menu);
+		raCarname.setBounds(217, 92, 53, 23);
+		contentPane.add(raCarname);
 		
-		ra2 = new JRadioButton("차명");
-		ra2.setBackground(SystemColor.menu);
-		ra2.setBounds(217, 92, 53, 23);
+		raLeastpeople = new JRadioButton("최소승차인원");
+		raLeastpeople.setBackground(SystemColor.menu);
+		raLeastpeople.setBounds(270, 92, 101, 23);
+		contentPane.add(raLeastpeople);
 		
-		ra3 = new JRadioButton("최소승차인원");
-		ra3.setBackground(SystemColor.menu);
-		ra3.setBounds(270, 92, 101, 23);
-		contentPane.add(ra3);
+		raMfCompany = new JRadioButton("제조회사");
+		raMfCompany.setBackground(SystemColor.menu);
+		raMfCompany.setBounds(371, 92, 80, 23);
+		contentPane.add(raMfCompany);
 		
-		ra4 = new JRadioButton("제조회사");
-		ra4.setBackground(SystemColor.menu);
-		ra4.setBounds(371, 92, 80, 23);
-		contentPane.add(ra4);
+		raMaxdistance = new JRadioButton("최대주행거리");
+		raMaxdistance.setBackground(SystemColor.menu);
+		raMaxdistance.setBounds(446, 92, 101, 23);
+		contentPane.add(raMaxdistance);
 		
-		ra5 = new JRadioButton("최대주행거리");
-		ra5.setBackground(SystemColor.menu);
-		ra5.setBounds(446, 92, 101, 23);
-		contentPane.add(ra5);
+		raMaxrentalfare = new JRadioButton("최대대여비용(단위:만원)");
+		raMaxrentalfare.setBackground(SystemColor.menu);
+		raMaxrentalfare.setBounds(543, 92, 160, 23);
+		contentPane.add(raMaxrentalfare);
 		
-		ra6 = new JRadioButton("최대대여비용(단위:만원)");
-		ra6.setBackground(SystemColor.menu);
-		ra6.setBounds(543, 92, 160, 23);
-		contentPane.add(ra6);
-		
-		contentPane.add(ra1);
-		contentPane.add(ra2);
 		
 		ButtonGroup bg = new ButtonGroup();
-		bg.add(ra1);
-		bg.add(ra2);
-		bg.add(ra3);
-		bg.add(ra4);
-		bg.add(ra5);
-		bg.add(ra6);
+		bg.add(raCampingcarID);
+		bg.add(raCarname);
+		bg.add(raLeastpeople);
+		bg.add(raMfCompany);
+		bg.add(raMaxdistance);
+		bg.add(raMaxrentalfare);
 		
 		JButton carserchbtn = new JButton("검색");
 		carserchbtn.setBorder(new EmptyBorder(0, 0, 0, 0));
