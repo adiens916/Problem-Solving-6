@@ -18,7 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import model.DataModel_CampingCar;
-import view.dataClass.CampingCarInfo;
+import controller.dataClass.CampingCarInfo;
 
 
 public class Campingcardata extends JFrame{

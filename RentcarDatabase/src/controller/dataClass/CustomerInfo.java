@@ -1,4 +1,4 @@
-package view.dataClass;
+package controller.dataClass;
 
 public class CustomerInfo {
     public String name;

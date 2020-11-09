@@ -1,15 +1,11 @@
 package model;
 
-import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
 
 import view.AdminView;
-import view.dataClass.AdminInfo;
+import controller.dataClass.AdminInfo;
 
 public class AdminModel {
 	// ConnectToDatabase 클래스에서 데이터베이스와 연결해주는 메소드(conDB)를 가져온다.

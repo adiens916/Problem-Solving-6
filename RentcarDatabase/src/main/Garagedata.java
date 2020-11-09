@@ -1,7 +1,7 @@
 package main;
 
 import model.DataModel_Garage;
-import view.dataClass.GarageInfo;
+import controller.dataClass.GarageInfo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;

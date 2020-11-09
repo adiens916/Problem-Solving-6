@@ -1,4 +1,4 @@
-package view.dataClass;
+package controller.dataClass;
 
 public class CampingCarInfo {
     public String id;

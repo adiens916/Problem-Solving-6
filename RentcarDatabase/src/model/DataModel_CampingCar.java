@@ -1,6 +1,6 @@
 package model;
 
-import view.dataClass.CampingCarInfo;
+import controller.dataClass.CampingCarInfo;
 
 import java.sql.*;
 import java.util.ArrayList;

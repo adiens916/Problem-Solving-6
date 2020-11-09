@@ -1,7 +1,7 @@
 package main;
 
 import model.ReturnModel;
-import view.dataClass.CarStateInReturn;
+import controller.dataClass.ReturnInfo;
 
 import java.awt.EventQueue;
 import java.awt.Image;
@@ -136,7 +136,7 @@ public class returncar extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				/* 이하 Controller 부분 */
 				/* View에서 사용자 입력 받아옴 */
-				CarStateInReturn state = getCarState();
+				ReturnInfo state = getCarState();
 				/* 받아온 데이터를 Model에 넘겨서 처리*/
 				ReturnModel model = new ReturnModel();
 				model.returnCar(state);
@@ -164,8 +164,8 @@ public class returncar extends JFrame {
 	}
 
 	/* 사용자 입력란에서 데이터를 읽어와 데이터 클래스에 저장 */
-	private CarStateInReturn getCarState() {
-		CarStateInReturn state = new CarStateInReturn();
+	private ReturnInfo getCarState() {
+		ReturnInfo state = new ReturnInfo();
 		state.front = front.getText();
 		state.right = right.getText();
 		state.left = left.getText();

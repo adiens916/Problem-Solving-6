@@ -1,6 +1,6 @@
 package model;
 
-import view.dataClass.CarStateInReturn;
+import controller.dataClass.ReturnInfo;
 
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -43,7 +43,7 @@ public class ReturnModel {
         conDB();
     }
 
-    public void returnCar(CarStateInReturn state) {
+    public void returnCar(ReturnInfo state) {
         try {
             stmt = con.createStatement();
             stmt2 = con.createStatement();
