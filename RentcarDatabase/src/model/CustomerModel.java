@@ -1,5 +1,6 @@
 package model;
 
+import Controller.dataClass.RentInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -194,7 +195,6 @@ public class CustomerModel {
 		} catch (Exception e1) {
 			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 최대대여비용 SQL 에러 in CustomerModel" + e1);
 		}
-
 		return CampingCar_List;
 	}
 
@@ -221,16 +221,17 @@ public class CustomerModel {
 		return Rented_CampingCar_List;
 	}
 
-	public int Rent_CampingCar(String CampingCar_ID, String Customer_License, String Rent_Start_Date,
-			String Rent_Period, String Rent_End_Date, String Extra_Goods, String Extra_Goods_Price) {
+	public int Rent_CampingCar(RentInfo rent) {
 		// 캠핑카를 대여하는 기능 -> 원하는 캠핑카를 대여했다 가정하고, 캠핑카 대여 현황 리스트에 Insert한다.
 		// 인자로 7개의 String을 받는데, 이는 Insert Query에 삽입할 Values로 쓰인다.
+		// String CampingCar_ID, String Customer_License, String Rent_Start_Date,
+		// String Rent_Period, String Rent_End_Date, String Extra_Goods, String Extra_Goods_Price
 		int Rent_Check = 0;
 		
 		try {
 			stmt = con.createStatement();
 			String Select_Query = "SELECT cc_rent_price,camping_rent_company_id FROM rentcar_list where rent_id='"
-					+ CampingCar_ID + "'";
+					+ rent.campingCarID + "'";
 			rs = stmt.executeQuery(Select_Query);
 
 			// 단, 여기서 CampingCar_CompanyID와 CampingCar_Price는 함수 인자로 넘겨받지 않고 (뷰에서 입력받지 않고)
@@ -246,16 +247,15 @@ public class CustomerModel {
 			try {
 				stmt2 = con.createStatement();
 				String Insert_Query = "INSERT INTO customer_rent_list(start_date,rent_time,due_date,otherthing,others_price,campingcar_company_id,c_license_id,campingcar_id,cc_price)"
-						+ " VALUES('" + Rent_Start_Date + "','" + Rent_Period + "','" + Rent_End_Date + "','" + Extra_Goods
-						+ "','" + Extra_Goods_Price + "','" + CampingCar_CompanyID + "','" + Customer_License + "','"
-						+ CampingCar_ID + "','" + CampingCar_Price + "')";
+						+ " VALUES('" + rent.rentStartDate + "','" + rent.rentPeriod + "','" + rent.rentEndDate + "','" + rent.extraGoods
+						+ "','" + rent.extraGoodsPrice + "','" + CampingCar_CompanyID + "','" + rent.license + "','"
+						+ rent.campingCarID + "','" + CampingCar_Price + "')";
 				int Check_Insert = stmt.executeUpdate(Insert_Query);
 				// 대여 현황 리스트에 Insert가 제대로 되었다면, 대여 가능 리스트에서 해당 차의 행을 지워준다.
 				if (Check_Insert == 1) {
 					try {
 						stmt3 = con.createStatement();
-						String Delete_Query = "DELETE FROM customer_rent_list WHERE rent_id = '" + CampingCar_CompanyID
-								+ "'";
+						String Delete_Query = "DELETE FROM rentcar_list WHERE rent_id = '" + rent.campingCarID + "'";
 						int Check_Delete = stmt.executeUpdate(Delete_Query);
 						// 마지막 Delete까지 완료되었으면, Rent_Check를 1로 바꿔줌.
 						if(Check_Delete == 1) Rent_Check=1;
@@ -268,6 +268,9 @@ public class CustomerModel {
 			}			
 
 		} catch (Exception e1) {
+			if(rent.isNull()) {
+				System.out.println("대여할 캠핑카 정보를 모두다 입력해주세요.");
+			}
 			System.out.println("캠핑카 대여 SQL 에러 (SELECT) in CustomerModel" + e1);
 		}
 		
@@ -295,8 +298,17 @@ public class CustomerModel {
 		}*/
 		
 		// Rent_CampingCar 테스트 -> 되는것으로 확인됨.
-		//int Rent_Check = cm.Rent_CampingCar("1", "1023454", "2020-11-06", "3", "2020-11-09", "tissue", "1000");
-		//if(Rent_Check==1) System.out.println("대여 성공");
+		/*ArrayList<String> campingCar_Info = new ArrayList<>();
+		campingCar_Info.add("2020-11-06");
+		campingCar_Info.add("3");
+		campingCar_Info.add("2020-11-09");
+		campingCar_Info.add("tissue");
+		campingCar_Info.add("1000");
+		campingCar_Info.add("1023454");
+		campingCar_Info.add("1");
+		int Rent_Check = cm.Rent_CampingCar(campingCar_Info);
+		if(Rent_Check==1) System.out.println("대여 성공");*/
+	
 		
 		// 조건 검색 1~6 테스트.
 		
