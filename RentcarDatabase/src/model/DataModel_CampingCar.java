@@ -7,33 +7,9 @@ import java.util.ArrayList;
 
 public class DataModel_CampingCar {
     // SQL 연결
-    static Connection con;
+    private final Connection con = DatabaseConnector.connection;
     Statement stmt,stmt2;
     ResultSet rs2;
-    String Driver="";
-    String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false";
-    String userid="madang";
-    String pwd="madang";
-
-    public DataModel_CampingCar() {
-        conDB();
-    }
-
-    public void conDB() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //System.out.println("드라이버 로드 성공");
-        } catch(ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            //System.out.println("데이터베이스 연결 준비...");
-            con= DriverManager.getConnection(url, userid, pwd);
-            // System.out.println("데이터베이스 연결 성공");
-        } catch(SQLException e1) {
-            e1.printStackTrace();
-        }
-    }
 
 /* [모델] 현재 등록된 캠핑카들의 리스트를 만들어 반환 */
     public ArrayList<CampingCarInfo> getCampingCarList() {
@@ -73,7 +49,7 @@ public class DataModel_CampingCar {
             return stmt.executeUpdate(query);
         }catch(Exception e1) {
 /* 데이터 중 하나라도 비어있던 경우 */
-            if(isNull(campingCar)) {
+            if(campingCar.isNull()) {
 /* 다른 상황을 알려주는 결과값을 반환
 * (!) 분류 숫자 대신 다른 방법 써야 함 */
                 return 2;
@@ -119,7 +95,7 @@ public class DataModel_CampingCar {
             return stmt.executeUpdate(query);
         }catch(Exception e1) {
 /* 데이터가 비어있던 경우의 상태 */
-            if(isNull(campingCar)) {
+            if(campingCar.isNull()) {
                 return 2;
             }
             System.err.println(e1);
@@ -167,18 +143,5 @@ public class DataModel_CampingCar {
             System.out.println(e1);
         }
         return campingCar;
-    }
-
-/* 캠핑카 데이터 클래스에 빈 값이 들어 있는지 확인 */
-    private boolean isNull(CampingCarInfo campingCar) {
-        return campingCar.name.length() == 0 ||
-                campingCar.number.length() == 0 ||
-                campingCar.seats.length() == 0 ||
-                campingCar.manufacturer.length() == 0 ||
-                campingCar.builtDate.length() == 0 ||
-                campingCar.mileage.length() == 0 ||
-                campingCar.rentalFee.length() == 0 ||
-                campingCar.registryDate.length() == 0 ||
-                campingCar.companyId.length() == 0;
     }
 }
