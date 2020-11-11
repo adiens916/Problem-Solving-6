@@ -1,307 +1,227 @@
 package model;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-
-import view.AdminView;
+import java.util.ArrayList;
+import View.AdminView;
 import controller.dataClass.AdminInfo;
+import controller.dataClass.GarageInfo;
 
 public class AdminModel {
-	// ConnectToDatabase 클래스에서 데이터베이스와 연결해주는 메소드(conDB)를 가져온다.
-	private Connection con = DatabaseConnector.connection;
-	//AdminView에서 입력받은 데이터를 가져오기 위한 객체
-	 AdminView adminInfo = new AdminView();
+	public AdminModel() {
+		ConnectToDB.conDB(); //DB연결
+	 }
 	 Statement stmt;
 	 ResultSet rs;
-	 //데이터베이스로부터 끌어온 데이터들을 출력해주기 위한 객체
-	 StringBuilder results = new StringBuilder();
-	 //데이터베이스에 Insert후 성공여부를 알기위한 변수
 	 int result;
-
-
-	 //관리자 페이지 오픈과 동시에 고객이 캠핑카를 반환할 때 캠핑카의 상태를 출력하기 위한 메소드
-	 public String printCampincarreturn(){
+	 public ArrayList<AdminInfo> getCampingCarReturnList(){
 		 try {
-			results.append("앞쪽 \t 오른쪽 \t 왼쪽 \t 뒤쪽 \t 수리여부 \t 캠핑카ID \t 고유대여ID\n");
-			stmt = con.createStatement();
-			String query="SELECT * FROM campingcar_return;";
-			rs = stmt.executeQuery(query);
-             while(rs.next()) {
-                String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\t" + rs.getString(7)+"\n";
-                results.append(str);
-             }
-		}catch(Exception e1) {
-			System.out.println("에러 내용:"+e1);
+				stmt = ConnectToDB.con.createStatement();
+				String query="SELECT * FROM campingcar_return;";
+				rs = stmt.executeQuery(query);
+				ArrayList<AdminInfo> adminList = new ArrayList<>();
+				while(rs.next()) {
+					AdminInfo admin = new AdminInfo(); 
+	            	 admin.front = rs.getString(1);
+	            	 admin.right = rs.getString(2);
+	            	 admin.left = rs.getString(3);
+	            	 admin.back = rs.getString(4);
+	            	 admin.repairListFixDate = rs.getString(5);
+	            	 admin.campingcarId = rs.getString(6);
+	            	 admin.rentId = rs.getString(7);
+	            	 adminList.add(admin);
+	             }
+	             return adminList;
+			}catch(Exception e1) {
+				System.out.println(e1);
+				return null;
+			}
+		
+	 }
+	 
+	 public ArrayList<GarageInfo> getGarageList() {
+	        try {
+	            stmt = ConnectToDB.con.createStatement();
+	            String query2=" select * from garage"; /* SQL 문 */
+	            rs = stmt.executeQuery(query2);
+
+	            ArrayList<GarageInfo> garageList = new ArrayList<>();
+	            while(rs.next()) {
+	                GarageInfo garage = new GarageInfo();
+	                garage.id = Integer.toString(rs.getInt(1));
+	                garage.name = rs.getString(2);
+	                garage.address = rs.getString(3);
+	                garage.number = rs.getString(4);
+	                garage.manager = rs.getString(5);
+	                garage.emailAddress = rs.getString(6);
+	                garageList.add(garage);
+	            }
+	            return garageList;
+	        }catch(Exception e1) {
+	            System.out.println(e1);
+	            return null;
+	        }
+	    }
+	 
+	 
+	
+	//입력한 데이터를 공백으로 만들기 위한 메소드
+	 public void dataReset(AdminView adminViewData) {
+		adminViewData.torepair.setText("");
+		adminViewData.garageId.setText("");
+		adminViewData.repairListLog.setText("");
+		adminViewData.repairListFixDate.setText("");
+		adminViewData.repairListprice.setText("");
+		adminViewData.repairListDuedate.setText("");
+		adminViewData.repairListOtherInfo.setText("");
+	}
+	
+	
+	public int InsetToGarage(ArrayList<AdminInfo> adminData) {
+		String fixTest = null;
+		String rentId=null;
+		String lisenceId = null;
+		String companyId = null;
+		
+		//View로부터 입력받은 데이터값 받아오기
+		AdminInfo admin = new AdminInfo();
+		for(AdminInfo i : adminData) {
+			admin.garageId = i.garageId;
+			admin.torepair = i.torepair;
+       	 	admin.repairListDuedate = i.repairListDuedate;
+       	 	admin.repairListFixDate = i.repairListFixDate;
+       	 	admin.repairListLog = i.repairListLog;
+       	 	admin.repairListOtherInfo = i.repairListOtherInfo;
+       	 	admin.repairListprice = i.repairListprice;
 		}
-		return results.toString();
-	}
-	//AdminView에서 우측하단에 차고지현황에 대한 리스트를 출력하기 위한 메소드
-	public String printGarageResult(){
+		
 		try {
-			results.append("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-			stmt = con.createStatement();
-			String query="SELECT * FROM garage;";
-			rs = stmt.executeQuery(query);
-             while(rs.next()) {
-               String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
-                +  "\t" + rs.getString(5)+ "\t" + rs.getString(6)+"\n";
-               results.append(str);
-             }
-		}catch(Exception e1) {
-			System.out.println(e1);
-		}
-		return results.toString();
-	}
-	//입력한 데이터를 초기화시켜주기 위한 메소드
-	public void datareset() {
-		/*컨트롤러에서 받아야되는 객체
-		1. AdminView에서 정비소로 보내는 JTextField 객체 가져오기
-		admin.rlog.setText("");
-		rfixdate.setText("");
-		rprice.setText("");
-		rduedate.setText("");
-		rotherinfo.setText("");
-		grgid.setText("");
-		torepair.setText("");
-		*/
-	}
-	/*AdminView에서 입력받은 캠핑카ID, 정비소ID, 정비내역, 수리날짜, 수리비용, 납입기한, 기타내역정보을 "repair_list"테이블에 insert해주기 위한 메소드
-	  - 입력받은 정보로부터 capingcar_return 테이블에서 수리여부 변수로 1이면 정비소로보내고 0이면 수리필요없다는 메세지를 띄워준다.
-	  - 수리가 필요하다면 AdminView로부터 입력받은 정보들과 customer_rent_old_list테이블에서 받아온 운전면허번호화 캠핑카등록id를 repair_list에 insert해준다.
-	*/
-	public void InsetToGarage(AdminInfo admin) {
-		/*컨트롤러에서 받아야되는 객체
-		 * 1. "정비소로보내기"버튼 grgbtn 객체
-		*/
-		try {
-			stmt = con.createStatement();
-			String query = "select fix, custom_rent_list_id from campingcar_return where campingcar_list_id='"+admin.cpcid+"'";
+			stmt = ConnectToDB.con.createStatement();
+			String query = "select fix, custom_rent_list_id from campingcar_return where campingcar_list_id='"+admin.torepair+"'";
 			rs = stmt.executeQuery(query);
 			if(rs.next()) {
-				admin.fixtest = rs.getString(1);
-				admin.rent_id = rs.getString(2);
+				fixTest = rs.getString(1);
+				rentId = rs.getString(2);
 			}
-
-
-			stmt = con.createStatement();
-			query = "select c_license_id,campingcar_company_id from customer_rent_old_list where rent_id='"+admin.rent_id+"';";
+			stmt = ConnectToDB.con.createStatement();
+			query = "select c_license_id,campingcar_company_id from customer_rent_old_list where rent_id='"+rentId+"';";
 			rs = stmt.executeQuery(query);
 			if(rs.next()) {
-				admin.lisenceid = rs.getString(1);
-				admin.companyid = rs.getString(2);
-			}
-
-
-			if(admin.fixtest.equals("1")) { //수리할때
-				stmt = con.createStatement();
+				lisenceId = rs.getString(1);
+				companyId = rs.getString(2);
+			}		    		
+			if(fixTest.equals("1")) { //수리할때
+				stmt = ConnectToDB.con.createStatement();
 				query = "insert into repair_list(r_log,r_date,r_price,r_due_date,r_other_repair,customer_license_id,campingcar_rent_company_id,garage_id,campingcar_list_id) "
-						+ "values('"+admin.r_log+"','"+admin.r_date+"','"+admin.r_price+"','"+admin.r_duedate+"'"
-						+ ",'"+admin.r_otherinfo+"','"+admin.lisenceid+"','"+admin.companyid+"','"+admin.grg_id+"'"
-						+ ",'"+admin.cpcid+"');";
+						+ "values('"+admin.repairListLog
+						+"','"+admin.repairListFixDate
+						+"','"+admin.repairListprice
+						+"','"+admin.repairListDuedate
+						+"','"+admin.repairListOtherInfo
+						+"','"+lisenceId
+						+"','"+companyId
+						+"','"+admin.garageId
+						+"','"+admin.torepair
+						+"');";
 				int result = stmt.executeUpdate(query);
-
-				stmt = con.createStatement();
-				query="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+admin.cpcid+"'";
+				stmt = ConnectToDB.con.createStatement();
+				query="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+admin.torepair+"'";
 				int result1 = stmt.executeUpdate(query);
 				if(result == 1 && result1==1) {
-					//JOptionPane.showMessageDialog(grgbtn, "수리처리 완료되었습니다.");
-					//datareset();
-					//returnresult();
-					//datareset();
+					getCampingCarReturnList();
+					return 1;
 				}
-			}else if(admin.fixtest.equals("0")) {//수리필요없을때
-				//JOptionPane.showMessageDialog(grgbtn, "수리할필요없습니다. 반환하세요.");
+			}else if(fixTest.equals("0")) {//수리필요없을 때
+				return 0;
 			}
-
-
 		}catch(Exception e1) {
-			if(admin.r_log.length()==0||admin.r_date.length()==0||admin.r_price.length()==0||
-				admin.r_duedate.length()==0||admin.r_otherinfo.length()==0||admin.grg_id.length()==0||
-				admin.cpcid.length()==0) {
-				//JOptionPane.showMessageDialog(grgbtn, "빈칸을 모두 채워주세요!");
+			if(admin.isNull(adminData)) {//모든 칸이 입력이 되지 않았을 때
+				return 2;
 			}
+			return 0;
 		}
+		return result;
 	}
-
+	
 	/*
 	 * 정비소로 보내지 않고 반환하기
 	 * - 먼저 수리여부 변수가 1인지 0인지 판단(0이면 반환)
 	 * - 반환을 하면 다른 사람이 사용할 수 있도록 rent_list테이블에 반환하는 캠핑카의 정보가 들어가 있어야한다.
 	 * - 입력받은 정보로부터 repair_list가 아닌 rentcar_list에 insert해준다.
 	 */
-	public void ReturnToCampingcarList(AdminInfo admin) {
-		/*컨트롤러에서 받아야되는 객체
-		 * 1. "반환하기"버튼 toreturnbtn 객체
-		*/
-		String cpcid = admin.torepair;
+	public int ReturnToCampingcarList(String cpcid) {
 		try {
-		stmt = con.createStatement();
+		stmt = ConnectToDB.con.createStatement();
 		String fixtest = null;
 		String query = "select fix from campingcar_return where campingcar_list_id='"+cpcid+"'";
 		rs = stmt.executeQuery(query);
-		if(rs.next()) {fixtest = rs.getString(1);}
-
-
+		if(rs.next()) {fixtest = rs.getString(1);}		
+		
+		
 		query="select * from campingcar_list where campingcar_list_id='"+cpcid+"'";
 		rs = stmt.executeQuery(query);
-		String cc_name=null;
-		String cc_number=null;
-		String cc_sits=null;
-		String cc_manufacutre=null;
-		String cc_manufacture_year=null;
-		String cc_mileage=null;
-		String cc_rent_price = null;
-		String cc_regitst_date =null;
-		String campingcar_rent_company_id=null;
+		
+		AdminInfo admin = new AdminInfo();
          if(rs.next()) {
-        	 cc_name = rs.getString(2);
-        	 cc_number =rs.getString(3);
-        	 cc_sits =rs.getString(4);
-        	 cc_manufacutre =rs.getString(5);
-        	 cc_manufacture_year =rs.getString(6);
-        	 cc_mileage =rs.getString(7);
-        	 cc_rent_price =rs.getString(8);
-        	 cc_regitst_date =rs.getString(9);
-        	 campingcar_rent_company_id =rs.getString(10);
+        	 admin.campingCarName = rs.getString(2);
+        	 admin.campingCarNumber =rs.getString(3);
+        	 admin.campingCarSits =rs.getString(4);
+        	 admin.campingCarManufacutre =rs.getString(5);
+        	 admin.campingCarManufactureYear =rs.getString(6);
+        	 admin.campingCarMileage =rs.getString(7);
+        	 admin.campingCarRentprice =rs.getString(8);
+        	 admin.campingCarRegitstdate =rs.getString(9);
+        	 admin.campingCarRentCompanyId =rs.getString(10);
          }
-
+         
         	  if(fixtest.equals("1")) {
-        		 // JOptionPane.showMessageDialog(toreturnbtn, "수리가필요한 캠핑카입니다.");
+        		  return 1;
         	  }else if(fixtest.equals("0")) {//반환하기!
         		  query="insert into rentcar_list values"
-        				  + "('"+cpcid+"','"+cc_name+"','"+cc_number+"','"+cc_sits+"',"
-           				+ "'"+cc_manufacutre+"','"+cc_manufacture_year+"','"+
-           				cc_mileage+"','"+cc_rent_price+"','"+cc_regitst_date+"','"+
-           				campingcar_rent_company_id+"');";
+        				  + "('"+cpcid+"','"
+        				  +admin.campingCarName+
+        				  "','"+admin.campingCarNumber
+        				  +"','"+admin.campingCarSits
+        				  +"','"+admin.campingCarManufacutre
+        				  +"','"+admin.campingCarManufactureYear
+        				  +"','"+admin.campingCarMileage
+        				  +"','"+admin.campingCarRentprice
+        				  +"','"+admin.campingCarRegitstdate
+        				  +"','"+admin.campingCarRentCompanyId+"');";
   	 			result = stmt.executeUpdate(query);
   				query="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+cpcid+"'";
   				result = stmt.executeUpdate(query);
-
-  				//JOptionPane.showMessageDialog(toreturnbtn, "반환 완료!");
-        		//returnresult();
+  				//getCampingCarReturnList();
+  				return 2;
         	  }
 		}catch(Exception e1) {
 			if(cpcid.length()==0) {
-				//JOptionPane.showMessageDialog(grgbtn, "캠핑카ID를 입력해주세요!");
+				return 3;
 			}
 		}
+		return 0;
 	}
-
-	//검색 1
-	public String Search1() {
-		results.append("검색1 결과\n");
-		try {
-		stmt = con.createStatement();
-		String query = "select c_name\r\n" +
-				"from (select r_price,customer_license_id\r\n" +
-				"   from repair_list\r\n" +
-				"    where r_price >=10) rp,\r\n" +
-				"    customer cs\r\n" +
-				"where cs.license_id=rp.customer_license_id\r\n" +
-				"group by cs.c_name;\r\n" +
-				"";
-		rs = stmt.executeQuery(query);
-		String str =null;
-		int count=1;
-		while(rs.next()) {
-			if(count%5==0) {
-				results.append("\n");
-			}
-			str=count+". " + rs.getString(1) + "\t";
-			results.append(str);
-			count++;
-			}
+	
+	public ArrayList<String> getSearch(int num){
+		 ArrayList<String> search = new ArrayList<>();
+		 try {
+			stmt = ConnectToDB.con.createStatement();
+			String query[] = new String[5];
+			query[1]="select c_name from (select r_price,customer_license_id from repair_list where r_price >=10) rp, customer cs where cs.license_id=rp.customer_license_id group by cs.c_name;";
+			query[2]="select c_name FROM (SELECT cc_price,c_license_id FROM customer_rent_list WHERE  cc_price >= 50) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
+			query[3]="select c_name FROM (SELECT cc_price,c_license_id FROM customer_rent_list WHERE  cc_price >= 50) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
+			query[4]="select g_name from (select cc_manufacture, campingcar_list_id from campingcar_list where cc_manufacture_year >=2000) cl, garage g where g.garage_id = cl.campingcar_list_id group by g.g_name;";
+			rs = stmt.executeQuery(query[num]);
+			int count=1;
+            while(rs.next()) {
+              String str = count+". " + rs.getString(1) + "\t";
+              search.add(str);
+              count++;
+            }
 		}catch(Exception e1) {
-			System.out.println(e1);
+			e1.printStackTrace();
 		}
-
-		return results.toString();
-	}
-	//검색 2
-	public String Search2() {
-		results.append("검색2 결과\n");
-		try {
-		stmt = con.createStatement();
-		String query = "select c_name\r\n" +
-				"FROM    (SELECT  cc_price,c_license_id\r\n" +
-				"    FROM   customer_rent_list\r\n" +
-				"    WHERE  cc_price >= 50) rl,\r\n" +
-				"    customer cs\r\n" +
-				"WHERE    cs.license_id=rl.c_license_id\r\n" +
-				"GROUP BY cs.c_name;\r\n" +
-				"";
-		rs = stmt.executeQuery(query);
-		String str =null;
-		int count=1;
-		while(rs.next()) {
-			if(count%5==0) {
-				results.append("\n");
-			}
-				str=count+". " + rs.getString(1) + "\t";
-				results.append(str);
-				count++;
-			}
-		}catch(Exception e1) {
-			System.out.println(e1);
-		}
-		return results.toString();
-	}
-	//검색 3
-	public String Search3() {
-		results.append("검색3 결과\n");
-		try {
-		stmt = con.createStatement();
-		String query = "select g_name\r\n" +
-				"from (select cc_manufacture, campingcar_list_id\r\n" +
-				"   from campingcar_list\r\n" +
-				"   where cc_manufacture_year >=2000) cl, \r\n" +
-				"    garage g\r\n" +
-				"where g.garage_id = cl.campingcar_list_id\r\n" +
-				"group by g.g_name;";
-		rs = stmt.executeQuery(query);
-		String str =null;
-		int count=1;
-		while(rs.next()) {
-			if(count%5==0) {
-				results.append("\n");
-			}
-			str=count+". " + rs.getString(1) + "\t";
-			results.append(str);
-			count++;
-			}
-		}catch(Exception e1) {
-			System.out.println(e1);
-		}
-			return results.toString();
-		}
-	//검색 4
-	public String Search4() {
-		results.append("검색4 결과\n");
-		try {
-		stmt = con.createStatement();
-		String query = "select c_name\r\n" +
-				"FROM    (SELECT  rent_time,c_license_id\r\n" +
-				"    FROM   customer_rent_list\r\n" +
-				"    WHERE  rent_time>=10) rl,\r\n" +
-				"    customer cs\r\n" +
-				"WHERE    cs.license_id=rl.c_license_id\r\n" +
-				"GROUP BY cs.c_name;";
-		rs = stmt.executeQuery(query);
-		String str =null;
-		int count=1;
-		while(rs.next()) {
-			if(count%5==0) {
-				results.append("\n");
-			}
-			str=count+". " + rs.getString(1) + "\t";
-			results.append(str);
-			count++;
-			}
-		}catch(Exception e1) {
-			System.out.println(e1);
-		}
-		return results.toString();
-	}
+		return search;
+	 }
+	
 }
