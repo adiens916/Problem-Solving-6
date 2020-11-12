@@ -1,6 +1,6 @@
-package view.dataClass;
+package controller.dataClass;
 
-public class CarStateInReturn {
+public class ReturnInfo {
     public String front;
     public String right;
     public String left;

@@ -1,53 +1,35 @@
-package view;
+package View;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controller.AdminController;
+import controller.dataClass.AdminInfo;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
 import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.ComponentOrientation;
-import java.awt.SystemColor;
-import javax.swing.JTable;
-import javax.swing.JPopupMenu;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
-import java.awt.Point;
 import java.awt.Dimension;
 import java.awt.Insets;
-import javax.swing.JSlider;
-import java.awt.List;
-import javax.swing.JToolBar;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Window.Type;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.CompoundBorder;
 
 public class AdminView extends JFrame implements ActionListener{
+	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -59,19 +41,20 @@ public class AdminView extends JFrame implements ActionListener{
 				}
 			}
 		});
+		
 	}
-	
+		
 	private JPanel contentPane;
-	private JTextField torepair, grgid, rlog,rfixdate,rprice,rduedate,rotherinfo;
+	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepair, garageId;
 	
 	DataView_Company Companyform;
 	DataView_Campingcar Campingcarform;
 	DataView_Customer Customerform;
 	DataView_Garage Garageform;
 	
-	JTextArea returnresulttxt=new JTextArea();
-	JTextArea srchtxt = new JTextArea();
-    JTextArea grgtxt = new JTextArea();
+	public JTextArea campingCarText=new JTextArea();
+	public JTextArea searchText = new JTextArea();
+    public JTextArea garageText = new JTextArea();
 
     JButton backbtn = new JButton("《 뒤로가기");
     JButton resetbtn = new JButton("초기화");
@@ -81,8 +64,18 @@ public class AdminView extends JFrame implements ActionListener{
 	JMenuItem Menu_Customer_Regist,Menu_Customer_Edit,Menu_Customer_Delete;
 	JMenuItem Menu_Garage_Regist,Menu_Garage_Edit,Menu_Garage_Delete;
 	
+	AdminController adminController;
+	
+
+	//------------------------------------------------------------
 	public AdminView() {
 		setTitle("캠핑카프로젝트 - 관리자페이지");
+		
+		//컨트롤러 파트---------------------------------
+		adminController = new AdminController(this);
+		adminController.printCampingCarList();
+		adminController.printGarageList();
+		//------------------------------------------
 		
 		Companyform = new DataView_Company();
 		Companyform.quit.addActionListener(this);
@@ -140,7 +133,7 @@ public class AdminView extends JFrame implements ActionListener{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 41, 586, 200);
 		panel.add(scrollPane);
-		scrollPane.setViewportView(returnresulttxt);
+		scrollPane.setViewportView(campingCarText);
 		
 		//캠핑카 정비소가 출력되는 필드----------------------------------------------------------------------
 		JLabel lblNewLabel_3 = new JLabel("캠핑카정비소 선택");
@@ -150,7 +143,7 @@ public class AdminView extends JFrame implements ActionListener{
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(12, 282, 586, 203);
 		panel.add(scrollPane_1);
-		scrollPane_1.setViewportView(grgtxt);
+		scrollPane_1.setViewportView(garageText);
 		
 //상단바 설정-----------------------------------------------------------------------------------------
 		JMenuBar menuBar = new JMenuBar();
@@ -351,7 +344,8 @@ public class AdminView extends JFrame implements ActionListener{
 		JButton btn1 = new JButton("검색1");
 		btn1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("검색1 결과\n");
+				searchText.setText("검색1 결과\n");
+				adminController.printSearch(1);
 			}
 		});
 		btn1.setBounds(955, 26, 105, 23);
@@ -360,8 +354,8 @@ public class AdminView extends JFrame implements ActionListener{
 		JButton btn2 = new JButton("검색2");
 		btn2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("검색2 결과\n");
-				
+				searchText.setText("검색2 결과\n");
+				adminController.printSearch(2);
 			}
 		});
 		btn2.setBounds(955, 53, 105, 23);
@@ -370,8 +364,8 @@ public class AdminView extends JFrame implements ActionListener{
 		JButton btn3 = new JButton("검색3");
 		btn3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("검색3\n");
-				
+				searchText.setText("검색3\n");
+				adminController.printSearch(3);
 			}
 		});
 		btn3.setBounds(955, 79, 105, 23);
@@ -380,8 +374,8 @@ public class AdminView extends JFrame implements ActionListener{
 		JButton bnt4 = new JButton("검색4");
 		bnt4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				srchtxt.setText("검색4 결과\n");
-				
+				searchText.setText("검색4 결과\n");
+				adminController.printSearch(4);
 			}
 		});
 		bnt4.setBounds(955, 105, 105, 23);
@@ -404,8 +398,8 @@ public class AdminView extends JFrame implements ActionListener{
 		panel.add(search4);
 		
 		//검색결과 출력되는 곳-------------------------------------------------------------------------------
-		srchtxt.setBounds(614, 138, 446, 101);
-		panel.add(srchtxt);
+		searchText.setBounds(614, 138, 446, 101);
+		panel.add(searchText);
 		
 //우측하단 영역 설정-----------------------------------------------------------------------------------------		
 		JLabel lblNewLabel_5 = new JLabel("※ 수리여부가 1인 캠핑카의 고유대여ID와 정비소ID를 입력 후  추가정보를 입력");
@@ -415,7 +409,27 @@ public class AdminView extends JFrame implements ActionListener{
 		JButton grgbtn = new JButton("정비소로보내기");
 		grgbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				ArrayList<AdminInfo> adminData = new ArrayList<>();
+           	 	AdminInfo admin = new AdminInfo();
+           	 	admin.garageId  = garageId.getText();
+           	 	admin.torepair = torepair.getText();
+           	 	admin.repairListDuedate = repairListDuedate.getText();
+           	 	admin.repairListFixDate = repairListFixDate.getText();
+           	 	admin.repairListLog = repairListLog.getText();
+           	 	admin.repairListOtherInfo = repairListOtherInfo.getText();
+           	 	admin.repairListprice = repairListprice.getText();
+           	 	adminData.add(admin);
+           	 	
+				int result = adminController.InsetGarageData(adminData);
+				if(result ==1 ) {
+					JOptionPane.showMessageDialog(grgbtn, "처리 완료");
+					adminController.textFieldReset();
+				}else if(result ==0 ) {
+					JOptionPane.showMessageDialog(grgbtn, "수리할필요없습니다. 반환하세요.");
+				}else if(result ==2 ) {
+					JOptionPane.showMessageDialog(grgbtn, "빈칸을 모두 채워주세요");
+				}
+				System.out.println(result);
 			}
 		});
 		grgbtn.setFont(new Font("굴림", Font.BOLD, 15));
@@ -427,7 +441,11 @@ public class AdminView extends JFrame implements ActionListener{
 		returnbtn.setFont(new Font("굴림", Font.BOLD, 18));
 		returnbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				int result = adminController.ReturnToCampingCarData(torepair.getText());
+				if(result==1) JOptionPane.showMessageDialog(returnbtn, "수리가필요한 캠핑카입니다."); 
+				else if(result==2) JOptionPane.showMessageDialog(returnbtn, "반환 완료!"); 
+				else if(result==3) JOptionPane.showMessageDialog(returnbtn, "캠핑카ID를 입력해주세요!");
+
 			}
 		});
 		returnbtn.setBounds(889, 402, 142, 77);
@@ -449,60 +467,60 @@ public class AdminView extends JFrame implements ActionListener{
 		lblNewLabel_1_5.setBounds(614, 342, 73, 21);
 		panel.add(lblNewLabel_1_5);
 		
-		grgid = new JTextField();
-		grgid.setColumns(10);
-		grgid.setBounds(727, 342, 150, 21);
-		panel.add(grgid);
+		garageId = new JTextField();
+		garageId.setColumns(10);
+		garageId.setBounds(727, 342, 150, 21);
+		panel.add(garageId);
 		
 		JLabel lblNewLabel_1_1 = new JLabel("정비내역");
 		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_1_1.setBounds(614, 364, 73, 21);
 		panel.add(lblNewLabel_1_1);
 		
-		rlog = new JTextField();
-		rlog.setColumns(10);
-		rlog.setBounds(727, 366, 150, 21);
-		panel.add(rlog);
+		repairListLog = new JTextField();
+		repairListLog.setColumns(10);
+		repairListLog.setBounds(727, 366, 150, 21);
+		panel.add(repairListLog);
 		
 		JLabel lblNewLabel_1_1_1 = new JLabel("수리날짜");
 		lblNewLabel_1_1_1.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_1_1_1.setBounds(614, 389, 73, 21);
 		panel.add(lblNewLabel_1_1_1);
 		
-		rfixdate = new JTextField();
-		rfixdate.setColumns(10);
-		rfixdate.setBounds(727, 389, 150, 21);
-		panel.add(rfixdate);
+		repairListFixDate = new JTextField();
+		repairListFixDate.setColumns(10);
+		repairListFixDate.setBounds(727, 389, 150, 21);
+		panel.add(repairListFixDate);
 		
 		JLabel lblNewLabel_1_2 = new JLabel("수리비용");
 		lblNewLabel_1_2.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_1_2.setBounds(614, 413, 73, 21);
 		panel.add(lblNewLabel_1_2);
 		
-		rprice = new JTextField();
-		rprice.setColumns(10);
-		rprice.setBounds(727, 413, 150, 21);
-		panel.add(rprice);
+		repairListprice = new JTextField();
+		repairListprice.setColumns(10);
+		repairListprice.setBounds(727, 413, 150, 21);
+		panel.add(repairListprice);
 		
 		JLabel lblNewLabel_1_3 = new JLabel("납입기한");
 		lblNewLabel_1_3.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_1_3.setBounds(614, 437, 73, 21);
 		panel.add(lblNewLabel_1_3);
 		
-		rduedate = new JTextField();
-		rduedate.setColumns(10);
-		rduedate.setBounds(727, 437, 150, 21);
-		panel.add(rduedate);
+		repairListDuedate = new JTextField();
+		repairListDuedate.setColumns(10);
+		repairListDuedate.setBounds(727, 437, 150, 21);
+		panel.add(repairListDuedate);
 		
 		JLabel lblNewLabel_1_4 = new JLabel("기타내역정보");
 		lblNewLabel_1_4.setFont(new Font("굴림", Font.BOLD, 15));
 		lblNewLabel_1_4.setBounds(614, 461, 101, 21);
 		panel.add(lblNewLabel_1_4);
 		
-		rotherinfo = new JTextField();
-		rotherinfo.setColumns(10);
-		rotherinfo.setBounds(727, 461, 150, 21);
-		panel.add(rotherinfo);
+		repairListOtherInfo = new JTextField();
+		repairListOtherInfo.setColumns(10);
+		repairListOtherInfo.setBounds(727, 461, 150, 21);
+		panel.add(repairListOtherInfo);
 
 		resetbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -512,15 +530,6 @@ public class AdminView extends JFrame implements ActionListener{
 	}
 	
 
-//	public void datareset() {
-//		rlog.setText("");
-//		rfixdate.setText("");
-//		rprice.setText("");
-//		rduedate.setText("");
-//		rotherinfo.setText("");
-//		grgid.setText("");
-//		torepair.setText("");
-//	}
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

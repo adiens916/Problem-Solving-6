@@ -1,7 +1,7 @@
 package main;
 
 import model.DataModel_Garage;
-import view.dataClass.GarageInfo;
+import controller.dataClass.GarageInfo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -22,6 +22,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 
@@ -91,9 +92,18 @@ public class Garagedata extends JFrame{
 		   }
 		public void printdata() {
 			selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-/* 모델에서 결과를 문자열로 처리까지 한 다음, 뷰에서는 처리된 리스트만 가져와서 보여줌 */
-			selectcp.append(model.getGarageList());
-		}	
+			ArrayList<GarageInfo> garageList = model.getGarageList();
+/* 뷰에서는 처리된 리스트만 가져와서 보여줌 */
+			for (GarageInfo garage : garageList) {
+				String str = garage.id + "\t" +
+						garage.name + "\t" +
+						garage.address + "\t" +
+						garage.number + "\t" +
+						garage.manager + "\t" +
+						garage.emailAddress + "\n";
+				selectcp.append(str);
+			}
+		}
 		
 	public Garagedata() {
 		setTitle("17013152 최종혁 -정비소정보 관리페이지");
@@ -277,10 +287,20 @@ public class Garagedata extends JFrame{
 	public void searchGarage() {
 		String id = garageid.getText();
 		selectcp.setText("");
-		selectcp.setText("차고지ID \t 카세턴이름 \t 주소 \t 번호 \t 매니저이름 \n");
+		selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \n");
 		/* 모델에 id를 넘겨주면, 모델에서 id에 해당하는 걸 가져와 돌려 줌 */
-		selectcp.append(model.getGarageById(id));
+		GarageInfo garage = model.searchGarageById(id);
+		selectcp.append(toStringFromGarageInfo(garage));
 	}
+	private String toStringFromGarageInfo(GarageInfo garage) {
+		String str = garage.id + "\t" +
+				garage.name + "\t" +
+				garage.address + "\t" +
+				garage.number + "\t" +
+				garage.manager + "\n";
+		return str;
+	}
+
 /* 수정 */
 	public void updateGarage() {
 		selectcp.setText("");
@@ -323,7 +343,7 @@ public class Garagedata extends JFrame{
 		garage.number = number.getText();
 		garage.manager = gmanager.getText();
 		garage.emailAddress = emailaddress.getText();
-		garage.garageId = garageid.getText();
+		garage.id = garageid.getText();
 		return garage;
 	}
 }

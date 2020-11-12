@@ -1,8 +1,7 @@
 package main;
 
 import model.DataModel_Customer;
-import view.dataClass.CustomerInfo;
-import view.dataClass.GarageInfo;
+import controller.dataClass.CustomerInfo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -12,24 +11,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
-import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JDesktopPane;
-import java.awt.Panel;
 import javax.swing.JLabel;
 
 public class Customerdata extends JFrame {
@@ -68,8 +57,24 @@ public class Customerdata extends JFrame {
     private DataModel_Customer model = new DataModel_Customer();
 
     public void printdata() {
+        ArrayList<CustomerInfo> customerList = model.getCustomerList();
+        showCustomerList(customerList);
+    }
+
+    private void showCustomerList(ArrayList<CustomerInfo> customerList) {
         selectcp.setText("운전면허번호 \t 이름 \t 주소 \t 번호 \t 이메일 \n");
-        selectcp.append(model.getCustomerList());
+        for (CustomerInfo customer : customerList) {
+            selectcp.append(toStringFromCustomerInfo(customer));
+        }
+    }
+
+    private String toStringFromCustomerInfo(CustomerInfo customer) {
+        String str = customer.licenseId + "\t" +
+                customer.name + "\t" +
+                customer.address + "\t" +
+                customer.number + "\t" +
+                customer.emailAddress +"\n";
+        return str;
     }
 
     public Customerdata() {
@@ -257,10 +262,11 @@ public class Customerdata extends JFrame {
 
     public void searchCustomer() {
         String id = lisenceid.getText();
+        CustomerInfo target = model.searchCustomerById(id);
         selectcp.setText("");
         selectcp.setText("운전면허번호 \t 이름 \t 주소 \t 번호 \t 이메일 \n");
 /* 모델에 id를 넘겨주면, 모델에서 id에 해당하는 걸 가져와 돌려 줌 */
-        selectcp.append(model.searchCustomerById(id));
+        selectcp.append(toStringFromCustomerInfo(target));
     }
 
     public void updateCustomer() {

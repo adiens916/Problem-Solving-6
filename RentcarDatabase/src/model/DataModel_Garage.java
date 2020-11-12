@@ -1,34 +1,13 @@
 package model;
 
-import view.dataClass.GarageInfo;
+import controller.dataClass.GarageInfo;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
-import java.awt.SystemColor;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JDesktopPane;
-import java.awt.Panel;
-import javax.swing.JLabel;
+import java.util.ArrayList;
 
 public class DataModel_Garage {
 
@@ -60,65 +39,72 @@ public class DataModel_Garage {
         }
     }
 
-    public String getGarageList() {
-        StringBuilder results = new StringBuilder();
+    public ArrayList<GarageInfo> getGarageList() {
         try {
             stmt2 = con.createStatement();
             String query2=" select * from garage"; /* SQL 문 */
             rs2 = stmt2.executeQuery(query2);
 
+            ArrayList<GarageInfo> garageList = new ArrayList<>();
             while(rs2.next()) {
-                String str = rs2.getInt(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\t" + rs2.getString(4)
-                        +  "\t" + rs2.getString(5)+"\t"+rs2.getString(6)+"\n";
-                results.append(str);
+                GarageInfo garage = new GarageInfo();
+                garage.id = Integer.toString(rs2.getInt(1));
+                garage.name = rs2.getString(2);
+                garage.address = rs2.getString(3);
+                garage.number = rs2.getString(4);
+                garage.manager = rs2.getString(5);
+                garage.emailAddress = rs2.getString(6);
+                garageList.add(garage);
             }
+            return garageList;
         }catch(Exception e1) {
             System.out.println(e1);
+            return null;
         }
-        return results.toString();
     }
 
-    public String getGarageById(String garageId) {
-        StringBuilder results = new StringBuilder();
+    public GarageInfo searchGarageById(String garageId) {
         try {
             stmt2 = con.createStatement();
             String query2=" select * from garage where garage_id='"+garageId+"';"; /* SQL 문 */
             rs2 = stmt2.executeQuery(query2);
-            String str = null;
+
+            GarageInfo garage = new GarageInfo();
             if(rs2.next()) {
-                str = rs2.getInt(1) + "\t" + rs2.getString(2) + "\t" + rs2.getString(3) + "\t" + rs2.getString(4)
-                        + "\t" + rs2.getString(5) + "\n";
+                garage.id = Integer.toString(rs2.getInt(1));
+                garage.name = rs2.getString(2);
+                garage.address = rs2.getString(3);
+                garage.number = rs2.getString(4);
+                garage.manager = rs2.getString(5);
             }
-            results.append(str);
+            return garage;
         } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            throwables.printStackTrace();
+            return null;
         }
-        return results.toString();
     }
 
     public int addGarage(GarageInfo garage) {
-        int result = 0;
         try {
             stmt = con.createStatement();
             String query="insert into garage(garage_id,g_name,g_address,g_number,g_manager,g_email)"
-                    + " values('"+garage.garageId
+                    + " values('"+garage.id
                     +"','"+garage.name
                     +"','"+garage.address
                     +"','"+garage.number
                     +"','"+garage.manager
                     +"','"+garage.emailAddress
                     +"')";
-            result =  stmt.executeUpdate(query);
+            return stmt.executeUpdate(query);
         }catch(Exception e1) {
-            if(isNullData(garage)){
-                result = 2;
+            if(garage.isNull()){
+                return 2;
             }
+            return 0;
         }
-        return result;
     }
 
     public int updateGarage(GarageInfo garage) {
-        int result = 0;
         try {
             stmt = con.createStatement();
             String query="update garage set g_name='" +garage.name
@@ -126,34 +112,25 @@ public class DataModel_Garage {
                     +"',g_number='"+garage.number
                     +"',g_manager='"+garage.manager
                     +"',g_email='"+garage.emailAddress
-                    +"' where garage_id='"+garage.garageId
+                    +"' where garage_id='"+garage.id
                     +"';";
-            result = stmt.executeUpdate(query);
+            return stmt.executeUpdate(query);
         }catch(Exception e1) {
-            if(isNullData(garage)) {
-                result = 2;
+            if(garage.isNull()) {
+                return 2;
             }
+            return 0;
         }
-        return result;
     }
 
     public int deleteGarage(String garageId) {
-        int result = 0;
         try {
             stmt = con.createStatement();
             String query="DELETE FROM garage WHERE garage_id = '"+garageId+"'";
-            result = stmt.executeUpdate(query);
+            return stmt.executeUpdate(query);
         } catch (Exception e1) {
             System.out.println(e1);
+            return 0;
         }
-        return result;
-    }
-
-    private boolean isNullData(GarageInfo garage) {
-        return garage.name.length() == 0
-                || garage.address.length() == 0
-                || garage.number.length() == 0
-                || garage.manager.length() == 0
-                || garage.garageId.length() == 0;
     }
 }
