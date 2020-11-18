@@ -2,7 +2,7 @@ package controller.dataClass;
 
 import java.util.ArrayList;
 
-import View.AdminView;
+import view.AdminView;
 import model.AdminModel;
 
 public class AdminInfo {

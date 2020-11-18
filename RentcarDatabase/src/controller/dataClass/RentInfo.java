@@ -1,4 +1,4 @@
-package Controller.dataClass;
+package controller.dataClass;
 
 public class RentInfo {
 	public String campingCarID;
