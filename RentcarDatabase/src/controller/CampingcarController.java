@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 
 import controller.dataClass.CampingCarInfo;
 import controller.dataClass.CompanyInfo;
+import controller.dataClass.CustomerInfo;
 import model.DataModel_CampingCar;
 
 public class CampingcarController {
@@ -17,7 +18,22 @@ public class CampingcarController {
 
 		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 
-		str += campingCarModel.getCampingCarList();
+		
+		
+		ArrayList<CampingCarInfo> campingCarList = campingCarModel.getCampingCarList();
+		
+		for (CampingCarInfo campingCar : campingCarList) {
+			str += campingCar.id + '\t' +
+            campingCar.name + '\t' +
+            campingCar.number + '\t' +
+            campingCar.seats+ '\t' +
+            campingCar.manufacturer + '\t' +
+            campingCar.builtDate+ '\t' +
+            campingCar.mileage + '\t' +
+            campingCar.rentalFee + '\t' +
+            campingCar.registryDate + '\t' +
+            campingCar.companyId + '\n';
+		}
 		
 		return str;
 	}
@@ -27,7 +43,18 @@ public class CampingcarController {
 
 		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 
-		str += campingCarModel.searchCampingCar(id);
+		CampingCarInfo campingCar = campingCarModel.searchCampingCar(id);
+		
+		str += campingCar.id + '\t' +
+	            campingCar.name + '\t' +
+	            campingCar.number + '\t' +
+	            campingCar.seats+ '\t' +
+	            campingCar.manufacturer + '\t' +
+	            campingCar.builtDate+ '\t' +
+	            campingCar.mileage + '\t' +
+	            campingCar.rentalFee + '\t' +
+	            campingCar.registryDate + '\t' +
+	            campingCar.companyId + '\n';
 
 		return str;
 
