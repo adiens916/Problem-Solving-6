@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,11 +9,11 @@ import java.sql.Statement;
 public class ConnectToDB {
 	public static Connection con;
 	String Driver="";
-	String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false"; 
-	String userid="madang";
-	String pwd="madang";
+	static String url="jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&useSSL=false"; 
+	static String userid="madang";
+	static String pwd="madang";
 	
-	public void conDB() { 
+	public static void conDB() { 
 	  try {
 	    Class.forName("com.mysql.cj.jdbc.Driver");   
 	    System.out.println("드라이버 로드 성공");

@@ -11,9 +11,11 @@ public class DataModel_CampingCar {
     Statement stmt,stmt2;
     ResultSet rs2;
 
-/* [모델] 현재 등록된 캠핑카들의 리스트를 만들어 반환 */
-    public ArrayList<CampingCarInfo> getCampingCarList() {
-        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
+/* [모델] 현재 등록된 캠핑카를 만들어 반환 */
+    public String getCampingCarList() {
+    	
+    	String campingCarList = "";
+
         try {
             stmt2 = con.createStatement();
             String query2 = " select * from campingcar_list"; /* SQL 문 */
@@ -21,9 +23,9 @@ public class DataModel_CampingCar {
 
 /* SQL을 통해 가져온 데이터를 데이터 클래스 형태로 재구성 */
             while (rs2.next()) {
-                CampingCarInfo campingCar = toCampingCarFromResultSet(rs2);
-                campingCarList.add(campingCar);
+            	campingCarList += toCampingCarFromResultSet(rs2);
             }
+            
         } catch(Exception e1) {
             System.out.println(e1);
         }
@@ -47,6 +49,7 @@ public class DataModel_CampingCar {
                     campingCar.companyId+"')";
 /* 성공 여부를 반환 */
             return stmt.executeUpdate(query);
+            
         }catch(Exception e1) {
 /* 데이터 중 하나라도 비어있던 경우 */
             if(campingCar.isNull()) {
@@ -60,15 +63,15 @@ public class DataModel_CampingCar {
     }
 
 /* 컨트롤러에서 넘겨 준 id를 찾아서 같은 id를 갖는 캠핑카를 반환 */
-    public CampingCarInfo searchCampingCar(String id) {
-        CampingCarInfo campingCar = new CampingCarInfo();
+    public String searchCampingCar(String id) {
+    	String campingCar = "";
         try {
             stmt2 = con.createStatement();
             String query2=" select * from campingcar_list where campingcar_list_id='"+id+"';"; /* SQL 문 */
             rs2 = stmt2.executeQuery(query2);
 /* 같은 값이 있는 경우 캠핑카 데이터 클래스 형태로 반환 */
             if(rs2.next()) {
-                campingCar = toCampingCarFromResultSet(rs2);
+                campingCar += toCampingCarFromResultSet(rs2);
             }
         }catch(Exception e1) {
             System.out.println(e1);
@@ -126,22 +129,18 @@ public class DataModel_CampingCar {
     }
 
 /* [모델] ResultSet을 캠핑카 데이터 클래스 형태로 바꿔주는 기능 */
-    private CampingCarInfo toCampingCarFromResultSet(ResultSet result) {
-        CampingCarInfo campingCar = new CampingCarInfo();
-        try {
-            campingCar.id = Integer.toString(result.getInt(1));
-            campingCar.name = result.getString(2);
-            campingCar.number = result.getString(3);
-            campingCar.seats = result.getString(4);
-            campingCar.manufacturer = result.getString(5);
-            campingCar.builtDate = result.getString(6);
-            campingCar.mileage = result.getString(7);
-            campingCar.rentalFee = result.getString(8);
-            campingCar.registryDate = result.getString(9);
-            campingCar.companyId = result.getString(10);
-        } catch(Exception e1) {
+    private String toCampingCarFromResultSet(ResultSet result) {
+    	
+        String str ="";
+        
+		try {
+			str = Integer.toString(result.getInt(1)) + '\t' + result.getString(2) + '\t' + result.getString(3) + '\t'
+					+ result.getString(4) + '\t' + result.getString(5) + '\t' + result.getString(6) + '\t'
+					+ result.getString(7) + '\t' + result.getString(8) + '\t' + result.getString(9) + '\t'
+					+ result.getString(10) + '\n';
+		} catch (Exception e1) {
             System.out.println(e1);
         }
-        return campingCar;
+        return str;
     }
 }

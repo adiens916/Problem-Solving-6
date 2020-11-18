@@ -6,12 +6,16 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
+import javax.swing.JOptionPane;
+
 public class ReturnModel {
 
     private final Connection con = DatabaseConnector.connection;
     private Statement stmt,stmt2,stmt3,stmt4;
     private ResultSet rs,rs2,r3;
 
+    
+    /*반환 버튼 클릭시 데이터 베이스에 업데이트 해주는 메소드*/
     public int returnCar(ReturnInfo state) {
         int result = 0;
         try {
@@ -31,6 +35,7 @@ public class ReturnModel {
             String a7 = null;
             String a8 = null;
             String a9 = null;
+            
             if (rs2.next()) {
                 rent_id = rs2.getString(1);
                 a1 = rs2.getString(2);
@@ -66,4 +71,14 @@ public class ReturnModel {
         }
         return result;
     }
+    
+    /*반환 버튼 클릭후 데이터 베이스에 업데이트 결과 나타내는 함수*/
+    public void printProcessingResult(int processingResult) {
+		if (processingResult == 1) {
+			JOptionPane.showMessageDialog(null, "반환완료");
+		} else {
+			JOptionPane.showMessageDialog(null, "차의 모든 상태 및 캠핑카ID를 확인해주세요.");
+		}
+	}
+    
 }

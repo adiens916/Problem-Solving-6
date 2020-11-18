@@ -9,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 public class DataModel_Garage {
 
     static Connection con;
@@ -133,4 +135,15 @@ public class DataModel_Garage {
             return 0;
         }
     }
+    public String toStringFromGarageInfo(GarageInfo garage) {
+		String str = garage.id + "\t" +
+				garage.name + "\t" +
+				garage.address + "\t" +
+				garage.number + "\t" +
+				garage.manager + "\n";
+		return str;
+	}
+    
+   
+    
 }

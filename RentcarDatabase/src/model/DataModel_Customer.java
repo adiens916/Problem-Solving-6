@@ -129,5 +129,15 @@ public class DataModel_Customer {
         }
         return false;
     }
+    
+    public String toStringFromCustomerInfo(CustomerInfo customer) {
+        String str = customer.licenseId + "\t" +
+                customer.name + "\t" +
+                customer.address + "\t" +
+                customer.number + "\t" +
+                customer.emailAddress +"\n";
+        return str;
+    }
+
 }
 
