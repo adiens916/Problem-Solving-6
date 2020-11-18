@@ -1,6 +1,10 @@
 package view;
 
 
+
+import controller.GarageController;
+import controller.dataClass.GarageInfo;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -44,15 +48,18 @@ public class DataView_Garage extends JFrame{
 	}
 	
 	private JPanel contentPane;
+	
+	GarageController garageController = new GarageController();
 	JButton btn_Search,btn_Insert,btn_Edit,btn_Refresh,btn_Delete,quit;
 	JTextField garageid,name,address,number,emailaddress,gmanager;
 	JTextArea selectcp = new JTextArea();
 
+	
 	private JLabel Label1,Label2,Label3,Label4,Label5,Label6,Label7;
 
 	public void printdata() {
 		selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-		
+		selectcp.append(garageController.printGarageList());
 	}	
 		
 	public DataView_Garage() {
@@ -106,6 +113,8 @@ public class DataView_Garage extends JFrame{
 		btn_Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \n");
+				selectcp.append(garageController.searchGarageList(garageid.getText()));
 			}
 		});
 		btn_Search.setBounds(242, 98, 57, 23);
@@ -177,6 +186,10 @@ public class DataView_Garage extends JFrame{
 		btn_Insert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+
+				garageController.insertGarageList(getGarageInput());
+				printdata();
+				
 			}
 		});
 		btn_Insert.setForeground(Color.BLACK);
@@ -184,9 +197,13 @@ public class DataView_Garage extends JFrame{
 		btn_Insert.setBounds(34, 316, 70, 29);
 		panel.add(btn_Insert);
 		
+		
 		btn_Edit = new JButton("수정");
 		btn_Edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				garageController.editGarageList(getGarageInput());
+				printdata();
 				
 			}
 		});
@@ -199,7 +216,11 @@ public class DataView_Garage extends JFrame{
 		btn_Delete = new JButton("삭제");
 		btn_Delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-							 			
+					
+				garageController.deleteGarageList(garageid.getText());
+				printdata();
+				
+				
 			}
 		});
 		btn_Delete.setForeground(Color.BLACK);
@@ -213,6 +234,17 @@ public class DataView_Garage extends JFrame{
 		quit.setBounds(115, 355, 70, 22);
 		panel.add(quit);
 		
+	}
+	
+	public GarageInfo getGarageInput() {
+		GarageInfo garage = new GarageInfo();
+		garage.name = name.getText();
+		garage.address = address.getText();
+		garage.number = number.getText();
+		garage.manager = gmanager.getText();
+		garage.emailAddress = emailaddress.getText();
+		garage.id = garageid.getText();
+		return garage;
 	}
 }
 

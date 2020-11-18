@@ -1,5 +1,9 @@
 package view;
 
+import controller.*;
+import controller.dataClass.CampingCarInfo;
+import controller.dataClass.GarageInfo;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -47,9 +51,10 @@ public class DataView_Campingcar extends JFrame {
 	private JTextField cpcid,cpcname,cpcnum,cpcsits,cpcmanufacture,cpcyear,cpcdistance,cpcprice,cpid,registdate;
 	private JLabel Label_Title,Label1,Label2,Label3,Label4,Label5,Label6,Label7,Label8,Label9,Label10,Label11;
 	JButton btn_Search,btn_Edit,btn_Delete,btn_Insert,btn_Refresh,quit;
+	CampingcarController campingcarController = new CampingcarController();
 
 	public void printdata() {
-		selectcp.setText("캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n");
+		selectcp.setText(campingcarController.printCampingcarList());
 	}
 
 	public DataView_Campingcar() {
@@ -108,6 +113,9 @@ public class DataView_Campingcar extends JFrame {
 		btn_Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				selectcp.setText(campingcarController.searchCampingCarList(cpcid.getText()));
+				
+				
 			}
 		});
 		btn_Search.setBounds(210, 48, 57, 23);
@@ -212,6 +220,9 @@ public class DataView_Campingcar extends JFrame {
 		btn_Insert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
+				campingcarController.insertCampingCarList(getCampingCarInput());
+				printdata();
+				
 			}
 		});
 		btn_Insert.setForeground(Color.BLACK);
@@ -226,7 +237,9 @@ public class DataView_Campingcar extends JFrame {
 		btn_Edit = new JButton("수정");
 		btn_Edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				campingcarController.editCampingCarList(getCampingCarInput());
+				printdata();
 			}
 		});
 		btn_Edit.setForeground(Color.BLACK);
@@ -237,7 +250,9 @@ public class DataView_Campingcar extends JFrame {
 		btn_Delete = new JButton("삭제");
 		btn_Delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				
+				campingcarController.deleteCampingCarList(cpcid.getText());
+				printdata();
 			}
 		});
 		btn_Delete.setForeground(Color.BLACK);
@@ -250,5 +265,22 @@ public class DataView_Campingcar extends JFrame {
 		quit.setFont(new Font("굴림", Font.BOLD, 15));
 		quit.setBounds(115, 419, 70, 22);
 		panel.add(quit);
+	}
+	
+	public CampingCarInfo getCampingCarInput() {
+		CampingCarInfo campingCar = new CampingCarInfo();
+		
+		campingCar.id = cpcid.getText();
+		campingCar.name = cpcname.getText();
+		campingCar.number =cpcnum.getText();
+		campingCar.seats =cpcsits.getText();
+		campingCar.manufacturer = cpcmanufacture.getText();
+		campingCar.builtDate =cpcyear.getText();
+		campingCar.mileage =cpcdistance.getText();
+		campingCar.rentalFee =cpcprice.getText();
+		campingCar.registryDate=registdate.getText();
+		campingCar.companyId =cpid.getText();
+		
+		return campingCar;
 	}
 }

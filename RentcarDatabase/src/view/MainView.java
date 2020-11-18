@@ -1,5 +1,7 @@
 package view;
 
+import controller.MainController;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -45,12 +47,19 @@ public class MainView extends JFrame implements ActionListener {
 	}
 
 	private JPanel contentPane;
+	
 	AdminView Adminform;
 	CustomerView Customerform;
+	MainController mainController;
+	
 
 	public MainView() {
 		setTitle("캠핑카프로젝트 리팩토링");
-
+		
+//------컨트롤러의 객체 생성 및 리셋------------------------------------------------------------------------------------
+		mainController = new MainController();
+		mainController.DataReset();
+		
 //------다른View의 form객체 생성------------------------------------------------------------------------------------
 		Adminform = new AdminView();
 		Adminform.backbtn.addActionListener(this);
@@ -101,7 +110,7 @@ public class MainView extends JFrame implements ActionListener {
 		contentPane.add(ToCustomer);
 //------로고 이미지를 넣기위한 라벨 생성-------------------------------------------------------------------------------
 		JLabel ImageLabel = new JLabel("");
-		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("logo.png")).getImage();
 		ImageLabel.setIcon(new ImageIcon(img));
 		ImageLabel.setBounds(278, 47, 97, 86);
 		contentPane.add(ImageLabel);

@@ -1,5 +1,7 @@
 package view;
 
+import controller.CompanyController;
+import controller.dataClass.*;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -47,9 +49,12 @@ public class DataView_Company extends JFrame{
 	JTextField cpid,cpname,cpaddress,cpnumber,cpmngemail,cpmngname;
 	JTextArea selectcp = new JTextArea();
 	JButton btn_Search,btn_Insert,btn_Edit,btn_Refresh,btn_Delete,quit;
+	CompanyController companyController = new CompanyController();
 	
 	public void printdata() {
-		selectcp.setText("회사 ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일 \t\t 담당자이름 \n");
+		
+		selectcp.setText(companyController.printCompanyList());
+		
 	}	
 		
 	public DataView_Company() {
@@ -95,6 +100,8 @@ public class DataView_Company extends JFrame{
 		btn_Search.setFont(new Font("굴림", Font.PLAIN, 10));
 		btn_Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				selectcp.setText(companyController.searchCustomerList(cpid.getText()));
 				
 			}
 		});
@@ -166,6 +173,9 @@ public class DataView_Company extends JFrame{
 		btn_Insert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				companyController.insertCompanyList(getCompanyInfo());
+				printdata();
+				
 			}
 		});
 		btn_Insert.setForeground(Color.BLACK);
@@ -178,6 +188,8 @@ public class DataView_Company extends JFrame{
 		btn_Edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				companyController.editCompanyList(getCompanyInfo());
+				printdata();
 			}
 		});
 		btn_Edit.setForeground(Color.BLACK);
@@ -188,7 +200,9 @@ public class DataView_Company extends JFrame{
 		btn_Delete = new JButton("삭제");
 		btn_Delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			 			
+			 		
+				companyController.deleteCompanyList(cpid.getText());
+				printdata();
 			}
 		});
 		btn_Delete.setForeground(Color.BLACK);
@@ -201,6 +215,19 @@ public class DataView_Company extends JFrame{
 		quit.setFont(new Font("굴림", Font.BOLD, 15));
 		quit.setBounds(123, 361, 70, 22);
 		panel.add(quit);
+	}
+	public CompanyInfo getCompanyInfo() {
+		
+		CompanyInfo res = new CompanyInfo();
+
+		res.companyAddress = cpaddress.getText();
+		res.companyID = cpid.getText();
+		res.companyName = cpname.getText();
+		res.companyOfficerEmail = cpmngemail.getText();
+		res.companyOfficerName = cpmngname.getText();
+		res.companyPhoneNumber  = cpnumber.getText();
+		
+		return res;
 	}
 	
 }
