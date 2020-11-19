@@ -1,5 +1,9 @@
 package view;
 
+import controller.CustomerController;
+import controller.dataClass.CustomerInfo;
+import controller.dataClass.GarageInfo;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -47,10 +51,12 @@ public class DataView_Customer extends JFrame{
 	JButton btn_Search,btn_Insert,btn_Edit,btn_Refresh,btn_Delete,quit;
 	JTextField lisenceid,name,address,number,emailaddress;
 	JTextArea selectcp = new JTextArea();
+	CustomerController customerController = new CustomerController();
 	
 		
 	public void printdata() {
-		selectcp.setText("운전면허번호 \t 이름 \t 주소 \t 번호 \t 이메일 \n");
+		selectcp.setText("");
+		selectcp.append(customerController.printCustomerList());
 	}	
 	
 	public DataView_Customer() {
@@ -102,6 +108,9 @@ public class DataView_Customer extends JFrame{
 		btn_Search.setFont(new Font("굴림", Font.PLAIN, 10));
 		btn_Search.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				selectcp.setText("운전면허번호 \t 이름 \t 주소 \t 번호 \t 이메일 \n");
+				selectcp.append(customerController.searchCustomerList(lisenceid.getText()));
 				
 			}
 		});
@@ -167,6 +176,9 @@ public class DataView_Customer extends JFrame{
 		btn_Insert.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				customerController.insertCustomerList(getCustomerInput());
+				printdata();
+				
 			}
 		});
 		btn_Insert.setForeground(Color.BLACK);
@@ -177,6 +189,9 @@ public class DataView_Customer extends JFrame{
 		btn_Edit = new JButton("수정");
 		btn_Edit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				customerController.editCustomerList(getCustomerInput());
+				printdata();
 				
 			}
 		});
@@ -189,7 +204,10 @@ public class DataView_Customer extends JFrame{
 		btn_Delete = new JButton("삭제");
 		btn_Delete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			 			
+				
+				customerController.deleteCustomerList(lisenceid.getText());
+				printdata();
+				
 			}
 		});
 		btn_Delete.setForeground(Color.BLACK);
@@ -204,6 +222,15 @@ public class DataView_Customer extends JFrame{
 		panel.add(quit);
 		
 	}
+	 public CustomerInfo getCustomerInput() {
+	        CustomerInfo customer = new CustomerInfo();
+	        customer.name = name.getText();
+	        customer.address = address.getText();
+	        customer.number = number.getText();
+	        customer.emailAddress = emailaddress.getText();
+	        customer.licenseId = lisenceid.getText();
+	        return customer;
+	    }
 }
 
 

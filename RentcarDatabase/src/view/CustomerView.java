@@ -1,4 +1,7 @@
-package View;
+package view;
+
+import controller.dataClass.*;
+import controller.UserController;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -29,6 +32,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
@@ -49,7 +53,7 @@ public class CustomerView extends JFrame implements ActionListener{
 		});
 	}
 	
-	private JPanel contentPane;
+	private JScrollPane contentPane;
 	ReturnView Returncarform;
 
 	JTextField carsearch = new JTextField();
@@ -61,6 +65,8 @@ public class CustomerView extends JFrame implements ActionListener{
 	JButton btn_Rent,btn_Back,btn_Refresh;
 	JRadioButton raCampingcarID,raCarname,raLeastpeople,
 				 raMfCompany,raMaxdistance,raMaxrentalfare;
+	
+	UserController userController = new UserController();
 		
 	public CustomerView() {
 		setTitle("캠핑카프로젝트 리팩토링");
@@ -68,7 +74,7 @@ public class CustomerView extends JFrame implements ActionListener{
 		Returncarform.returnbtn.addActionListener(this);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1074, 532);
-		contentPane = new JPanel();
+		contentPane = new JScrollPane();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -98,10 +104,13 @@ public class CustomerView extends JFrame implements ActionListener{
 		listarea.setBorder(new LineBorder(Color.BLACK, 1, true));
 		listarea.setBounds(12, 156, 820, 325);
 		contentPane.add(listarea);
+		
+		
 //대여 현황 텍스트 영역-------------------------------------------------------------------------		
 		starea.setBorder(new LineBorder(Color.BLACK));
 		starea.setBounds(844, 38, 203, 82);
 		contentPane.add(starea);
+	
 		
 		btnNewButton_1.setBackground(Color.WHITE);
 		btnNewButton_1.setBorder(new EmptyBorder(0, 0, 0, 0));
@@ -243,11 +252,16 @@ public class CustomerView extends JFrame implements ActionListener{
 		bg.add(raMaxdistance);
 		bg.add(raMaxrentalfare);
 		
+		
 		JButton carserchbtn = new JButton("검색");
 		carserchbtn.setBorder(new EmptyBorder(0, 0, 0, 0));
 		carserchbtn.setBackground(Color.WHITE);
 		carserchbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+	
+				
+				listarea.setText(userController.printCampingCarListByButton(bg,carsearch.getText()));
+
 				
 			}
 		});
@@ -266,6 +280,9 @@ public class CustomerView extends JFrame implements ActionListener{
 				duedate.setText("");
 				add.setText("");
 				addprice.setText("");
+				carsearch.setText("");
+				
+				printdata();
 			}
 		});
 		btn_Refresh.setBounds(489, 125, 91, 21);
@@ -277,10 +294,16 @@ public class CustomerView extends JFrame implements ActionListener{
 		btn_Rent.setBorder(new EmptyBorder(0, 0, 0, 0));
 		btn_Rent.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
+				
+				userController.rentCampingCar(setRentInfo());
+				printdata();
 			}
 		});
 		btn_Rent.setBounds(902, 450, 91, 23);
 		contentPane.add(btn_Rent);
+		
+		printdata();
 	}
 
 	
@@ -308,5 +331,26 @@ public class CustomerView extends JFrame implements ActionListener{
 			Returncarform.setVisible(false);
 			setVisible(true);
 		}
+	}
+	
+	public void printdata() {
+		
+		listarea.setText(userController.printCampingCarList());
+		starea.setText(userController.printRentedCampingCarList());
+	}
+
+	public RentInfo setRentInfo() {
+		
+		RentInfo rent = new RentInfo();
+
+		rent.campingCarID = cplist_id.getText();
+		rent.license = license_id.getText();
+		rent.rentPeriod = period.getText();
+		rent.rentStartDate = start.getText();
+		rent.rentEndDate = duedate.getText();
+		rent.extraGoods = add.getText();
+		rent.extraGoodsPrice = addprice.getText();
+
+		return rent;
 	}
 }

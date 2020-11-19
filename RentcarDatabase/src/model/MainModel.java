@@ -10,7 +10,7 @@ import java.sql.Statement;
 public class MainModel {
 
     // SQL 연결
-    static Connection con;
+    Connection con;
     PreparedStatement psmt;
     Statement stmt, stmt1;
     ResultSet rs;

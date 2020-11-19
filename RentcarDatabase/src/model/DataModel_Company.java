@@ -1,6 +1,6 @@
 package model;
 
-import Controller.dataClass.CompanyInfo;
+import controller.dataClass.CompanyInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -38,38 +38,30 @@ public class DataModel_Company {
 		}
 	}
 	
-	public ArrayList<String> Company_List(){
+	public String Company_List(){
 		// 뷰에서 캠핑카 회사 리스트를 반환해주는 기능
-		ArrayList<String> Company_List = new ArrayList<>();		
+		String Company_Info = "";
 		
 		try {
 			stmt = con.createStatement();
 			String Query = "SELECT * FROM campingcar_rent_company";
 			rs = stmt.executeQuery(Query);
-			// 캠핑카 회사의 리스트 ResultSet으로 받아온 이후에 ArrayList<String>으로 가공
+
 			while(rs.next()) {
-				String Company_Info = "";
-				Company_Info = rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
+				
+				Company_Info += rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t" + rs.getString(4)
 				+ "\t" + rs.getString(5) + "\t" + rs.getString(6) + "\n";
-				Company_List.add(Company_Info);
 			}
 		} catch (Exception e1){
 			System.out.println("캠핑카 회사 목록 불러오기 에러 in DataModel_Company"+e1);
 		}
 		// 캠핑카 회사 리스트 정보를 담은 ArrayList를 반환
-		return Company_List;
+		return Company_Info;
 	}
 	
-	public ArrayList<String> refresh_Company_List() {
-		// 뷰에서 새로고침 기능
-		// Company_List를 다시 한번 실행해주기 때문에 마찬가지로 ArrayList를 반환
-		ArrayList<String> Company_List = new ArrayList<>();
-        Company_List = Company_List();
-        
-        return Company_List;
-    }
 	
 	public String search_Company_By_CompanyID(String Company_ID){
+		
 		String Company_Info = "";
 		
 		try {
@@ -78,9 +70,10 @@ public class DataModel_Company {
 			rs = stmt.executeQuery(Query);
 			
 			if(rs.next()) {
-				Company_Info = rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t"
+				Company_Info += rs.getInt(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3) + "\t"
 						+ rs.getString(4) + "\t" + rs.getString(5) + "\t" + rs.getString(6) + "\n";  
 			}
+			
 		} catch(Exception e1) {
 			System.out.println("캠핑카 회사 정보 검색 에러 in DataModel_Company"+e1);
 		}
@@ -92,6 +85,11 @@ public class DataModel_Company {
     	// 뷰의 텍스트 필드에서 받은 데이터 ArrayList를 받은 후 캠핑카 회사 테이블에 insert
     	int Insert_Check = 0;
     	
+    	if(Company.companyName.length()==0||Company.companyAddress.length()==0||Company.companyPhoneNumber.length()==0||Company.companyOfficerEmail.length()==0||Company.companyOfficerName.length()==0) {
+    		System.out.println("모든 텍스트 필드를 채워주세요.");
+    		Insert_Check = 2; 
+    	}
+    	else {
         try {
         	stmt = con.createStatement();
         	String Query = "INSERT INTO campingcar_rent_company(cp_name,cp_address,cp_number,cp_mng_email,cp_mng_name) VALUES('"
@@ -99,10 +97,8 @@ public class DataModel_Company {
 					+ Company.companyOfficerName + "')";
         	Insert_Check = stmt.executeUpdate(Query);
         } catch (Exception e1) {
-        	if(Company.isNull()){
-        		System.out.println("모든 텍스트 필드를 채워주세요.");
-        	}
         	System.out.println("캠핑카 회사 데이터 입력 에러 in DataModel_Company"+e1);
+        }
         }
         
         return Insert_Check;
@@ -112,6 +108,11 @@ public class DataModel_Company {
     	// 뷰의 텍스트 필드에서 받은 데이터 ArrayList를 받은 후 캠핑카 회사 테이블 update
     	int Update_Check = 0;
     	
+    	if(Company.companyName.length()==0||Company.companyAddress.length()==0||Company.companyPhoneNumber.length()==0||Company.companyOfficerEmail.length()==0||Company.companyOfficerName.length()==0) {
+    		System.out.println("모든 텍스트 필드를 채워주세요.");
+    		Update_Check = 2; 
+    	}
+    	else {
     	try {
     		stmt = con.createStatement();
     		String Query = "update campingcar_rent_company set cp_name='" + Company.companyName + "'" + ",cp_address='" + Company.companyAddress
@@ -121,8 +122,10 @@ public class DataModel_Company {
     	} catch (Exception e1) {
     		if(Company.isNull()){
         		System.out.println("모든 텍스트 필드를 채워주세요.");
+        		Update_Check = 2;
         	}
     		System.out.println("캠핑카 회사 데이터 수정 에러 in DataModel_Company");
+    	}
     	}
     	
     	return Update_Check;
@@ -146,6 +149,7 @@ public class DataModel_Company {
     	return Delete_Check;
     }
 
+    /*
     //-----------테스트 영역(후에 삭제)-------------
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -202,6 +206,6 @@ public class DataModel_Company {
 		if(Check == 1) System.out.println("Delete 성공");
 		if(Check == 0) System.out.println("Delete 실패");*/
 		
-	}
+	//}
 
 }

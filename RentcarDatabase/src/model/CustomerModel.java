@@ -1,6 +1,6 @@
 package model;
 
-import Controller.dataClass.RentInfo;
+import controller.dataClass.RentInfo;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -270,6 +270,7 @@ public class CustomerModel {
 		} catch (Exception e1) {
 			if(rent.isNull()) {
 				System.out.println("대여할 캠핑카 정보를 모두다 입력해주세요.");
+				Rent_Check = 2;
 			}
 			System.out.println("캠핑카 대여 SQL 에러 (SELECT) in CustomerModel" + e1);
 		}
@@ -277,6 +278,7 @@ public class CustomerModel {
 		return Rent_Check;
 	}
 
+	/*
 	// -----------------테스트 영역 (후에 삭제예정)---------------------
 	public static void main(String[] args) {
 		CustomerModel cm = new CustomerModel();
@@ -313,6 +315,6 @@ public class CustomerModel {
 		// 조건 검색 1~6 테스트.
 		
 
-	}
+	//}
 
 }

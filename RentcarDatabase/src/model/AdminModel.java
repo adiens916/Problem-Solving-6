@@ -3,14 +3,16 @@ package model;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import View.AdminView;
+import view.AdminView;
 import controller.dataClass.AdminInfo;
 import controller.dataClass.GarageInfo;
 
 public class AdminModel {
+	
 	public AdminModel() {
 		ConnectToDB.conDB(); //DB연결
 	 }
+	
 	 Statement stmt;
 	 ResultSet rs;
 	 int result;

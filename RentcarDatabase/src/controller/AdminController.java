@@ -1,7 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
-import View.AdminView;
+import view.AdminView;
 import controller.dataClass.AdminInfo;
 import controller.dataClass.GarageInfo;
 import model.AdminModel;

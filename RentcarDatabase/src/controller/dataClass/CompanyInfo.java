@@ -1,4 +1,4 @@
-package Controller.dataClass;
+package controller.dataClass;
 
 public class CompanyInfo {
 	public String companyID;
