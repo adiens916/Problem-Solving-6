@@ -17,8 +17,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
-import model.DataModel_CampingCar;
 import controller.dataClass.CampingCarInfo;
+import model.CampingCarModel;
 
 
 public class Campingcardata extends JFrame{
@@ -54,7 +54,7 @@ public class Campingcardata extends JFrame{
 	private JLabel lblNewLabel_11;
 
 /* 모델을 쓰기 위해 모델 부분 추가 */
-	private DataModel_CampingCar model = new DataModel_CampingCar();
+	private CampingCarModel model = new CampingCarModel();
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -72,7 +72,7 @@ public class Campingcardata extends JFrame{
 /* 대여 가능한 캠핑카 리스트 출력 */
 /* [컨트롤러 부분] 모델에서 데이터를 가져와 뷰로 넘겨줌  */
 	public void printdata() {
-		ArrayList<CampingCarInfo> campingCarList = model.getCampingCarList();
+		ArrayList<CampingCarInfo> campingCarList = model.readCampingCarList();
 		showCampingCarList(campingCarList);
 	}
 
@@ -138,7 +138,7 @@ public class Campingcardata extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 /* 검색을 MVC 패턴화 */
 				String id = campingCarIdField.getText(); // [컨트롤러] 뷰에서 사용자 입력 가져 옴 (getText가 [뷰])
-				CampingCarInfo target = model.searchCampingCar(id); // [컨트롤러] 모델에 값을 전달하고 결과값 가져옴
+				CampingCarInfo target = model.readCampingCar(id); // [컨트롤러] 모델에 값을 전달하고 결과값 가져옴
 				selectcp.setText(""); // [이하 뷰 영역] 결과값을 레이아웃에 맞게 출력
 				selectcp.setText("캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n");
 				selectcp.append(toStringFromCampingCarInfo(target));
@@ -174,18 +174,7 @@ public class Campingcardata extends JFrame{
 		btnNewButton_1_3 = new JButton("수정");
 		btnNewButton_1_3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-/* 수정 기능을 MVC 패턴화 */
-				selectcp.setText("");
-				CampingCarInfo campingCar = getCampingCarInput(); // [컨트롤러] 유저 입력 가져 옴 (getInput은 뷰 부분에)
-				int result = model.updateCampingCar(campingCar); // [컨트롤러] 모델에 값을 넘기고 결과값 가져옴
-				if (result==1) {
-					JOptionPane.showMessageDialog(btnNewButton_1_3, "수정완료");
-				} else if (result == 2) {
-					JOptionPane.showMessageDialog(btnNewButton_1_3, "빈칸을 모두채워주세요");
-				} else {
-					JOptionPane.showMessageDialog(btnNewButton_1_3, "다시입력하세요!");
-				}
-				printdata();
+
 			}
 		});
 		btnNewButton_1_3.setForeground(Color.BLACK);
@@ -199,8 +188,8 @@ public class Campingcardata extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 /* 삭제 부분을 MVC 패턴화 */
 				String id = campingCarIdField.getText(); // [컨트롤러] getText(뷰 영역)을 통해 사용자 입력 가져 옴
-				int result = model.deleteCampingCar(id);
-				if (result == 1) {
+				String result = model.deleteCampingCar(id);
+				if (result.equals("SUCCESS")) {
 					JOptionPane.showMessageDialog(btnNewButton_1_3_1, "삭제 완료");
 					campingCarIdField.setText("");
 				} else {
@@ -244,10 +233,10 @@ public class Campingcardata extends JFrame{
 		btnNewButton_1_3_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				CampingCarInfo campingCar = getCampingCarInput();
-				int result = model.addCampingCar(campingCar);
-				if (result == 1) {
+				String result = model.createCampingCar(campingCar);
+				if (result.equals("SUCCESS")) {
 					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "입력완료!");
-				} else if (result == 2) {
+				} else if (result.equals("NULL")) {
 					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "빈칸을 모두채워주세요");
 				} else {
 					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "다시입력해주세요!");

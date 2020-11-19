@@ -1,5 +1,7 @@
 package main;
 
+import controller.CampingCarController;
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
@@ -54,7 +56,7 @@ public class admin extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	
 	Companydata delform;
-	Campingcardata campform;
+	CampingCarController campform;
 	Customerdata cusform;
 	Garagedata grgform;
 	JMenuItem mntmNewMenuItem_1_4;
@@ -147,7 +149,7 @@ public class admin extends JFrame implements ActionListener{
 		delform = new Companydata();
 		delform.quit.addActionListener(this);
 		
-		campform = new Campingcardata();
+		campform = new CampingCarController();
 		campform.quit.addActionListener(this);
 		
 		cusform = new Customerdata();

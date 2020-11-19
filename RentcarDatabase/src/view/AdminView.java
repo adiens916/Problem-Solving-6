@@ -48,7 +48,7 @@ public class AdminView extends JFrame implements ActionListener{
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepair, garageId;
 	
 	DataView_Company Companyform;
-	DataView_Campingcar Campingcarform;
+	CampingCarView Campingcarform;
 	DataView_Customer Customerform;
 	DataView_Garage Garageform;
 	
@@ -80,7 +80,7 @@ public class AdminView extends JFrame implements ActionListener{
 		Companyform = new DataView_Company();
 		Companyform.quit.addActionListener(this);
 		
-		Campingcarform = new DataView_Campingcar();
+		Campingcarform = new CampingCarView();
 		Campingcarform.quit.addActionListener(this);
 		
 		Customerform = new DataView_Customer();
