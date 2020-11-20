@@ -1,21 +1,19 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import controller.ReturnController;
 
+import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-
 import java.awt.Font;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.ButtonGroup;
@@ -40,7 +38,7 @@ public class Customer extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	 
 	
-	returncar returncarform;
+	ReturnController returncarform = new ReturnController();
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -99,8 +97,7 @@ public class Customer extends JFrame implements ActionListener{
 	   }
 	public Customer() {
 		setTitle("17013152 최종혁 -고객페이지");
-		returncarform = new returncar();
-		returncarform.returnbtn.addActionListener(this);
+		returncarform.returnButton.addActionListener(this);
 		conDB();
 		returnresult();
 		madangrentlist();
@@ -484,7 +481,7 @@ public class Customer extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()== returncarform.returnbtn) {
+		if(e.getSource()== returncarform.returnButton) {
 			returnresult();
 			madangrentlist();
 			returncarform.setVisible(false);

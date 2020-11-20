@@ -1,29 +1,28 @@
 package view;
 
-import controller.ReturnController;
-import controller.dataClass.ReturnInfo;
-
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import java.awt.Font;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+import controller.dataClass.ResultState;
+import controller.dataClass.ReturnInfo;
 
 public class ReturnView extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField cpid, front, right, back, left, fix;
+	public JButton returnbtn;
+
+	public ReturnView() {
+		addComponent();
+	}
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -38,12 +37,27 @@ public class ReturnView extends JFrame {
 		});
 	}
 
-	JPanel contentPane;
-	JTextField cpid, front, right, back, left, fix;
-	JButton returnbtn;
-	ReturnController returnController;
+	public ReturnInfo getCarStateInput() {
+		ReturnInfo state = new ReturnInfo();
+		state.front = front.getText();
+		state.right = right.getText();
+		state.left = left.getText();
+		state.back = back.getText();
+		state.fix = fix.getText();
+		state.carId = cpid.getText();
+		return state;
+	}
 
-	public ReturnView() {
+	/*반환 버튼 클릭후 데이터 베이스에 업데이트 결과 나타내는 함수*/
+	public void showReturnResult(ResultState result) {
+		if (result == ResultState.SUCCESS) {
+			JOptionPane.showMessageDialog(null, "반환완료");
+		} else {
+			JOptionPane.showMessageDialog(null, "차의 모든 상태 및 캠핑카ID를 확인해주세요.");
+		}
+	}
+
+	private void addComponent() {
 		setTitle("캠핑카프로젝트 리팩토링");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -52,8 +66,6 @@ public class ReturnView extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		returnController = new ReturnController();
 
 //수리부분을 체크하기 위한 텍스트 라벨과 데이터값 입력창--------------------------------------------------
 		JLabel Label1 = new JLabel("앞");
@@ -117,22 +129,6 @@ public class ReturnView extends JFrame {
 		contentPane.add(cpid);
 //반환 버튼 기능----------------------------------------------------------------------------
 		returnbtn = new JButton("반환");
-		returnbtn.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				//컨트롤러
-				ReturnInfo state = new ReturnInfo();
-				state.front = front.getText();
-				state.right = right.getText();
-				state.left = left.getText();
-				state.back = back.getText();
-				state.fix = fix.getText();
-				state.carId = cpid.getText();
-				
-				returnController.returnCar(state);
-				
-			}
-		});
 		returnbtn.setFont(new Font("양재튼튼체B", Font.BOLD, 15));
 		returnbtn.setBounds(309, 237, 74, 52);
 		contentPane.add(returnbtn);
@@ -143,6 +139,5 @@ public class ReturnView extends JFrame {
 		Label6.setIcon(new ImageIcon(img));
 		Label6.setBounds(95, 36, 331, 161);
 		contentPane.add(Label6);
-
 	}
 }

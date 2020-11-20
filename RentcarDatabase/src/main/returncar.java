@@ -103,14 +103,7 @@ public class returncar extends JFrame {
 		returnbtn = new JButton("반환");
 		returnbtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				/* [컨트롤러] 뷰에서 사용자 입력 받아옴 */
-				ReturnInfo state = getCarState();
-				/* [컨트롤러] 받아온 데이터를 모델에 넘겨서 처리*/
-				ReturnModel model = new ReturnModel();
-				/* 처리 결과를 모델에게서 가져 옴 */
-				int processingResult = model.returnCar(state);
-				/* [컨트롤러] 처리 결과에 따라 뷰에서 메시지 출력 */
-				printProcessingResult(processingResult);
+
 			}
 		});
 		returnbtn.setFont(new Font("양재튼튼체B", Font.BOLD, 15));
