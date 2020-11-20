@@ -186,16 +186,6 @@ public class Campingcardata extends JFrame{
 		btnNewButton_1_3_1 = new JButton("삭제");
 		btnNewButton_1_3_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-/* 삭제 부분을 MVC 패턴화 */
-				String id = campingCarIdField.getText(); // [컨트롤러] getText(뷰 영역)을 통해 사용자 입력 가져 옴
-				String result = model.deleteCampingCar(id);
-				if (result.equals("SUCCESS")) {
-					JOptionPane.showMessageDialog(btnNewButton_1_3_1, "삭제 완료");
-					campingCarIdField.setText("");
-				} else {
-					JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID를 입력해주세요.");
-				}
-				printdata();
 			}
 		});
 		btnNewButton_1_3_1.setForeground(Color.BLACK);
@@ -232,16 +222,6 @@ public class Campingcardata extends JFrame{
 		btnNewButton_1_3_2 = new JButton("입력");
 		btnNewButton_1_3_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				CampingCarInfo campingCar = getCampingCarInput();
-				String result = model.createCampingCar(campingCar);
-				if (result.equals("SUCCESS")) {
-					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "입력완료!");
-				} else if (result.equals("NULL")) {
-					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "빈칸을 모두채워주세요");
-				} else {
-					JOptionPane.showMessageDialog(btnNewButton_1_3_2, "다시입력해주세요!");
-				}
-				printdata();
 			}
 		});
 		btnNewButton_1_3_2.setForeground(Color.BLACK);

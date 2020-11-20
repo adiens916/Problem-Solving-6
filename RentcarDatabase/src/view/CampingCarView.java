@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import controller.dataClass.CampingCarInfo;
+import controller.dataClass.ResultState;
 
 public class CampingCarView extends JFrame {
 
@@ -197,28 +198,28 @@ public class CampingCarView extends JFrame {
 		panel.add(quit);
 	}
 
-	public void showCreateResult(String result) {
-		if (result.equals("SUCCESS")) {
+	public void showCreateResult(ResultState result) {
+		if (result == ResultState.SUCCESS) {
 			JOptionPane.showMessageDialog(null, "입력완료!");
-		} else if (result.equals("NULL")) {
+		} else if (result == ResultState.NULL) {
 			JOptionPane.showMessageDialog(null, "모든 텍스트 필드를 채워주세요!");
 		} else {
 			JOptionPane.showMessageDialog(null, "다시입력해주세요!");
 		}
 	}
 
-	public void showUpdateResult(String result) {
-		if (result.equals("SUCCESS")) {
+	public void showUpdateResult(ResultState result) {
+		if (result == ResultState.SUCCESS) {
 			JOptionPane.showMessageDialog(null, "수정완료");
-		} else if (result.equals("NULL")) {
+		} else if (result == ResultState.NULL) {
 			JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
 		} else {
 			JOptionPane.showMessageDialog(null, "다시입력하세요!");
 		}
 	}
 
-	public void showDeleteResult(String result) {
-		if (result.equals("SUCCESS")) {
+	public void showDeleteResult(ResultState result) {
+		if (result == ResultState.SUCCESS) {
 			JOptionPane.showMessageDialog(null, "삭제 완료");
 		} else {
 			JOptionPane.showMessageDialog(null, "다시입력하세요!");

@@ -3,6 +3,7 @@ package model;
 import java.sql.*;
 import java.util.ArrayList;
 import controller.dataClass.CampingCarInfo;
+import controller.dataClass.ResultState;
 
 public class CampingCarModel {
     /* SQL 연결 */
@@ -29,7 +30,7 @@ public class CampingCarModel {
         return campingCarList;
     }
 
-    public String createCampingCar(CampingCarInfo campingCar) {
+    public ResultState createCampingCar(CampingCarInfo campingCar) {
         /* 컨트롤러를 통해 받아온 데이터를 모델에서 입력 */
         try {
             statement = connection.createStatement();
@@ -49,17 +50,17 @@ public class CampingCarModel {
             /* 성공 여부를 반환 */
             int rowCount = statement.executeUpdate(query);
             if (rowCount != 0) {
-                return "SUCCESS";
+                return ResultState.SUCCESS;
             }
         }catch(Exception e1) {
             /* 데이터 중 하나라도 비어있던 경우 */
             if(campingCar.isNull()) {
                 /* 다른 상황을 알려주는 결과값을 반환 */
-                return "NULL";
+                return ResultState.NULL;
             }
             System.out.println(e1);
         }
-        return "FAILURE";
+        return ResultState.FAILURE;
     }
 
     /* 컨트롤러에서 넘겨 준 id를 찾아서 같은 id를 갖는 캠핑카를 반환 */
@@ -79,7 +80,7 @@ public class CampingCarModel {
         return campingCar;
     }
 
-    public String updateCampingCar(CampingCarInfo campingCar) {
+    public ResultState updateCampingCar(CampingCarInfo campingCar) {
         try {
             statement = connection.createStatement();
             /* 입력받은 데이터를 SQL 형태로 구성 */
@@ -96,19 +97,19 @@ public class CampingCarModel {
             /* 성공 여부를 저장 */
             int rowCount = statement.executeUpdate(query);
             if (rowCount != 0) {
-                return "SUCCESS";
+                return ResultState.SUCCESS;
             }
         }catch(Exception e1) {
             /* 데이터가 비어있던 경우의 상태 */
             if(campingCar.isNull()) {
-                return "NULL";
+                return ResultState.NULL;
             }
             System.err.println(e1);
         }
-        return "FAILURE";
+        return ResultState.FAILURE;
     }
 
-    public String deleteCampingCar(String id) {
+    public ResultState deleteCampingCar(String id) {
         int result1 = 0;
         int result2 = 0;
         try {
@@ -124,9 +125,9 @@ public class CampingCarModel {
         * (!) 그런데 대여 중인 캠핑카를 삭제하면 문제가 될 수 있다.
         * (!) 대여 중인지를 먼저 파악하고, 대여 중이면 삭제를 거부해야 한다. */
         if (result1 == 1 && result2 == 1) {
-            return "SUCCESS";
+            return ResultState.SUCCESS;
         } else {
-            return "FAILURE";
+            return ResultState.FAILURE;
         }
     }
 

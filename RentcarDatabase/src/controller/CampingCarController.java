@@ -2,6 +2,7 @@ package controller;
 
 import java.util.ArrayList;
 import controller.dataClass.CampingCarInfo;
+import controller.dataClass.ResultState;
 import model.CampingCarModel;
 import view.CampingCarView;
 
@@ -41,7 +42,7 @@ public class CampingCarController {
 	private void listenToCreateCampingCar() {
 		campingCarView.btn_Insert.addActionListener(e -> {
 			CampingCarInfo campingCar = campingCarView.getCampingCarInput();
-			String result = campingCarModel.createCampingCar(campingCar);
+			ResultState result = campingCarModel.createCampingCar(campingCar);
 			campingCarView.showCreateResult(result);
 			readCampingCarList();
 		});
@@ -58,7 +59,7 @@ public class CampingCarController {
 	private void listenToUpdateCampingCar() {
 		campingCarView.btn_Edit.addActionListener(e -> {
 			CampingCarInfo campingCar = campingCarView.getCampingCarInput();
-			String result = campingCarModel.updateCampingCar(campingCar);
+			ResultState result = campingCarModel.updateCampingCar(campingCar);
 			campingCarView.showUpdateResult(result);
 			readCampingCarList();
 		});
@@ -67,7 +68,7 @@ public class CampingCarController {
 	private void listenToDeleteCampingCar() {
 		campingCarView.btn_Delete.addActionListener(e -> {
 			String campingCarId = campingCarView.getCampingCarId();
-			String result = campingCarModel.deleteCampingCar(campingCarId);
+			ResultState result = campingCarModel.deleteCampingCar(campingCarId);
 			campingCarView.showDeleteResult(result);
 			readCampingCarList();
 		});
