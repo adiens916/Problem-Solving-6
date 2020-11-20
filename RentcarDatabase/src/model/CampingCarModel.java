@@ -11,25 +11,6 @@ public class CampingCarModel {
     private Statement statement;
     private ResultSet resultSet;
 
-    /* [모델] 현재 등록된 캠핑카들의 리스트를 만들어 반환 */
-    public ArrayList<CampingCarInfo> readCampingCarList() {
-        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
-        try {
-            statement = connection.createStatement();
-            String query2 = " select * from campingcar_list"; /* SQL 문 */
-            resultSet = statement.executeQuery(query2);
-
-            /* SQL을 통해 가져온 데이터를 데이터 클래스 형태로 재구성 */
-            while (resultSet.next()) {
-                CampingCarInfo campingCar = toCampingCarFromResultSet(resultSet);
-                campingCarList.add(campingCar);
-            }
-        } catch(Exception e1) {
-            System.out.println(e1);
-        }
-        return campingCarList;
-    }
-
     public ResultState createCampingCar(CampingCarInfo campingCar) {
         /* 컨트롤러를 통해 받아온 데이터를 모델에서 입력 */
         try {
@@ -78,6 +59,24 @@ public class CampingCarModel {
             System.out.println(e1);
         }
         return campingCar;
+    }
+
+    /* [모델] 현재 등록된 캠핑카들의 리스트를 만들어 반환 */
+    public ArrayList<CampingCarInfo> readCampingCarList() {
+        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
+        try {
+            statement = connection.createStatement();
+            String query2 = " select * from campingcar_list"; /* SQL 문 */
+            resultSet = statement.executeQuery(query2);
+            /* SQL을 통해 가져온 데이터를 데이터 클래스 형태로 재구성 */
+            while (resultSet.next()) {
+                CampingCarInfo campingCar = toCampingCarFromResultSet(resultSet);
+                campingCarList.add(campingCar);
+            }
+        } catch(Exception e1) {
+            System.out.println(e1);
+        }
+        return campingCarList;
     }
 
     public ResultState updateCampingCar(CampingCarInfo campingCar) {

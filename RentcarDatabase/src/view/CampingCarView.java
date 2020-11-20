@@ -15,24 +15,6 @@ public class CampingCarView extends JFrame {
 	private JLabel Label_Title,Label1,Label2,Label3,Label4,Label5,Label6,Label7,Label8,Label9,Label10,Label11;
 	public JButton btn_Search,btn_Edit,btn_Delete,btn_Insert,btn_Refresh,quit;
 
-	public String getColumnList() {
-		return "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
-	}
-
-	public void readCampingCarList(ArrayList<CampingCarInfo> campingCarList) {
-		String str = getColumnList();
-		for (CampingCarInfo campingCar : campingCarList) {
-			str += toStringFromCampingCarInfo(campingCar);
-		}
-		selectcp.setText(str);
-	}
-
-	public void readCampingCar(CampingCarInfo campingCar) {
-		String str = getColumnList();
-		str += toStringFromCampingCarInfo(campingCar);
-		selectcp.setText(str);
-	}
-
 	public CampingCarView() {
 		setTitle("캠핑카프로젝트 리팩토링");
 		
@@ -198,6 +180,56 @@ public class CampingCarView extends JFrame {
 		panel.add(quit);
 	}
 
+	public void refreshInput() {
+		cpcname.setText("");
+		cpcnum.setText("");
+		cpcsits.setText("");
+		cpcmanufacture.setText("");
+		cpcyear.setText("");
+		cpcdistance.setText("");
+		cpcprice.setText("");
+		registdate.setText("");
+		cpid.setText("");
+		cpcid.setText("");
+	}
+
+	public String getCampingCarId() {
+		return cpcid.getText();
+	}
+
+	public CampingCarInfo getCampingCarInput() {
+		CampingCarInfo campingCar = new CampingCarInfo();
+		campingCar.id = cpcid.getText();
+		campingCar.name = cpcname.getText();
+		campingCar.number =cpcnum.getText();
+		campingCar.seats =cpcsits.getText();
+		campingCar.manufacturer = cpcmanufacture.getText();
+		campingCar.builtDate =cpcyear.getText();
+		campingCar.mileage =cpcdistance.getText();
+		campingCar.rentalFee =cpcprice.getText();
+		campingCar.registryDate=registdate.getText();
+		campingCar.companyId =cpid.getText();
+		return campingCar;
+	}
+
+	public String getColumnList() {
+		return "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
+	}
+
+	public void readCampingCarList(ArrayList<CampingCarInfo> campingCarList) {
+		String str = getColumnList();
+		for (CampingCarInfo campingCar : campingCarList) {
+			str += toStringFromCampingCarInfo(campingCar);
+		}
+		selectcp.setText(str);
+	}
+
+	public void readCampingCar(CampingCarInfo campingCar) {
+		String str = getColumnList();
+		str += toStringFromCampingCarInfo(campingCar);
+		selectcp.setText(str);
+	}
+
 	public void showCreateResult(ResultState result) {
 		if (result == ResultState.SUCCESS) {
 			JOptionPane.showMessageDialog(null, "입력완료!");
@@ -224,38 +256,6 @@ public class CampingCarView extends JFrame {
 		} else {
 			JOptionPane.showMessageDialog(null, "다시입력하세요!");
 		}
-	}
-
-	public void refreshInput() {
-		cpcname.setText("");
-		cpcnum.setText("");
-		cpcsits.setText("");
-		cpcmanufacture.setText("");
-		cpcyear.setText("");
-		cpcdistance.setText("");
-		cpcprice.setText("");
-		registdate.setText("");
-		cpid.setText("");
-		cpcid.setText("");
-	}
-
-	public String getCampingCarId() {
-		return cpcid.getText();
-	}
-	
-	public CampingCarInfo getCampingCarInput() {
-		CampingCarInfo campingCar = new CampingCarInfo();
-		campingCar.id = cpcid.getText();
-		campingCar.name = cpcname.getText();
-		campingCar.number =cpcnum.getText();
-		campingCar.seats =cpcsits.getText();
-		campingCar.manufacturer = cpcmanufacture.getText();
-		campingCar.builtDate =cpcyear.getText();
-		campingCar.mileage =cpcdistance.getText();
-		campingCar.rentalFee =cpcprice.getText();
-		campingCar.registryDate=registdate.getText();
-		campingCar.companyId =cpid.getText();
-		return campingCar;
 	}
 
 	private String toStringFromCampingCarInfo(CampingCarInfo campingCar) {
