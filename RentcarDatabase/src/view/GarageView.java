@@ -1,24 +1,17 @@
 package view;
 
-import java.util.ArrayList;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import controller.dataClass.GarageInfo;
-import controller.dataClass.ResultState;
 
-public class GarageView extends JFrame{
+public class GarageView extends ManagementView<GarageInfo> {
 
-	public JButton btn_Search,btn_Insert,btn_Edit,btn_Refresh,btn_Delete,quit;
 	private JTextField garageid,name,address,number,emailaddress,gmanager;
-	private final JTextArea selectcp = new JTextArea();
 
-	public GarageView() {
-		addComponent();
-	}
-
+	@Override
 	public void refreshInput() {
 		name.setText("");
 		address.setText("");
@@ -27,7 +20,8 @@ public class GarageView extends JFrame{
 		garageid.setText("");
 	}
 
-	public GarageInfo getGarageInput() {
+	@Override
+	public GarageInfo getInput() {
 		GarageInfo garage = new GarageInfo();
 		garage.name = name.getText();
 		garage.address = address.getText();
@@ -38,55 +32,18 @@ public class GarageView extends JFrame{
 		return garage;
 	}
 
-	public String getGarageId() {
+	@Override
+	public String getId() {
 		return garageid.getText();
 	}
 
-	public String getColumnList() {
+	@Override
+	String getColumnList() {
 		return "차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n";
 	}
 
-	public void readGarageList(ArrayList<GarageInfo> garageList) {
-		selectcp.setText(getColumnList());
-		for (GarageInfo garage : garageList) {
-			selectcp.append(toStringFromGarageInfo(garage));
-		}
-	}
-
-	public void readGarage(GarageInfo garage) {
-		selectcp.setText(getColumnList());
-		selectcp.append(toStringFromGarageInfo(garage));
-	}
-
-	public void showCreateResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null, "입력완료!");
-		} else if (result == ResultState.NULL) {
-			JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null, "다시입력해주세요!");
-		}
-	}
-
-	public void showUpdateResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null, "수정완료");
-		} else if (result == ResultState.NULL) {
-			JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null, "다시입력하세요!");
-		}
-	}
-
-	public void showDeleteResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null, "삭제 완료");
-		} else {
-			JOptionPane.showMessageDialog(null, "ID를 입력해주세요.");
-		}
-	}
-
-	private String toStringFromGarageInfo(GarageInfo garage) {
+	@Override
+	String toStringFromInfo(GarageInfo garage) {
 		return	garage.id + "\t" +
 				garage.name + "\t" +
 				garage.address + "\t" +
@@ -95,7 +52,8 @@ public class GarageView extends JFrame{
 				garage.emailAddress + "\n";
 	}
 
-	private void addComponent() {
+	@Override
+	void addComponent() {
 		setTitle("캠핑카프로젝트 리팩토링");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
