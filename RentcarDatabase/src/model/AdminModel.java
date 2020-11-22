@@ -1,49 +1,62 @@
 package model;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
+import controller.dataClass.CampingCarInfo;
 import controller.dataClass.GarageInfo;
 
 public class AdminModel {
 	
-	public AdminModel() {
-		ConnectToDB.conDB(); //DB연결
-	 }
+	// SQL 연결
+    private final Connection con = DatabaseConnector.connection;
 	
 	 Statement stmt;
 	 ResultSet rs;
 	 int result;
-	 public ArrayList<AdminInfo> getCampingCarReturnList(){
-		 try {
-				stmt = ConnectToDB.con.createStatement();
-				String query="SELECT * FROM campingcar_return;";
-				rs = stmt.executeQuery(query);
-				ArrayList<AdminInfo> adminList = new ArrayList<>();
-				while(rs.next()) {
-					AdminInfo admin = new AdminInfo(); 
-	            	 admin.front = rs.getString(1);
-	            	 admin.right = rs.getString(2);
-	            	 admin.left = rs.getString(3);
-	            	 admin.back = rs.getString(4);
-	            	 admin.repairListFixDate = rs.getString(5);
-	            	 admin.campingcarId = rs.getString(6);
-	            	 admin.rentId = rs.getString(7);
-	            	 adminList.add(admin);
-	             }
-	             return adminList;
-			}catch(Exception e1) {
-				System.out.println(e1);
-				return null;
-			}
-		
-	 }
+	 public ArrayList<CampingCarInfo> getCampingCarList() {
+	        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
+	        try {
+	            stmt = con.createStatement();
+	            String query = " select * from campingcar_list"; /* SQL 문 */
+	            rs = stmt.executeQuery(query);
+
+	/* SQL을 통해 가져온 데이터를 데이터 클래스 형태로 재구성 */
+	            while (rs.next()) {
+	                CampingCarInfo campingCar = toCampingCarFromResultSet(rs);
+	                campingCarList.add(campingCar);
+	            }
+	        } catch(Exception e1) {
+	            System.out.println(e1);
+	        }
+	        return campingCarList;
+	    }
+	 private CampingCarInfo toCampingCarFromResultSet(ResultSet result) {
+	        CampingCarInfo campingCar = new CampingCarInfo();
+	        try {
+	            campingCar.id = Integer.toString(result.getInt(1));
+	            campingCar.name = result.getString(2);
+	            campingCar.number = result.getString(3);
+	            campingCar.seats = result.getString(4);
+	            campingCar.manufacturer = result.getString(5);
+	            campingCar.builtDate = result.getString(6);
+	            campingCar.mileage = result.getString(7);
+	            campingCar.rentalFee = result.getString(8);
+	            campingCar.registryDate = result.getString(9);
+	            campingCar.companyId = result.getString(10);
+	        } catch(Exception e1) {
+	            System.out.println(e1);
+	        }
+	        return campingCar;
+	    }
+	 
 	 
 	 public ArrayList<GarageInfo> getGarageList() {
 	        try {
-	            stmt = ConnectToDB.con.createStatement();
+	            stmt = con.createStatement();
 	            String query2=" select * from garage"; /* SQL 문 */
 	            rs = stmt.executeQuery(query2);
 
@@ -64,7 +77,20 @@ public class AdminModel {
 	            return null;
 	        }
 	    }
-	 
+	 private GarageInfo toGarageFromResultSet(ResultSet result) {
+		 GarageInfo garage = new GarageInfo();
+	        try {
+	        	garage.id = Integer.toString(result.getInt(1));
+	        	garage.name = result.getString(2);
+	        	garage.address = result.getString(3);
+	        	garage.number = result.getString(4);
+	        	garage.manager = result.getString(5);
+	        	garage.emailAddress = result.getString(6);
+	        } catch(Exception e1) {
+	            System.out.println(e1);
+	        }
+	        return garage;
+	    }
 	 
 	
 	//입력한 데이터를 공백으로 만들기 위한 메소드
@@ -98,14 +124,14 @@ public class AdminModel {
 		}
 		
 		try {
-			stmt = ConnectToDB.con.createStatement();
+			stmt = con.createStatement();
 			String query = "select fix, custom_rent_list_id from campingcar_return where campingcar_list_id='"+admin.torepair+"'";
 			rs = stmt.executeQuery(query);
 			if(rs.next()) {
 				fixTest = rs.getString(1);
 				rentId = rs.getString(2);
 			}
-			stmt = ConnectToDB.con.createStatement();
+			stmt = con.createStatement();
 			query = "select c_license_id,campingcar_company_id from customer_rent_old_list where rent_id='"+rentId+"';";
 			rs = stmt.executeQuery(query);
 			if(rs.next()) {
@@ -113,7 +139,7 @@ public class AdminModel {
 				companyId = rs.getString(2);
 			}		    		
 			if(fixTest.equals("1")) { //수리할때
-				stmt = ConnectToDB.con.createStatement();
+				stmt = con.createStatement();
 				query = "insert into repair_list(r_log,r_date,r_price,r_due_date,r_other_repair,customer_license_id,campingcar_rent_company_id,garage_id,campingcar_list_id) "
 						+ "values('"+admin.repairListLog
 						+"','"+admin.repairListFixDate
@@ -126,11 +152,11 @@ public class AdminModel {
 						+"','"+admin.torepair
 						+"');";
 				int result = stmt.executeUpdate(query);
-				stmt = ConnectToDB.con.createStatement();
+				stmt = con.createStatement();
 				query="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+admin.torepair+"'";
 				int result1 = stmt.executeUpdate(query);
 				if(result == 1 && result1==1) {
-					getCampingCarReturnList();
+					getCampingCarList();
 					return 1;
 				}
 			}else if(fixTest.equals("0")) {//수리필요없을 때
@@ -153,7 +179,7 @@ public class AdminModel {
 	 */
 	public int ReturnToCampingcarList(String cpcid) {
 		try {
-		stmt = ConnectToDB.con.createStatement();
+		stmt = con.createStatement();
 		String fixtest = null;
 		String query = "select fix from campingcar_return where campingcar_list_id='"+cpcid+"'";
 		rs = stmt.executeQuery(query);
@@ -207,7 +233,7 @@ public class AdminModel {
 	public ArrayList<String> getSearch(int num){
 		 ArrayList<String> search = new ArrayList<>();
 		 try {
-			stmt = ConnectToDB.con.createStatement();
+			stmt = con.createStatement();
 			String query[] = new String[5];
 			query[1]="select c_name from (select r_price,customer_license_id from repair_list where r_price >=10) rp, customer cs where cs.license_id=rp.customer_license_id group by cs.c_name;";
 			query[2]="select c_name FROM (SELECT cc_price,c_license_id FROM customer_rent_list WHERE  cc_price >= 50) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
