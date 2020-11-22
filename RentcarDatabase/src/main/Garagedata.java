@@ -1,6 +1,6 @@
 package main;
 
-import model.DataModel_Garage;
+import model.GarageModel;
 import controller.dataClass.GarageInfo;
 
 import java.awt.BorderLayout;
@@ -73,7 +73,7 @@ public class Garagedata extends JFrame{
 		   private JLabel lblNewLabel_1_2;
 
 /* model을 참고할 수 있게 함 [원래는 Controller 부분] */
-		private DataModel_Garage model = new DataModel_Garage();
+		private GarageModel model = new GarageModel();
 		   
 		public void conDB() { 
 		     try {
@@ -92,7 +92,7 @@ public class Garagedata extends JFrame{
 		   }
 		public void printdata() {
 			selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-			ArrayList<GarageInfo> garageList = model.getGarageList();
+			ArrayList<GarageInfo> garageList = model.readGarageList();
 /* 뷰에서는 처리된 리스트만 가져와서 보여줌 */
 			for (GarageInfo garage : garageList) {
 				String str = garage.id + "\t" +
@@ -272,7 +272,7 @@ public class Garagedata extends JFrame{
 		/* 입력란으로부터 정비고 데이터 가져옴 */
 		GarageInfo garage = getGarageInput();
 		/* 결과에 따라 상태 출력 */
-		int result = model.addGarage(garage);
+		/*int result = model.createGarage(garage);
 		if (result == 1) {
 			JOptionPane.showMessageDialog(btnNewButton_1_3_2, "입력완료!");
 			printdata();
@@ -281,7 +281,7 @@ public class Garagedata extends JFrame{
 			printdata();
 		} else {
 			JOptionPane.showMessageDialog(btnNewButton_1_3_2, "다시입력해주세요!");
-		}
+		}*/
 	}
 /* 검색 */
 	public void searchGarage() {
@@ -289,7 +289,7 @@ public class Garagedata extends JFrame{
 		selectcp.setText("");
 		selectcp.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \n");
 		/* 모델에 id를 넘겨주면, 모델에서 id에 해당하는 걸 가져와 돌려 줌 */
-		GarageInfo garage = model.searchGarageById(id);
+		GarageInfo garage = model.readGarage(id);
 		selectcp.append(toStringFromGarageInfo(garage));
 	}
 	private String toStringFromGarageInfo(GarageInfo garage) {
@@ -307,8 +307,8 @@ public class Garagedata extends JFrame{
 		/* 입력란으로부터 정비고 데이터 가져옴 */
 		GarageInfo garage = getGarageInput();
 		/* 모델에 데이터를 보내고, 반환된 결과값을 살핌 */
-		int result = model.updateGarage(garage);
-		/* 결과에 따라 뷰에서 상태 출력 */
+		/*int result = model.updateGarage(garage);
+
 		if (result == 1) {
 			JOptionPane.showMessageDialog(btnNewButton_1_3, "수정완료");
 			//수정하고나서출력!
@@ -318,14 +318,14 @@ public class Garagedata extends JFrame{
 			printdata();
 		} else {
 			JOptionPane.showMessageDialog(btnNewButton_1_3, "다시입력하세요!");
-		}
+		}*/
 	}
 /* 삭제 */
 	public void deleteGarage() {
 		String garageId = garageid.getText();
 		/* 모델에 id를 넘겨주고, 처리 결과를 가져옴 */
-		int result = model.deleteGarage(garageId);
-		/* 처리 결과에 맞게 뷰에서 상태 출력 */
+		/*int result = model.deleteGarage(garageId);
+		*//* 처리 결과에 맞게 뷰에서 상태 출력 *//*
 		if (result == 1) {
 			JOptionPane.showMessageDialog(btnNewButton_1_3_1, "삭제 완료");
 			printdata();
@@ -333,7 +333,7 @@ public class Garagedata extends JFrame{
 		}else {
 			JOptionPane.showMessageDialog(btnNewButton_1_3_1, "ID를 입력해주세요.");
 			//ystem.out.println("실패");
-		}
+		}*/
 	}
 /* 사용자 입력으로부터 데이터를 가져와서 데이터 클래스에 저장 */
 	public GarageInfo getGarageInput() {

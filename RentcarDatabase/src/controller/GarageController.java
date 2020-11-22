@@ -1,82 +1,75 @@
 package controller;
 
 import java.util.ArrayList;
-
-import javax.swing.JOptionPane;
-
+import javax.swing.JButton;
 import controller.dataClass.GarageInfo;
-import model.DataModel_Garage;
+import controller.dataClass.ResultState;
+import model.GarageModel;
+import view.GarageView;
 
 public class GarageController {
 
-	DataModel_Garage garageModel = new DataModel_Garage();
+	private final GarageModel garageModel = new GarageModel();
+	private final GarageView garageView = new GarageView();
+	public final JButton quit = garageView.quit;
+	
+	public GarageController() {
+		readGarageList();
+		listenToRefreshInput();
+		listenToCreateGarage();
+		listenToReadGarage();
+		listenToUpdateGarage();
+		listenToDeleteGarage();
+	}
 
-	//----
-	public String printGarageList() {
+	public void setVisible(boolean value) {
+		garageView.setVisible(value);
+	}
 
-		String str = "";
-		ArrayList<GarageInfo> garageList = garageModel.getGarageList();
-		
-		for (GarageInfo garage : garageList) {
-			str += garage.id + "\t" + garage.name + "\t" + garage.address + "\t" + garage.number + "\t" + garage.manager
-					+ "\t" + garage.emailAddress + "\n";
-		}
-		return str;
+	private void readGarageList() {
+		ArrayList<GarageInfo> garageList = garageModel.readGarageList();
+		garageView.readGarageList(garageList);
 	}
-	
-	//----
-	public String searchGarageList(String id) {
-		String str = "";
-		
-		str = garageModel.toStringFromGarageInfo(garageModel.searchGarageById(id));
-		
-		return str;
-	
-	}
-	
-	//----
-	public void insertGarageList(GarageInfo garage) {
-		
-		int result = garageModel.addGarage(garage);
-		
-		if (result == 1) {
-			JOptionPane.showMessageDialog(null, "입력완료!");
-		} else if (result == 2) {
-			JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null, "다시입력해주세요!");
-		}
 
+	private void listenToRefreshInput() {
+		garageView.btn_Refresh.addActionListener(e -> {
+			readGarageList();
+			garageView.refreshInput();
+		});
 	}
-	
-	public void editGarageList(GarageInfo garage) {
-		
-		
-		int result = garageModel.updateGarage(garage);
-		
-		
-		if (result == 1) {
-			JOptionPane.showMessageDialog(null, "수정완료");
-		} else if (result == 2) {
-			JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null, "다시입력하세요!");
-		}
-	}
-	
-	public void deleteGarageList(String id) {
-		
-		
-		/* 모델에 id를 넘겨주고, 처리 결과를 가져옴 */
-		int result = garageModel.deleteGarage(id);
 
-		if (result == 1) {
-			JOptionPane.showMessageDialog(null, "삭제 완료");
-		}else {
-			JOptionPane.showMessageDialog(null, "ID를 입력해주세요.");
-		}
+	private void listenToCreateGarage() {
+		garageView.btn_Insert.addActionListener(e -> {
+			GarageInfo garage = garageView.getGarageInput();
+			ResultState result = garageModel.createGarage(garage);
+			garageView.showCreateResult(result);
+			readGarageList();
+		});
 	}
-	
-	
-	
+
+	private void listenToReadGarage() {
+		garageView.btn_Search.addActionListener(e -> {
+			String garageId = garageView.getGarageId();
+			GarageInfo garage = garageModel.readGarage(garageId);
+			garageView.readGarage(garage);
+		});
+	}
+
+	private void listenToUpdateGarage() {
+		garageView.btn_Edit.addActionListener(e -> {
+			GarageInfo garage = garageView.getGarageInput();
+			ResultState result = garageModel.updateGarage(garage);
+			garageView.showUpdateResult(result);
+			readGarageList();
+		});
+	}
+
+	private void listenToDeleteGarage() {
+		garageView.btn_Delete.addActionListener(e -> {
+			String garageId = garageView.getGarageId();
+			ResultState result = garageModel.deleteGarage(garageId);
+			garageView.showDeleteResult(result);
+			readGarageList();
+		});
+	}
 }

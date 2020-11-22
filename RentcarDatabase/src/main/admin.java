@@ -1,6 +1,7 @@
 package main;
 
 import controller.CampingCarController;
+import controller.GarageController;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -58,7 +59,7 @@ public class admin extends JFrame implements ActionListener{
 	Companydata delform;
 	CampingCarController campform;
 	Customerdata cusform;
-	Garagedata grgform;
+	GarageController grgform;
 	JMenuItem mntmNewMenuItem_1_4;
 	JMenuItem mntmNewMenuItem_1_4_1;
 	JMenuItem mntmNewMenuItem_1_4_2;
@@ -155,7 +156,7 @@ public class admin extends JFrame implements ActionListener{
 		cusform = new Customerdata();
 		cusform.quit.addActionListener(this);
 		
-		grgform = new Garagedata();
+		grgform = new GarageController();
 		grgform.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

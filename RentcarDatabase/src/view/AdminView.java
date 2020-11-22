@@ -50,7 +50,7 @@ public class AdminView extends JFrame implements ActionListener{
 	DataView_Company Companyform;
 	CampingCarView Campingcarform;
 	DataView_Customer Customerform;
-	DataView_Garage Garageform;
+	GarageView Garageform;
 	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
@@ -86,7 +86,7 @@ public class AdminView extends JFrame implements ActionListener{
 		Customerform = new DataView_Customer();
 		Customerform.quit.addActionListener(this);
 		
-		Garageform = new DataView_Garage();
+		Garageform = new GarageView();
 		Garageform.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
