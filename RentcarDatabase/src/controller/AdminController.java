@@ -3,7 +3,7 @@ package controller;
 import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 import model.AdminModel;
 
 public class AdminController {
@@ -34,10 +34,10 @@ public class AdminController {
 	
 	public void printGarageList() {
 		try {
-			ArrayList<GarageInfo> adminList = new ArrayList<>();
+			ArrayList<Garage> adminList = new ArrayList<>();
 			adminList = adminModel.getGarageList();
 			adminView.garageText.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-			for(GarageInfo i : adminList) {
+			for(Garage i : adminList) {
 				adminView.garageText.append(i.id + "\t");
 				adminView.garageText.append(i.name + "\t");
 				adminView.garageText.append(i.address + "\t");

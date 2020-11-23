@@ -1,14 +1,14 @@
 package model;
 
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GarageModel extends ManagementModel<GarageInfo> {
+public class GarageModel extends ManagementModel<Garage> {
 
     @Override
-    String getCreateQuery(GarageInfo garage) {
+    String getCreateQuery(Garage garage) {
         return "insert into garage(garage_id,g_name,g_address,g_number,g_manager,g_email)"
                 + " values('"+garage.id
                 +"','"+garage.name
@@ -26,11 +26,11 @@ public class GarageModel extends ManagementModel<GarageInfo> {
 
     @Override
     String getReadQuery(String id) {
-        return " select * from garage where garage_id='"+id+"';"; /* SQL 문 */
+        return " select * from garage where garage_id='"+id+"';";
     }
 
     @Override
-    String getUpdateQuery(GarageInfo garage) {
+    String getUpdateQuery(Garage garage) {
         return "update garage " +
                 "set g_name='" + garage.name
                 +"',g_address='"+garage.address
@@ -47,18 +47,18 @@ public class GarageModel extends ManagementModel<GarageInfo> {
     }
 
     @Override
-    boolean isNullData(GarageInfo garage) {
+    boolean isNullData(Garage garage) {
         return garage.isNull();
     }
 
     @Override
-    GarageInfo createInfo() {
-        return new GarageInfo();
+    Garage createInfo() {
+        return new Garage();
     }
 
     @Override
-    GarageInfo toInfoFromResultSet(ResultSet resultSet) throws SQLException{
-        GarageInfo garage = new GarageInfo();
+    Garage toInfoFromResultSet(ResultSet resultSet) throws SQLException{
+        Garage garage = new Garage();
         garage.id = Integer.toString(resultSet.getInt(1));
         garage.name = resultSet.getString(2);
         garage.address = resultSet.getString(3);

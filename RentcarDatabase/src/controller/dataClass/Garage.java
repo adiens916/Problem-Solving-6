@@ -1,6 +1,6 @@
 package controller.dataClass;
 
-public class GarageInfo {
+public class Garage {
     public String id;
     public String name;
     public String address;

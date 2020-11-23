@@ -21,16 +21,17 @@ public abstract class ManagementModel<T> {
     private ResultState executeCreateOrUpdate(String query, T info) {
         /* Create과 Update는 쿼리문 빼고 전부 같음
          * -> 같은 부분은 남겨놓고, 다른 부분만 빼놨음 */
+        if(isNullData(info)) { // 데이터 중 빈 값이 있으면
+            return ResultState.NULL; // try 거치지 않고 바로 NULL 알려줌
+        }
         try {
             statement = connection.createStatement();
-            int rowCount = statement.executeUpdate(query);
-            if (rowCount != 0) {
+            int result = statement.executeUpdate(query);
+            if (result > 0) {
                 return ResultState.SUCCESS;
             }
         }catch(Exception e1) {
-            if(isNullData(info)) { // 데이터 클래스 참조 불가 -> 하위 클래스에 판단 위임
-                return ResultState.NULL;
-            }
+            e1.printStackTrace();
         }
         return ResultState.FAILURE;
     }
@@ -39,8 +40,13 @@ public abstract class ManagementModel<T> {
         return executeCreateOrUpdate(getCreateQuery(info), info);
     }
 
+    public ResultState update(T info) {
+        return executeCreateOrUpdate(getUpdateQuery(info), info);
+    }
+
     /* 전체 목록 출력하는 메서드의 추상형
-     * 밑의 대상 하나 출력하는 메서드와 매우 비슷함 -> 리팩토링 가능할 듯 */
+     * 밑의 대상 하나 출력하는 메서드와 매우 비슷함
+     * -> 밑의 메서드를 위 방식으로 흡수하기 */
     public ArrayList<T> readList() {
         ArrayList<T> infoList = new ArrayList<>();
         try {
@@ -66,21 +72,17 @@ public abstract class ManagementModel<T> {
             if(resultSet.next()) {
                 info = toInfoFromResultSet(resultSet);
             }
-        } catch (Exception throwable) {
-            throwable.printStackTrace();
+        } catch (Exception e1) {
+            e1.printStackTrace();
         }
         return info;
-    }
-
-    public ResultState update(T info) {
-        return executeCreateOrUpdate(getUpdateQuery(info), info);
     }
 
     public ResultState delete(String id) {
         try {
             statement = connection.createStatement();
-            int rowCount = statement.executeUpdate(getDeleteQuery(id));
-            if (rowCount != 0) {
+            int result = statement.executeUpdate(getDeleteQuery(id));
+            if (result > 0) {
                 return ResultState.SUCCESS;
             }
         } catch (Exception e1) {
@@ -100,9 +102,10 @@ public abstract class ManagementModel<T> {
 
     abstract String getDeleteQuery(String id);
 
+    // 추상 클래스에선 데이터 클래스 참조 불가 -> 하위 클래스에 판단 넘김
     abstract boolean isNullData(T info);
 
-    /* 빈 데이터 클래스를 생성할 수 없으므로, 하위 클래스에서 반환 */
+    /* 추상 클래스에선 빈 데이터 클래스를 생성할 수 없으므로, 하위 클래스에서 반환 */
     abstract T createInfo();
 
     abstract T toInfoFromResultSet(ResultSet resultSet) throws Exception;

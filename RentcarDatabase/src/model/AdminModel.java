@@ -5,7 +5,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 
 public class AdminModel {
 	
@@ -41,15 +41,15 @@ public class AdminModel {
 		
 	 }
 	 
-	 public ArrayList<GarageInfo> getGarageList() {
+	 public ArrayList<Garage> getGarageList() {
 	        try {
 	            stmt = ConnectToDB.con.createStatement();
 	            String query2=" select * from garage"; /* SQL 문 */
 	            rs = stmt.executeQuery(query2);
 
-	            ArrayList<GarageInfo> garageList = new ArrayList<>();
+	            ArrayList<Garage> garageList = new ArrayList<>();
 	            while(rs.next()) {
-	                GarageInfo garage = new GarageInfo();
+	                Garage garage = new Garage();
 	                garage.id = Integer.toString(rs.getInt(1));
 	                garage.name = rs.getString(2);
 	                garage.address = rs.getString(3);

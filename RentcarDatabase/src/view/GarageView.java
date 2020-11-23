@@ -5,36 +5,41 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 
-public class GarageView extends ManagementView<GarageInfo> {
+public class GarageView extends ManagementView<Garage> {
 
-	private JTextField garageid,name,address,number,emailaddress,gmanager;
+	private JTextField garageIdTextField;
+	private JTextField nameTextField;
+	private JTextField addressTextField;
+	private JTextField phoneNumberTextField;
+	private JTextField emailAddressTextField;
+	private JTextField managerTextField;
 
 	@Override
 	public void refreshInput() {
-		name.setText("");
-		address.setText("");
-		number.setText("");
-		emailaddress.setText("");
-		garageid.setText("");
+		nameTextField.setText("");
+		addressTextField.setText("");
+		phoneNumberTextField.setText("");
+		emailAddressTextField.setText("");
+		garageIdTextField.setText("");
 	}
 
 	@Override
-	public GarageInfo getInput() {
-		GarageInfo garage = new GarageInfo();
-		garage.name = name.getText();
-		garage.address = address.getText();
-		garage.number = number.getText();
-		garage.manager = gmanager.getText();
-		garage.emailAddress = emailaddress.getText();
-		garage.id = garageid.getText();
+	public Garage getInput() {
+		Garage garage = new Garage();
+		garage.name = nameTextField.getText();
+		garage.address = addressTextField.getText();
+		garage.number = phoneNumberTextField.getText();
+		garage.manager = managerTextField.getText();
+		garage.emailAddress = emailAddressTextField.getText();
+		garage.id = garageIdTextField.getText();
 		return garage;
 	}
 
 	@Override
 	public String getId() {
-		return garageid.getText();
+		return garageIdTextField.getText();
 	}
 
 	@Override
@@ -43,7 +48,7 @@ public class GarageView extends ManagementView<GarageInfo> {
 	}
 
 	@Override
-	String toStringFromInfo(GarageInfo garage) {
+	String toStringFromInfo(Garage garage) {
 		return	garage.id + "\t" +
 				garage.name + "\t" +
 				garage.address + "\t" +
@@ -71,108 +76,108 @@ public class GarageView extends ManagementView<GarageInfo> {
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(311, 98, 576, 287);
 		panel.add(scrollPane);
-		scrollPane.setViewportView(selectcp);
+		scrollPane.setViewportView(textArea);
 
 //상단 타이틀 Label--------------------------------------------------------------------------
-		JLabel label1 = new JLabel("정비소 정보 입력 | 수정 | 삭제");
-		label1.setFont(new Font("양재튼튼체B", Font.BOLD, 28));
-		label1.setBounds(274, 10, 432, 39);
-		panel.add(label1);
-		label1 = new JLabel("차고지ID 검색후 수정,삭제하시면 더 편리합니다.");
-		label1.setBounds(329, 55, 294, 15);
-		panel.add(label1);
+		JLabel guideLabel = new JLabel("정비소 정보 입력 | 수정 | 삭제");
+		guideLabel.setFont(new Font("양재튼튼체B", Font.BOLD, 28));
+		guideLabel.setBounds(274, 10, 432, 39);
+		panel.add(guideLabel);
+		guideLabel = new JLabel("차고지ID 검색후 수정,삭제하시면 더 편리합니다.");
+		guideLabel.setBounds(329, 55, 294, 15);
+		panel.add(guideLabel);
 //새로고침 기능------------------------------------------------------------------------------
-		btn_Refresh = new JButton("새로고침");
-		btn_Refresh.setBounds(16, 18, 96, 20);
-		panel.add(btn_Refresh);
+		refreshButton = new JButton("새로고침");
+		refreshButton.setBounds(16, 18, 96, 20);
+		panel.add(refreshButton);
 
 //데이터 입력-------------------------------------------------------------------------------
-		btn_Search = new JButton("검색");
-		btn_Search.setFont(new Font("굴림", Font.PLAIN, 10));
-		btn_Search.setBounds(242, 98, 57, 23);
-		panel.add(btn_Search);
+		readButton = new JButton("검색");
+		readButton.setFont(new Font("굴림", Font.PLAIN, 10));
+		readButton.setBounds(242, 98, 57, 23);
+		panel.add(readButton);
 
-		JLabel label2 = new JLabel("이름");
-		label2.setFont(new Font("굴림", Font.BOLD, 18));
-		label2.setBounds(16, 141, 120, 20);
-		panel.add(label2);
+		JLabel nameLabel = new JLabel("이름");
+		nameLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		nameLabel.setBounds(16, 141, 120, 20);
+		panel.add(nameLabel);
 
-		JLabel label3 = new JLabel("주소");
-		label3.setFont(new Font("굴림", Font.BOLD, 18));
-		label3.setBounds(16, 178, 120, 20);
-		panel.add(label3);
+		JLabel AddressLabel = new JLabel("주소");
+		AddressLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		AddressLabel.setBounds(16, 178, 120, 20);
+		panel.add(AddressLabel);
 
-		JLabel label4 = new JLabel("이메일주소");
-		label4.setFont(new Font("굴림", Font.BOLD, 18));
-		label4.setBounds(16, 286, 120, 20);
-		panel.add(label4);
+		JLabel emailAddressLabel = new JLabel("이메일주소");
+		emailAddressLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		emailAddressLabel.setBounds(16, 286, 120, 20);
+		panel.add(emailAddressLabel);
 
 
-		JLabel label5 = new JLabel("매니저이름");
-		label5.setFont(new Font("굴림", Font.BOLD, 18));
-		label5.setBounds(16, 255, 120, 20);
-		panel.add(label5);
+		JLabel managerLabel = new JLabel("매니저이름");
+		managerLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		managerLabel.setBounds(16, 255, 120, 20);
+		panel.add(managerLabel);
 
-		JLabel label6 = new JLabel("차고지ID입력");
-		label6.setFont(new Font("굴림", Font.BOLD, 18));
-		label6.setBounds(16, 102, 120, 20);
-		panel.add(label6);
+		JLabel garageIdLabel = new JLabel("차고지ID입력");
+		garageIdLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		garageIdLabel.setBounds(16, 102, 120, 20);
+		panel.add(garageIdLabel);
 
-		JLabel label7 = new JLabel("번호");
-		label7.setFont(new Font("굴림", Font.BOLD, 18));
-		label7.setBounds(16, 216, 120, 20);
-		panel.add(label7);
+		JLabel phoneNumberLabel = new JLabel("번호");
+		phoneNumberLabel.setFont(new Font("굴림", Font.BOLD, 18));
+		phoneNumberLabel.setBounds(16, 216, 120, 20);
+		panel.add(phoneNumberLabel);
 
-		garageid = new JTextField();
-		garageid.setColumns(10);
-		garageid.setBounds(158, 99, 72, 20);
-		panel.add(garageid);
+		garageIdTextField = new JTextField();
+		garageIdTextField.setColumns(10);
+		garageIdTextField.setBounds(158, 99, 72, 20);
+		panel.add(garageIdTextField);
 
-		name = new JTextField();
-		name.setColumns(10);
-		name.setBounds(158, 142, 141, 21);
-		panel.add(name);
+		nameTextField = new JTextField();
+		nameTextField.setColumns(10);
+		nameTextField.setBounds(158, 142, 141, 21);
+		panel.add(nameTextField);
 
-		address = new JTextField();
-		address.setColumns(10);
-		address.setBounds(158, 179, 141, 21);
-		panel.add(address);
+		addressTextField = new JTextField();
+		addressTextField.setColumns(10);
+		addressTextField.setBounds(158, 179, 141, 21);
+		panel.add(addressTextField);
 
-		number = new JTextField();
-		number.setColumns(10);
-		number.setBounds(158, 216, 141, 21);
-		panel.add(number);
+		phoneNumberTextField = new JTextField();
+		phoneNumberTextField.setColumns(10);
+		phoneNumberTextField.setBounds(158, 216, 141, 21);
+		panel.add(phoneNumberTextField);
 
-		emailaddress = new JTextField();
-		emailaddress.setColumns(10);
-		emailaddress.setBounds(158, 285, 141, 21);
-		panel.add(emailaddress);
+		emailAddressTextField = new JTextField();
+		emailAddressTextField.setColumns(10);
+		emailAddressTextField.setBounds(158, 285, 141, 21);
+		panel.add(emailAddressTextField);
 
-		gmanager = new JTextField();
-		gmanager.setColumns(10);
-		gmanager.setBounds(158, 252, 141, 21);
-		panel.add(gmanager);
+		managerTextField = new JTextField();
+		managerTextField.setColumns(10);
+		managerTextField.setBounds(158, 252, 141, 21);
+		panel.add(managerTextField);
 
 //하단에 입력, 수정, 삭제 버튼 기능-------------------------------------------------------------
-		btn_Insert = new JButton("입력");
-		btn_Insert.setForeground(Color.BLACK);
-		btn_Insert.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_Insert.setBounds(34, 316, 70, 29);
-		panel.add(btn_Insert);
+		createButton = new JButton("입력");
+		createButton.setForeground(Color.BLACK);
+		createButton.setFont(new Font("굴림", Font.BOLD, 15));
+		createButton.setBounds(34, 316, 70, 29);
+		panel.add(createButton);
 
 
-		btn_Edit = new JButton("수정");
-		btn_Edit.setForeground(Color.BLACK);
-		btn_Edit.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_Edit.setBounds(115, 316, 70, 29);
-		panel.add(btn_Edit);
+		updateButton = new JButton("수정");
+		updateButton.setForeground(Color.BLACK);
+		updateButton.setFont(new Font("굴림", Font.BOLD, 15));
+		updateButton.setBounds(115, 316, 70, 29);
+		panel.add(updateButton);
 
 
-		btn_Delete = new JButton("삭제");
-		btn_Delete.setForeground(Color.BLACK);
-		btn_Delete.setFont(new Font("굴림", Font.BOLD, 15));
-		btn_Delete.setBounds(197, 316, 70, 29);
-		panel.add(btn_Delete);
+		deleteButton = new JButton("삭제");
+		deleteButton.setForeground(Color.BLACK);
+		deleteButton.setFont(new Font("굴림", Font.BOLD, 15));
+		deleteButton.setBounds(197, 316, 70, 29);
+		panel.add(deleteButton);
 
 		quit = new JButton("닫기");
 		quit.setForeground(Color.BLACK);

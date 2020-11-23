@@ -12,14 +12,14 @@ import java.util.ArrayList;
  * */
 
 public abstract class ManagementView<T> extends JFrame {
-    /* 퍼블릭으로 선언: 컨트롤러에서 각 버튼을 참조해 리스너를 추가해야 하므로 */
-    public JButton btn_Search;
-    public JButton btn_Insert;
-    public JButton btn_Edit;
-    public JButton btn_Refresh;
-    public JButton btn_Delete;
+    /* public으로 선언 (<- 컨트롤러에서 각 버튼을 참조해 리스너를 추가해야 하므로) */
+    public JButton refreshButton;
+    public JButton createButton;
+    public JButton readButton;
+    public JButton updateButton;
+    public JButton deleteButton;
     public JButton quit;
-    final JTextArea selectcp = new JTextArea();
+    final JTextArea textArea = new JTextArea();
 
     ManagementView() {
         // 뷰 생성과 동시에 뷰에 GUI 컴포넌트들 부착
@@ -28,9 +28,9 @@ public abstract class ManagementView<T> extends JFrame {
 
     public abstract void refreshInput();
 
-    public abstract String getId();
-
     public abstract T getInput();
+
+    public abstract String getId();
 
     abstract String getColumnList(); // 테이블 열을 나타내는 스트링
 
@@ -39,15 +39,15 @@ public abstract class ManagementView<T> extends JFrame {
     abstract void addComponent(); // UI 컴포넌트들은 하위 클래스에서 만들어 부착
 
     public void readList(ArrayList<T> infoList) {
-        selectcp.setText(getColumnList());
+        textArea.setText(getColumnList());
         for (T info : infoList) {
-            selectcp.append(toStringFromInfo(info));
+            textArea.append(toStringFromInfo(info));
         }
     }
 
     public void read(T info) {
-        selectcp.setText(getColumnList());
-        selectcp.append(toStringFromInfo(info));
+        textArea.setText(getColumnList());
+        textArea.append(toStringFromInfo(info));
     }
 
     public void showCreateResult(ResultState result) {

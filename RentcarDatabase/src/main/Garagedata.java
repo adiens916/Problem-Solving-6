@@ -1,13 +1,12 @@
 package main;
 
 import model.GarageModel;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
@@ -22,7 +21,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 
@@ -270,7 +268,7 @@ public class Garagedata extends JFrame{
 /* 입력 */
 	public void addGarage() {
 		/* 입력란으로부터 정비고 데이터 가져옴 */
-		GarageInfo garage = getGarageInput();
+		Garage garage = getGarageInput();
 		/* 결과에 따라 상태 출력 */
 		/*int result = model.createGarage(garage);
 		if (result == 1) {
@@ -292,7 +290,7 @@ public class Garagedata extends JFrame{
 		/*GarageInfo garage = model.readGarage(id);
 		selectcp.append(toStringFromGarageInfo(garage));*/
 	}
-	private String toStringFromGarageInfo(GarageInfo garage) {
+	private String toStringFromGarageInfo(Garage garage) {
 		String str = garage.id + "\t" +
 				garage.name + "\t" +
 				garage.address + "\t" +
@@ -305,7 +303,7 @@ public class Garagedata extends JFrame{
 	public void updateGarage() {
 		selectcp.setText("");
 		/* 입력란으로부터 정비고 데이터 가져옴 */
-		GarageInfo garage = getGarageInput();
+		Garage garage = getGarageInput();
 		/* 모델에 데이터를 보내고, 반환된 결과값을 살핌 */
 		/*int result = model.updateGarage(garage);
 
@@ -336,8 +334,8 @@ public class Garagedata extends JFrame{
 		}*/
 	}
 /* 사용자 입력으로부터 데이터를 가져와서 데이터 클래스에 저장 */
-	public GarageInfo getGarageInput() {
-		GarageInfo garage = new GarageInfo();
+	public Garage getGarageInput() {
+		Garage garage = new Garage();
 		garage.name = name.getText();
 		garage.address = address.getText();
 		garage.number = number.getText();

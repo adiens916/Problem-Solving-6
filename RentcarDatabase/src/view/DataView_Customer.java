@@ -2,33 +2,20 @@ package view;
 
 import controller.CustomerController;
 import controller.dataClass.CustomerInfo;
-import controller.dataClass.GarageInfo;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JTextArea;
-import java.awt.SystemColor;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.awt.event.ActionEvent;
 import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JDesktopPane;
-import java.awt.Panel;
 import javax.swing.JLabel;
 
 public class DataView_Customer extends JFrame{

@@ -1,11 +1,11 @@
 package controller;
 
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 import model.GarageModel;
 import view.GarageView;
 
 public class GarageController
-		extends ManagementController<GarageModel, GarageView, GarageInfo> {
+		extends ManagementController<GarageModel, GarageView, Garage> {
 
 	public GarageController() {
 		model = new GarageModel();
