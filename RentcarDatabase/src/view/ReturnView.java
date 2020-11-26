@@ -135,7 +135,7 @@ public class ReturnView extends JFrame {
 
 //가운데 자동차 이미지-------------------------------------------------------------------------
 		JLabel Label6 = new JLabel("");
-		Image img = new ImageIcon(this.getClass().getResource("car.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/car.png")).getImage();
 		Label6.setIcon(new ImageIcon(img));
 		Label6.setBounds(95, 36, 331, 161);
 		contentPane.add(Label6);
