@@ -5,7 +5,7 @@ import model.GarageModel;
 import view.GarageView;
 
 public class GarageController
-		extends ManagementController<GarageModel, GarageView, Garage> {
+		extends AbstractController<GarageModel, GarageView, Garage> {
 
 	public GarageController() {
 		model = new GarageModel();

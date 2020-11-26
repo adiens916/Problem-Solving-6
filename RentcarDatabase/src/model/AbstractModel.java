@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * 원리: 데이터 클래스들을 대신하는 제네릭 타입 활용
  * 원리 2: 쿼리문을 메서드화, 하위 클래스에서 구체화함
  * */
-public abstract class ManagementModel<T> {
+public abstract class AbstractModel<T> {
 
     final Connection connection = DatabaseConnector.connection;
     Statement statement;

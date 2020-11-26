@@ -1,8 +1,8 @@
 package controller;
 
 import controller.dataClass.ResultState;
-import model.ManagementModel;
-import view.ManagementView;
+import model.AbstractModel;
+import view.AbstractView;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import java.util.ArrayList;
 /* 데이터 관리 컨트롤러들의 상위 클래스
  * 하위 클래스들을 나타내기 위해 제네릭 타입 활용
  * */
-public abstract class ManagementController
-        <M extends ManagementModel<T>, V extends ManagementView<T>, T> {
+public abstract class AbstractController
+        <M extends AbstractModel<T>, V extends AbstractView<T>, T> {
 
     M model;
     V view;

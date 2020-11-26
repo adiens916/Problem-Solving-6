@@ -7,7 +7,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import controller.dataClass.Garage;
 
-public class GarageView extends ManagementView<Garage> {
+public class GarageView extends AbstractView<Garage> {
 
 	private JTextField garageIdTextField;
 	private JTextField nameTextField;

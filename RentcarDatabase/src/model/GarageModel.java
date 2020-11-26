@@ -5,7 +5,7 @@ import controller.dataClass.Garage;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GarageModel extends ManagementModel<Garage> {
+public class GarageModel extends AbstractModel<Garage> {
 
     @Override
     String getCreateQuery(Garage garage) {

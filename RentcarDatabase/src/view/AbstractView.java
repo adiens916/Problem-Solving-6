@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * 대신 뭔가를 출력하는 부분은 전부 여기서 구현했음
  * */
 
-public abstract class ManagementView<T> extends JFrame {
+public abstract class AbstractView<T> extends JFrame {
     /* public으로 선언 (<- 컨트롤러에서 각 버튼을 참조해 리스너를 추가해야 하므로) */
     public JButton refreshButton;
     public JButton createButton;
@@ -21,7 +21,7 @@ public abstract class ManagementView<T> extends JFrame {
     public JButton quit;
     final JTextArea textArea = new JTextArea();
 
-    ManagementView() {
+    AbstractView() {
         // 뷰 생성과 동시에 뷰에 GUI 컴포넌트들 부착
         addComponent();
     }
