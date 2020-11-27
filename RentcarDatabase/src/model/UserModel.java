@@ -264,10 +264,10 @@ public class UserModel {
 	private RentInfo toRentFromResultSet(ResultSet result) throws Exception {
 		RentInfo rent = new RentInfo();
 
-		rent.rentID = result.getString(1);
+//		rent.rentID = result.getString(1);
 		rent.campingCarID = result.getString(9);
-		rent.campingCarCompanyID = result.getString(7);
-		rent.rentPrice = result.getString(10);
+//		rent.campingCarCompanyID = result.getString(7);
+//		rent.rentPrice = result.getString(10);
 		rent.license = result.getString(8);
 		rent.rentStartDate = result.getString(2);
 		rent.rentPeriod = result.getString(3);

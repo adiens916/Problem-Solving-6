@@ -42,7 +42,7 @@ import controller.UserController;
 import controller.dataClass.ResultState;
 
 public class UserView extends JFrame{
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -315,9 +315,9 @@ public class UserView extends JFrame{
 	}
 	
 	private String toStringFromRentInfo(RentInfo rent) {
-		return  '\t' + 
-				rent.campingCarID + '\t' +
-				rent.rentPrice + '\n';				
+		return  '\t' +
+				rent.campingCarID + '\t' /*+
+				rent.rentPrice + '\n'*/;
 	}
 	
 	public RentInfo getRentInput() {
