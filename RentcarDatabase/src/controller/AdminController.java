@@ -3,53 +3,53 @@ package controller;
 import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
-import controller.dataClass.Garage;
+import controller.dataClass.CampingCarInfo;
+import controller.dataClass.GarageInfo;
 import model.AdminModel;
+import model.DataModel_CampingCar;
 
 public class AdminController {
-	private AdminModel adminModel = new AdminModel();
+	AdminModel adminModel = new AdminModel();
 	AdminView adminView;
 	public AdminController(AdminView adminView) {
 		this.adminView = adminView;
 	}
-	public void printCampingCarList() {
-		try {
-			ArrayList<AdminInfo> adminList = new ArrayList<>();
-			adminList = adminModel.getCampingCarReturnList();
-			adminView.campingCarText.setText("앞쪽 \t 오른쪽 \t 왼쪽 \t 뒤쪽 \t 수리여부 \t 캠핑카ID \t 고유대여ID\n");
-			for(AdminInfo i : adminList) {
-				adminView.campingCarText.append(i.front + "\t");
-				adminView.campingCarText.append(i.right + "\t");
-				adminView.campingCarText.append(i.left + "\t");
-				adminView.campingCarText.append(i.back + "\t");
-				adminView.campingCarText.append(i.repairListFixDate + "\t");
-				adminView.campingCarText.append(i.campingcarId + "\t");
-				adminView.campingCarText.append(i.rentId + "\t");
-				adminView.campingCarText.append("\n");
-			}
-		}catch(Exception e1) {
-			e1.printStackTrace();
+	public String printCampingcarList() {
+		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
+		ArrayList<CampingCarInfo> campingCarList = adminModel.getCampingCarList();
+		for (CampingCarInfo campingCar : campingCarList) {
+			str += campingCar.id + '\t' +
+            campingCar.name + '\t' +
+            campingCar.number + '\t' +
+            campingCar.seats+ '\t' +
+            campingCar.manufacturer + '\t' +
+            campingCar.builtDate+ '\t' +
+            campingCar.mileage + '\t' +
+            campingCar.rentalFee + '\t' +
+            campingCar.registryDate + '\t' +
+            campingCar.companyId + '\n';
 		}
+		return str;
+	}
+
+	public String printGarageList() {
+
+		String str = "차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n";
+		ArrayList<GarageInfo> campingCarList = adminModel.getGarageList();
+		
+		for (GarageInfo garage : campingCarList) {
+			str += garage.id + '\t' +
+					garage.name + '\t' +
+					garage.address + '\t' +
+					garage.number+ '\t' +
+					garage.manager + '\t' +
+					garage.emailAddress+ '\n';
+		}
+		
+		return str;
 	}
 	
-	public void printGarageList() {
-		try {
-			ArrayList<Garage> adminList = new ArrayList<>();
-			adminList = adminModel.getGarageList();
-			adminView.garageText.setText("차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n");
-			for(Garage i : adminList) {
-				adminView.garageText.append(i.id + "\t");
-				adminView.garageText.append(i.name + "\t");
-				adminView.garageText.append(i.address + "\t");
-				adminView.garageText.append(i.number + "\t");
-				adminView.garageText.append(i.manager + "\t");
-				adminView.garageText.append(i.emailAddress + "\t");
-				adminView.garageText.append("\n");
-			}
-		}catch(Exception e1) {
-			e1.printStackTrace();
-		}
-	}
+	
 	
 	public int InsetGarageData(ArrayList<AdminInfo> adminData) {
 		return adminModel.InsetToGarage(adminData);

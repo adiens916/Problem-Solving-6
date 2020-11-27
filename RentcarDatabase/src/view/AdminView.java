@@ -47,22 +47,22 @@ public class AdminView extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepair, garageId;
 	
-	DataView_Company Companyform;
-	CampingCarView Campingcarform;
-	DataView_Customer Customerform;
-	GarageView Garageform;
+	DataView_Company companyForm;
+	DataView_Campingcar campingcarForm;
+	DataView_Customer customerForm;
+	DataView_Garage garageForm;
 	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
     public JTextArea garageText = new JTextArea();
 
-    JButton backbtn = new JButton("《 뒤로가기");
-    JButton resetbtn = new JButton("초기화");
+    JButton backBtn = new JButton("《 뒤로가기");
+    JButton resetBtn = new JButton("초기화");
 	
-	JMenuItem Menu_Company_Regist,Menu_Company_Edit,Menu_Company_Delete;
-	JMenuItem Menu_Campingcar_Regist,Menu_Campingcar_Edit,Menu_Campingcar_Delete;
-	JMenuItem Menu_Customer_Regist,Menu_Customer_Edit,Menu_Customer_Delete;
-	JMenuItem Menu_Garage_Regist,Menu_Garage_Edit,Menu_Garage_Delete;
+	JMenuItem menuCompanyRegist,menuCompanyEdit,menuCompanyDelete;
+	JMenuItem menuCampingcarRegist,menuCampingcarEdit,menuCampingcarDelete;
+	JMenuItem menuCustomerRegist,menuCustomerEdit,menuCustomerDelete;
+	JMenuItem menuGarageRegist,menuGarageEdit,menuGarageDelete;
 	
 	AdminController adminController;
 	
@@ -73,21 +73,21 @@ public class AdminView extends JFrame implements ActionListener{
 		
 		//컨트롤러 파트---------------------------------
 		adminController = new AdminController(this);
-		adminController.printCampingCarList();
-		adminController.printGarageList();
+		campingCarText.setText(adminController.printCampingcarList());
+		garageText.setText(adminController.printGarageList());
 		//------------------------------------------
 		
-		Companyform = new DataView_Company();
-		Companyform.quit.addActionListener(this);
+		companyForm = new DataView_Company();
+		companyForm.quit.addActionListener(this);
 		
-		Campingcarform = new CampingCarView();
-		Campingcarform.quit.addActionListener(this);
+		campingcarForm = new DataView_Campingcar();
+		campingcarForm.quit.addActionListener(this);
 		
-		Customerform = new DataView_Customer();
-		Customerform.quit.addActionListener(this);
+		customerForm = new DataView_Customer();
+		customerForm.quit.addActionListener(this);
 		
-		Garageform = new GarageView();
-		Garageform.quit.addActionListener(this);
+		garageForm = new DataView_Garage();
+		garageForm.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1094, 565);
@@ -100,50 +100,50 @@ public class AdminView extends JFrame implements ActionListener{
 		contentPane.add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_4 = new JLabel("수리여부 1 : 수리필요");
-		lblNewLabel_4.setFont(new Font("굴림", Font.BOLD, 14));
-		lblNewLabel_4.setBounds(113, 12, 142, 21);
-		panel.add(lblNewLabel_4);
+		JLabel Label1 = new JLabel("수리여부 1 : 수리필요");
+		Label1.setFont(new Font("굴림", Font.BOLD, 14));
+		Label1.setBounds(113, 12, 142, 21);
+		panel.add(Label1);
 		
-		JLabel lblNewLabel_4_1 = new JLabel("수리여부 0 : 수리필요없음");
-		lblNewLabel_4_1.setFont(new Font("굴림", Font.BOLD, 14));
-		lblNewLabel_4_1.setBounds(267, 13, 171, 18);
-		panel.add(lblNewLabel_4_1);
+		JLabel Label2 = new JLabel("수리여부 0 : 수리필요없음");
+		Label2.setFont(new Font("굴림", Font.BOLD, 14));
+		Label2.setBounds(267, 13, 171, 18);
+		panel.add(Label2);
 		
 		//초기화 버튼---------------------------------------------------------------------------------
-		resetbtn.setForeground(Color.WHITE);
-		resetbtn.setBounds(450, 13, 51, 19);
-		panel.add(resetbtn);
-		resetbtn.setBorder(new CompoundBorder());
-		resetbtn.setBackground(new Color(205, 133, 63));
+		resetBtn.setForeground(Color.WHITE);
+		resetBtn.setBounds(450, 13, 51, 19);
+		panel.add(resetBtn);
+		resetBtn.setBorder(new CompoundBorder());
+		resetBtn.setBackground(new Color(205, 133, 63));
 		
 		//뒤로가기 버튼--------------------------------------------------------------------------------
-		backbtn.setForeground(Color.WHITE);
-		backbtn.setBounds(513, 13, 66, 19);
-		panel.add(backbtn);
-		backbtn.setBorder(new CompoundBorder());
-		backbtn.setBackground(new Color(205, 133, 63));
+		backBtn.setForeground(Color.WHITE);
+		backBtn.setBounds(513, 13, 66, 19);
+		panel.add(backBtn);
+		backBtn.setBorder(new CompoundBorder());
+		backBtn.setBackground(new Color(205, 133, 63));
 		
 		
 		//반환 내역이 출력되는 필드-------------------------------------------------------------------------
-		JLabel lblNewLabel = new JLabel("반환 내역");
-		lblNewLabel.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel.setBounds(12, 10, 110, 21);
-		panel.add(lblNewLabel);
+		JLabel Label3 = new JLabel("반환 내역");
+		Label3.setFont(new Font("굴림", Font.BOLD, 20));
+		Label3.setBounds(12, 10, 110, 21);
+		panel.add(Label3);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(12, 41, 586, 200);
 		panel.add(scrollPane);
 		scrollPane.setViewportView(campingCarText);
 		
 		//캠핑카 정비소가 출력되는 필드----------------------------------------------------------------------
-		JLabel lblNewLabel_3 = new JLabel("캠핑카정비소 선택");
-		lblNewLabel_3.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel_3.setBounds(12, 251, 193, 21);
-		panel.add(lblNewLabel_3);
-		JScrollPane scrollPane_1 = new JScrollPane();
-		scrollPane_1.setBounds(12, 282, 586, 203);
-		panel.add(scrollPane_1);
-		scrollPane_1.setViewportView(garageText);
+		JLabel Label4 = new JLabel("캠핑카정비소 선택");
+		Label4.setFont(new Font("굴림", Font.BOLD, 20));
+		Label4.setBounds(12, 251, 193, 21);
+		panel.add(Label4);
+		JScrollPane scrollPane1 = new JScrollPane();
+		scrollPane1.setBounds(12, 282, 586, 203);
+		panel.add(scrollPane1);
+		scrollPane1.setViewportView(garageText);
 		
 //상단바 설정-----------------------------------------------------------------------------------------
 		JMenuBar menuBar = new JMenuBar();
@@ -152,194 +152,194 @@ public class AdminView extends JFrame implements ActionListener{
 		setJMenuBar(menuBar);
 		
 //------대여회사 메뉴 설정-------------------------------------------------------------------------------
-		JMenu Menu_Company = new JMenu("대여회사");
-		Menu_Company.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Company.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Company.setIconTextGap(60);
-		menuBar.add(Menu_Company);
+		JMenu menuCompany = new JMenu("대여회사");
+		menuCompany.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCompany.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCompany.setIconTextGap(60);
+		menuBar.add(menuCompany);
 		//등록---------------------------------------------------------------------
-		Menu_Company_Regist = new JMenuItem("등록");
-		Menu_Company_Regist.addActionListener(new ActionListener() {
+		menuCompanyRegist = new JMenuItem("등록");
+		menuCompanyRegist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Companyform.setVisible(true);
+				companyForm.setVisible(true);
 			}
 		});
-		Menu_Company_Regist.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Company_Regist.setPreferredSize(new Dimension(150, 30));
-		Menu_Company_Regist.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Company_Regist.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Company.add(Menu_Company_Regist);
+		menuCompanyRegist.setMargin(new Insets(0, 30, 0, 0));
+		menuCompanyRegist.setPreferredSize(new Dimension(150, 30));
+		menuCompanyRegist.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCompanyRegist.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCompany.add(menuCompanyRegist);
 		//수정---------------------------------------------------------------------
-		Menu_Company_Edit = new JMenuItem("수정");
-		Menu_Company_Edit.addActionListener(new ActionListener() {
+		menuCompanyEdit = new JMenuItem("수정");
+		menuCompanyEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Companyform.setVisible(true);
+				companyForm.setVisible(true);
 			}
 		});
-		Menu_Company_Edit.setPreferredSize(new Dimension(150, 30));
-		Menu_Company_Edit.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Company_Edit.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Company_Edit.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Company.add(Menu_Company_Edit);
+		menuCompanyEdit.setPreferredSize(new Dimension(150, 30));
+		menuCompanyEdit.setMargin(new Insets(0, 30, 0, 0));
+		menuCompanyEdit.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCompanyEdit.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCompany.add(menuCompanyEdit);
 		//삭제---------------------------------------------------------------------
-		Menu_Company_Delete = new JMenuItem("삭제");
-		Menu_Company_Delete.addActionListener(new ActionListener() {
+		menuCompanyDelete = new JMenuItem("삭제");
+		menuCompanyDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Companyform.setVisible(true);
+				companyForm.setVisible(true);
 			}
 		});
-		Menu_Company_Delete.setPreferredSize(new Dimension(150, 30));
-		Menu_Company_Delete.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Company_Delete.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Company_Delete.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Company.add(Menu_Company_Delete);
+		menuCompanyDelete.setPreferredSize(new Dimension(150, 30));
+		menuCompanyDelete.setMargin(new Insets(0, 30, 0, 0));
+		menuCompanyDelete.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCompanyDelete.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCompany.add(menuCompanyDelete);
 		
 //------캠핑카 메뉴 설정--------------------------------------------------------------------------------
-		JMenu Menu_Campingcar = new JMenu("캠핑카");
-		Menu_Campingcar.setIconTextGap(55);
-		Menu_Campingcar.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Campingcar.setHorizontalAlignment(SwingConstants.CENTER);
-		menuBar.add(Menu_Campingcar);
+		JMenu menuCampingcar = new JMenu("캠핑카");
+		menuCampingcar.setIconTextGap(55);
+		menuCampingcar.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCampingcar.setHorizontalAlignment(SwingConstants.CENTER);
+		menuBar.add(menuCampingcar);
 		//등록---------------------------------------------------------------------
-		Menu_Campingcar_Regist = new JMenuItem("등록");
-		Menu_Campingcar_Regist.addActionListener(new ActionListener() {
+		menuCampingcarRegist = new JMenuItem("등록");
+		menuCampingcarRegist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Campingcarform.setVisible(true);
+				campingcarForm.setVisible(true);
 			}
 		});
-		Menu_Campingcar_Regist.setPreferredSize(new Dimension(150, 30));
-		Menu_Campingcar_Regist.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Campingcar_Regist.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Campingcar_Regist.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Campingcar.add(Menu_Campingcar_Regist);
+		menuCampingcarRegist.setPreferredSize(new Dimension(150, 30));
+		menuCampingcarRegist.setMargin(new Insets(0, 30, 0, 0));
+		menuCampingcarRegist.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCampingcarRegist.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCampingcar.add(menuCampingcarRegist);
 		//수정---------------------------------------------------------------------
-		Menu_Campingcar_Edit = new JMenuItem("수정");
-		Menu_Campingcar_Edit.addActionListener(new ActionListener() {
+		menuCampingcarEdit = new JMenuItem("수정");
+		menuCampingcarEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Campingcarform.setVisible(true);
+				campingcarForm.setVisible(true);
 			}
 		});
-		Menu_Campingcar_Edit.setPreferredSize(new Dimension(150, 30));
-		Menu_Campingcar_Edit.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Campingcar_Edit.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Campingcar_Edit.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Campingcar.add(Menu_Campingcar_Edit);
+		menuCampingcarEdit.setPreferredSize(new Dimension(150, 30));
+		menuCampingcarEdit.setMargin(new Insets(0, 30, 0, 0));
+		menuCampingcarEdit.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCampingcarEdit.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCampingcar.add(menuCampingcarEdit);
 		//삭제---------------------------------------------------------------------
-		Menu_Campingcar_Delete = new JMenuItem("삭제");
-		Menu_Campingcar_Delete.addActionListener(new ActionListener() {
+		menuCampingcarDelete = new JMenuItem("삭제");
+		menuCampingcarDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Campingcarform.setVisible(true);
+				campingcarForm.setVisible(true);
 			}
 		});
-		Menu_Campingcar_Delete.setPreferredSize(new Dimension(150, 30));
-		Menu_Campingcar_Delete.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Campingcar_Delete.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Campingcar_Delete.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Campingcar.add(Menu_Campingcar_Delete);
+		menuCampingcarDelete.setPreferredSize(new Dimension(150, 30));
+		menuCampingcarDelete.setMargin(new Insets(0, 30, 0, 0));
+		menuCampingcarDelete.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCampingcarDelete.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCampingcar.add(menuCampingcarDelete);
 		
 //------고객 메뉴 설정---------------------------------------------------------------------------------
-		JMenu Menu_Customer = new JMenu("고객");
-		Menu_Customer.setIconTextGap(55);
-		Menu_Customer.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Customer.setHorizontalAlignment(SwingConstants.CENTER);
-		menuBar.add(Menu_Customer);
+		JMenu menuCustomer = new JMenu("고객");
+		menuCustomer.setIconTextGap(55);
+		menuCustomer.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCustomer.setHorizontalAlignment(SwingConstants.CENTER);
+		menuBar.add(menuCustomer);
 		//등록---------------------------------------------------------------------
-		Menu_Customer_Regist = new JMenuItem("등록");
-		Menu_Customer_Regist.addActionListener(new ActionListener() {
+		menuCustomerRegist = new JMenuItem("등록");
+		menuCustomerRegist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Customerform.setVisible(true);
+				customerForm.setVisible(true);
 			}
 		});
-		Menu_Customer_Regist.setPreferredSize(new Dimension(150, 30));
-		Menu_Customer_Regist.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Customer_Regist.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Customer_Regist.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Customer.add(Menu_Customer_Regist);
+		menuCustomerRegist.setPreferredSize(new Dimension(150, 30));
+		menuCustomerRegist.setMargin(new Insets(0, 30, 0, 0));
+		menuCustomerRegist.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCustomerRegist.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCustomer.add(menuCustomerRegist);
 		//수정---------------------------------------------------------------------
-		Menu_Customer_Edit = new JMenuItem("수정");
-		Menu_Customer_Edit.addActionListener(new ActionListener() {
+		menuCustomerEdit = new JMenuItem("수정");
+		menuCustomerEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Customerform.setVisible(true);
+				customerForm.setVisible(true);
 			}
 		});
-		Menu_Customer_Edit.setPreferredSize(new Dimension(150, 30));
-		Menu_Customer_Edit.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Customer_Edit.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Customer_Edit.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Customer.add(Menu_Customer_Edit);
+		menuCustomerEdit.setPreferredSize(new Dimension(150, 30));
+		menuCustomerEdit.setMargin(new Insets(0, 30, 0, 0));
+		menuCustomerEdit.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCustomerEdit.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCustomer.add(menuCustomerEdit);
 		//삭제---------------------------------------------------------------------
-		Menu_Customer_Delete = new JMenuItem("삭제");
-		Menu_Customer_Delete.addActionListener(new ActionListener() {
+		menuCustomerDelete = new JMenuItem("삭제");
+		menuCustomerDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Customerform.setVisible(true);
+				customerForm.setVisible(true);
 			}
 		});
-		Menu_Customer_Delete.setPreferredSize(new Dimension(150, 30));
-		Menu_Customer_Delete.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Customer_Delete.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Customer_Delete.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Customer.add(Menu_Customer_Delete);
+		menuCustomerDelete.setPreferredSize(new Dimension(150, 30));
+		menuCustomerDelete.setMargin(new Insets(0, 30, 0, 0));
+		menuCustomerDelete.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuCustomerDelete.setHorizontalAlignment(SwingConstants.CENTER);
+		menuCustomer.add(menuCustomerDelete);
 		
 //------정비소 메뉴 설정---------------------------------------------------------------------------------
-		JMenu Menu_Garage = new JMenu("정비소");
-		Menu_Garage.setIconTextGap(55);
-		Menu_Garage.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Garage.setHorizontalAlignment(SwingConstants.CENTER);
-		menuBar.add(Menu_Garage);
+		JMenu menuGarage = new JMenu("정비소");
+		menuGarage.setIconTextGap(55);
+		menuGarage.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuGarage.setHorizontalAlignment(SwingConstants.CENTER);
+		menuBar.add(menuGarage);
 		//등록---------------------------------------------------------------------
-		Menu_Garage_Regist = new JMenuItem("등록");
-		Menu_Garage_Regist.addActionListener(new ActionListener() {
+		menuGarageRegist = new JMenuItem("등록");
+		menuGarageRegist.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Garageform.setVisible(true);
+				garageForm.setVisible(true);
 			}
 		});
-		Menu_Garage_Regist.setPreferredSize(new Dimension(150, 30));
-		Menu_Garage_Regist.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Garage_Regist.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Garage_Regist.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Garage.add(Menu_Garage_Regist);
+		menuGarageRegist.setPreferredSize(new Dimension(150, 30));
+		menuGarageRegist.setMargin(new Insets(0, 30, 0, 0));
+		menuGarageRegist.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuGarageRegist.setHorizontalAlignment(SwingConstants.CENTER);
+		menuGarage.add(menuGarageRegist);
 		//수정---------------------------------------------------------------------
-		Menu_Garage_Edit = new JMenuItem("수정");
-		Menu_Garage_Edit.addActionListener(new ActionListener() {
+		menuGarageEdit = new JMenuItem("수정");
+		menuGarageEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Garageform.setVisible(true);
+				garageForm.setVisible(true);
 			}
 		});
-		Menu_Garage_Edit.setPreferredSize(new Dimension(150, 30));
-		Menu_Garage_Edit.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Garage_Edit.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Garage_Edit.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Garage.add(Menu_Garage_Edit);
+		menuGarageEdit.setPreferredSize(new Dimension(150, 30));
+		menuGarageEdit.setMargin(new Insets(0, 30, 0, 0));
+		menuGarageEdit.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuGarageEdit.setHorizontalAlignment(SwingConstants.CENTER);
+		menuGarage.add(menuGarageEdit);
 		//삭제---------------------------------------------------------------------
-		Menu_Garage_Delete = new JMenuItem("삭제");
-		Menu_Garage_Delete.addActionListener(new ActionListener() {
+		menuGarageDelete = new JMenuItem("삭제");
+		menuGarageDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				Garageform.setVisible(true);
+				garageForm.setVisible(true);
 			}
 		});
-		Menu_Garage_Delete.setPreferredSize(new Dimension(150, 30));
-		Menu_Garage_Delete.setMargin(new Insets(0, 30, 0, 0));
-		Menu_Garage_Delete.setHorizontalTextPosition(SwingConstants.CENTER);
-		Menu_Garage_Delete.setHorizontalAlignment(SwingConstants.CENTER);
-		Menu_Garage.add(Menu_Garage_Delete);
+		menuGarageDelete.setPreferredSize(new Dimension(150, 30));
+		menuGarageDelete.setMargin(new Insets(0, 30, 0, 0));
+		menuGarageDelete.setHorizontalTextPosition(SwingConstants.CENTER);
+		menuGarageDelete.setHorizontalAlignment(SwingConstants.CENTER);
+		menuGarage.add(menuGarageDelete);
 		
 //------우측상단 영역 설정------------------------------------------------------------------------------	
-		JLabel lblNewLabel_2 = new JLabel("검색");
-		lblNewLabel_2.setFont(new Font("굴림", Font.BOLD, 20));
-		lblNewLabel_2.setBounds(614, 10, 110, 21);
-		panel.add(lblNewLabel_2);
+		JLabel Label5 = new JLabel("검색");
+		Label5.setFont(new Font("굴림", Font.BOLD, 20));
+		Label5.setBounds(614, 10, 110, 21);
+		panel.add(Label5);
 		
 		JButton btn1 = new JButton("검색1");
 		btn1.addActionListener(new ActionListener() {
@@ -402,12 +402,12 @@ public class AdminView extends JFrame implements ActionListener{
 		panel.add(searchText);
 		
 //우측하단 영역 설정-----------------------------------------------------------------------------------------		
-		JLabel lblNewLabel_5 = new JLabel("※ 수리여부가 1인 캠핑카의 고유대여ID와 정비소ID를 입력 후  추가정보를 입력");
-		lblNewLabel_5.setBounds(614, 279, 446, 26);
-		panel.add(lblNewLabel_5);
+		JLabel Label6 = new JLabel("※ 수리여부가 1인 캠핑카의 고유대여ID와 정비소ID를 입력 후  추가정보를 입력");
+		Label6.setBounds(614, 279, 446, 26);
+		panel.add(Label6);
 		//------정비소로 보내기-----------------------------------------------------------------------------
-		JButton grgbtn = new JButton("정비소로보내기");
-		grgbtn.addActionListener(new ActionListener() {
+		JButton grgBtn = new JButton("정비소로보내기");
+		grgBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<AdminInfo> adminData = new ArrayList<>();
            	 	AdminInfo admin = new AdminInfo();
@@ -422,109 +422,109 @@ public class AdminView extends JFrame implements ActionListener{
            	 	
 				int result = adminController.InsetGarageData(adminData);
 				if(result ==1 ) {
-					JOptionPane.showMessageDialog(grgbtn, "처리 완료");
+					JOptionPane.showMessageDialog(grgBtn, "처리 완료");
 					adminController.textFieldReset();
 				}else if(result ==0 ) {
-					JOptionPane.showMessageDialog(grgbtn, "수리할필요없습니다. 반환하세요.");
+					JOptionPane.showMessageDialog(grgBtn, "수리할필요없습니다. 반환하세요.");
 				}else if(result ==2 ) {
-					JOptionPane.showMessageDialog(grgbtn, "빈칸을 모두 채워주세요");
+					JOptionPane.showMessageDialog(grgBtn, "빈칸을 모두 채워주세요");
 				}
 				System.out.println(result);
 			}
 		});
-		grgbtn.setFont(new Font("굴림", Font.BOLD, 15));
-		grgbtn.setBounds(889, 315, 142, 77);
-		panel.add(grgbtn);
+		grgBtn.setFont(new Font("굴림", Font.BOLD, 15));
+		grgBtn.setBounds(889, 315, 142, 77);
+		panel.add(grgBtn);
 		
 		//------다시 캠핑카 업체로 반환하기---------------------------------------------------------------------
-		JButton returnbtn = new JButton("반 환 하 기");
-		returnbtn.setFont(new Font("굴림", Font.BOLD, 18));
-		returnbtn.addActionListener(new ActionListener() {
+		JButton returnBtn = new JButton("반 환 하 기");
+		returnBtn.setFont(new Font("굴림", Font.BOLD, 18));
+		returnBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int result = adminController.ReturnToCampingCarData(torepair.getText());
-				if(result==1) JOptionPane.showMessageDialog(returnbtn, "수리가필요한 캠핑카입니다."); 
-				else if(result==2) JOptionPane.showMessageDialog(returnbtn, "반환 완료!"); 
-				else if(result==3) JOptionPane.showMessageDialog(returnbtn, "캠핑카ID를 입력해주세요!");
+				if(result==1) JOptionPane.showMessageDialog(returnBtn, "수리가필요한 캠핑카입니다."); 
+				else if(result==2) JOptionPane.showMessageDialog(returnBtn, "반환 완료!"); 
+				else if(result==3) JOptionPane.showMessageDialog(returnBtn, "캠핑카ID를 입력해주세요!");
 
 			}
 		});
-		returnbtn.setBounds(889, 402, 142, 77);
-		panel.add(returnbtn);
+		returnBtn.setBounds(889, 402, 142, 77);
+		panel.add(returnBtn);
 		
 		//-------데이터 입력------------------------------------------------------------------------------
-		JLabel lblNewLabel_1_5_1 = new JLabel("캠핑카ID");
-		lblNewLabel_1_5_1.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_5_1.setBounds(614, 318, 88, 21);
-		panel.add(lblNewLabel_1_5_1);
+		JLabel Label7 = new JLabel("캠핑카ID");
+		Label7.setFont(new Font("굴림", Font.BOLD, 15));
+		Label7.setBounds(614, 318, 88, 21);
+		panel.add(Label7);
 		
 		torepair = new JTextField();
 		torepair.setBounds(727, 315, 150, 21);
 		panel.add(torepair);
 		torepair.setColumns(10);
 		
-		JLabel lblNewLabel_1_5 = new JLabel("정비소ID");
-		lblNewLabel_1_5.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_5.setBounds(614, 342, 73, 21);
-		panel.add(lblNewLabel_1_5);
+		JLabel Label8 = new JLabel("정비소ID");
+		Label8.setFont(new Font("굴림", Font.BOLD, 15));
+		Label8.setBounds(614, 342, 73, 21);
+		panel.add(Label8);
 		
 		garageId = new JTextField();
 		garageId.setColumns(10);
 		garageId.setBounds(727, 342, 150, 21);
 		panel.add(garageId);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("정비내역");
-		lblNewLabel_1_1.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_1.setBounds(614, 364, 73, 21);
-		panel.add(lblNewLabel_1_1);
+		JLabel Label9 = new JLabel("정비내역");
+		Label9.setFont(new Font("굴림", Font.BOLD, 15));
+		Label9.setBounds(614, 364, 73, 21);
+		panel.add(Label9);
 		
 		repairListLog = new JTextField();
 		repairListLog.setColumns(10);
 		repairListLog.setBounds(727, 366, 150, 21);
 		panel.add(repairListLog);
 		
-		JLabel lblNewLabel_1_1_1 = new JLabel("수리날짜");
-		lblNewLabel_1_1_1.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_1_1.setBounds(614, 389, 73, 21);
-		panel.add(lblNewLabel_1_1_1);
+		JLabel Label10 = new JLabel("수리날짜");
+		Label10.setFont(new Font("굴림", Font.BOLD, 15));
+		Label10.setBounds(614, 389, 73, 21);
+		panel.add(Label10);
 		
 		repairListFixDate = new JTextField();
 		repairListFixDate.setColumns(10);
 		repairListFixDate.setBounds(727, 389, 150, 21);
 		panel.add(repairListFixDate);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("수리비용");
-		lblNewLabel_1_2.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_2.setBounds(614, 413, 73, 21);
-		panel.add(lblNewLabel_1_2);
+		JLabel Label11 = new JLabel("수리비용");
+		Label11.setFont(new Font("굴림", Font.BOLD, 15));
+		Label11.setBounds(614, 413, 73, 21);
+		panel.add(Label11);
 		
 		repairListprice = new JTextField();
 		repairListprice.setColumns(10);
 		repairListprice.setBounds(727, 413, 150, 21);
 		panel.add(repairListprice);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("납입기한");
-		lblNewLabel_1_3.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_3.setBounds(614, 437, 73, 21);
-		panel.add(lblNewLabel_1_3);
+		JLabel Label12 = new JLabel("납입기한");
+		Label12.setFont(new Font("굴림", Font.BOLD, 15));
+		Label12.setBounds(614, 437, 73, 21);
+		panel.add(Label12);
 		
 		repairListDuedate = new JTextField();
 		repairListDuedate.setColumns(10);
 		repairListDuedate.setBounds(727, 437, 150, 21);
 		panel.add(repairListDuedate);
 		
-		JLabel lblNewLabel_1_4 = new JLabel("기타내역정보");
-		lblNewLabel_1_4.setFont(new Font("굴림", Font.BOLD, 15));
-		lblNewLabel_1_4.setBounds(614, 461, 101, 21);
-		panel.add(lblNewLabel_1_4);
+		JLabel Label13 = new JLabel("기타내역정보");
+		Label13.setFont(new Font("굴림", Font.BOLD, 15));
+		Label13.setBounds(614, 461, 101, 21);
+		panel.add(Label13);
 		
 		repairListOtherInfo = new JTextField();
 		repairListOtherInfo.setColumns(10);
 		repairListOtherInfo.setBounds(727, 461, 150, 21);
 		panel.add(repairListOtherInfo);
 
-		resetbtn.addActionListener(new ActionListener() {
+		resetBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				//
 			}
 		});
 	}
@@ -533,20 +533,20 @@ public class AdminView extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()==Companyform.quit) {
-			Companyform.setVisible(false);
+		if(e.getSource()==companyForm.quit) {
+			companyForm.setVisible(false);
 			setVisible(true);
 		}
-		if(e.getSource()==Campingcarform.quit) {
-			Campingcarform.setVisible(false);
+		if(e.getSource()==campingcarForm.quit) {
+			campingcarForm.setVisible(false);
 			setVisible(true);
 		}
-		if(e.getSource()==Customerform.quit) {
-			Customerform.setVisible(false);
+		if(e.getSource()==customerForm.quit) {
+			customerForm.setVisible(false);
 			setVisible(true);
 		}
-		if(e.getSource()==Garageform.quit) {
-			Garageform.setVisible(false);
+		if(e.getSource()==garageForm.quit) {
+			garageForm.setVisible(false);
 			setVisible(true);
 		}
 		
