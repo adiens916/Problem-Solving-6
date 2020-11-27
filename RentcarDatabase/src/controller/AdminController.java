@@ -1,4 +1,4 @@
-package controller;
+package CONTROLLER;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
