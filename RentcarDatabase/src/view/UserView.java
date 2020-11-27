@@ -43,6 +43,14 @@ import controller.dataClass.ResultState;
 
 public class UserView extends JFrame{
 
+	public static UserView getInstance() {
+		return UserViewHolder.instance;
+	}
+
+	private static class UserViewHolder {
+		private static final UserView instance = new UserView();
+	}
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

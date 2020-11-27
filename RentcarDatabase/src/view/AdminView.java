@@ -29,6 +29,14 @@ import javax.swing.JScrollPane;
 import javax.swing.border.CompoundBorder;
 
 public class AdminView extends JFrame implements ActionListener{
+
+	public static AdminView getInstance() {
+		return AdminViewHolder.instance;
+	}
+
+	private static class AdminViewHolder {
+		private static final AdminView instance = new AdminView();
+	}
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -56,8 +64,8 @@ public class AdminView extends JFrame implements ActionListener{
 	public JTextArea searchText = new JTextArea();
     public JTextArea garageText = new JTextArea();
 
-    JButton backBtn = new JButton("《 뒤로가기");
-    JButton resetBtn = new JButton("초기화");
+    public JButton backButton = new JButton("《 뒤로가기");
+    public JButton resetBtn = new JButton("초기화");
 	
 	JMenuItem menuCompanyRegist,menuCompanyEdit,menuCompanyDelete;
 	JMenuItem menuCampingcarRegist,menuCampingcarEdit,menuCampingcarDelete;
@@ -118,12 +126,12 @@ public class AdminView extends JFrame implements ActionListener{
 		resetBtn.setBackground(new Color(205, 133, 63));
 		
 		//뒤로가기 버튼--------------------------------------------------------------------------------
-		backBtn.setForeground(Color.WHITE);
-		backBtn.setBounds(513, 13, 66, 19);
-		panel.add(backBtn);
-		backBtn.setBorder(new CompoundBorder());
-		backBtn.setBackground(new Color(205, 133, 63));
-		
+		backButton.setForeground(Color.WHITE);
+		backButton.setBounds(513, 13, 66, 19);
+		panel.add(backButton);
+		backButton.setBorder(new CompoundBorder());
+		backButton.setBackground(new Color(205, 133, 63));
+
 		
 		//반환 내역이 출력되는 필드-------------------------------------------------------------------------
 		JLabel Label3 = new JLabel("반환 내역");

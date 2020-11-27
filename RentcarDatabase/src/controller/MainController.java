@@ -1,17 +1,68 @@
 package controller;
 
-import model.MainModel;
+import model.DatabaseInitializer;
+import view.AdminView;
+import view.MainView;
+import view.UserView;
+
+import java.awt.*;
 
 public class MainController {
-	
-	MainModel MainModel = new MainModel();
-	
-	public void DataReset() {
-		MainModel.resetDatabase();
-		MainModel.dropTables();
-		MainModel.createTables();
-		MainModel.inputSampleData();
+
+	public static void main(String[] args) {
+		EventQueue.invokeLater(() -> {
+			try {
+				DatabaseInitializer.getInstance().init();
+				MainController.getInstance().setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		});
 	}
-	
-	
+
+	public static MainController getInstance() {
+		return MainControllerHolder.instance;
+	}
+
+	private static class MainControllerHolder {
+		private static final MainController instance = new MainController();
+	}
+
+	private MainController() {
+		addListenerToGoToAdminMenu();
+		addListenerToGoToUserMenu();
+		addListenerToGoBackToMainMenu();
+	}
+
+	public void setVisible(boolean value) {
+		MainView.getInstance().setVisible(value);
+	}
+
+	private void addListenerToGoToAdminMenu() {
+		MainView.getInstance().goToAdminButton.addActionListener(e -> {
+			setVisible(false);
+			AdminView.getInstance().setVisible(true);
+		});
+	}
+
+	private void addListenerToGoToUserMenu() {
+		MainView.getInstance().goToUserButton.addActionListener(e -> {
+			setVisible(false);
+			UserView.getInstance().setVisible(true);
+		});
+	}
+
+	private void addListenerToGoBackToMainMenu() {
+		AdminView.getInstance().backButton.addActionListener(e -> {
+			AdminView.getInstance().setVisible(false);
+			setVisible(true);
+		});
+		UserView.getInstance().backButton.addActionListener(e -> {
+			UserView.getInstance().setVisible(false);
+			setVisible(true);
+		});
+	}
+
+	/* 데이터 초기화 부분은 Admin 쪽으로 옮겨주기  */
+	// DatabaseInitializer.getInstance().init();
 }
