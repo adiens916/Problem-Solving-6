@@ -12,19 +12,17 @@ import controller.dataClass.Garage;
 public class AdminModel {
 	
 	// SQL 연결
-    private final Connection con = DatabaseConnector.getConnection();
+    private final Connection con = DatabaseConnector.connection;
 	
 	 Statement stmt;
 	 ResultSet rs;
-	 int result;
+	 int result, result1;
 	 public ArrayList<CampingCarInfo> getCampingCarList() {
 	        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
 	        try {
 	            stmt = con.createStatement();
 	            String query = " select * from campingcar_list"; /* SQL 문 */
 	            rs = stmt.executeQuery(query);
-
-	/* SQL을 통해 가져온 데이터를 데이터 클래스 형태로 재구성 */
 	            while (rs.next()) {
 	                CampingCarInfo campingCar = toCampingCarFromResultSet(rs);
 	                campingCarList.add(campingCar);
@@ -34,6 +32,7 @@ public class AdminModel {
 	        }
 	        return campingCarList;
 	    }
+	 
 	 private CampingCarInfo toCampingCarFromResultSet(ResultSet result) {
 	        CampingCarInfo campingCar = new CampingCarInfo();
 	        try {
@@ -62,7 +61,7 @@ public class AdminModel {
 
 	            ArrayList<Garage> garageList = new ArrayList<>();
 	            while(rs.next()) {
-	                Garage garage = new Garage();
+	            	Garage garage = new Garage();
 	                garage.id = Integer.toString(rs.getInt(1));
 	                garage.name = rs.getString(2);
 	                garage.address = rs.getString(3);
@@ -77,25 +76,10 @@ public class AdminModel {
 	            return null;
 	        }
 	    }
-	 private Garage toGarageFromResultSet(ResultSet result) {
-		 Garage garage = new Garage();
-	        try {
-	        	garage.id = Integer.toString(result.getInt(1));
-	        	garage.name = result.getString(2);
-	        	garage.address = result.getString(3);
-	        	garage.number = result.getString(4);
-	        	garage.manager = result.getString(5);
-	        	garage.emailAddress = result.getString(6);
-	        } catch(Exception e1) {
-	            System.out.println(e1);
-	        }
-	        return garage;
-	    }
-	 
 	
 	//입력한 데이터를 공백으로 만들기 위한 메소드
-	 public void dataReset(AdminView adminViewData) {
-		adminViewData.torepair.setText("");
+	 public void dataRefresh(AdminView adminViewData) {
+		adminViewData.torepairId.setText("");
 		adminViewData.garageId.setText("");
 		adminViewData.repairListLog.setText("");
 		adminViewData.repairListFixDate.setText("");
@@ -105,7 +89,7 @@ public class AdminModel {
 	}
 	
 	
-	public int InsetToGarage(ArrayList<AdminInfo> adminData) {
+	public int insetToGarage(ArrayList<AdminInfo> adminData) {
 		String fixTest = null;
 		String rentId=null;
 		String lisenceId = null;
@@ -137,8 +121,11 @@ public class AdminModel {
 			if(rs.next()) {
 				lisenceId = rs.getString(1);
 				companyId = rs.getString(2);
-			}		    		
-			if(fixTest.equals("1")) { //수리할때
+			}
+			
+			if(admin.isNull(adminData)) {//모든 칸이 입력이 되지 않았을 때
+				return 2;
+			}else if(fixTest.equals("1")) { //수리할때
 				stmt = con.createStatement();
 				query = "insert into repair_list(r_log,r_date,r_price,r_due_date,r_other_repair,customer_license_id,campingcar_rent_company_id,garage_id,campingcar_list_id) "
 						+ "values('"+admin.repairListLog
@@ -151,10 +138,10 @@ public class AdminModel {
 						+"','"+admin.garageId
 						+"','"+admin.torepair
 						+"');";
-				int result = stmt.executeUpdate(query);
+				result = stmt.executeUpdate(query);
 				stmt = con.createStatement();
 				query="DELETE FROM campingcar_return WHERE campingcar_list_id = '"+admin.torepair+"'";
-				int result1 = stmt.executeUpdate(query);
+				result1 = stmt.executeUpdate(query);
 				if(result == 1 && result1==1) {
 					getCampingCarList();
 					return 1;
@@ -163,12 +150,9 @@ public class AdminModel {
 				return 0;
 			}
 		}catch(Exception e1) {
-			if(admin.isNull(adminData)) {//모든 칸이 입력이 되지 않았을 때
-				return 2;
-			}
 			return 0;
 		}
-		return result;
+		return 0;
 	}
 	
 	/*
@@ -177,7 +161,7 @@ public class AdminModel {
 	 * - 반환을 하면 다른 사람이 사용할 수 있도록 rent_list테이블에 반환하는 캠핑카의 정보가 들어가 있어야한다.
 	 * - 입력받은 정보로부터 repair_list가 아닌 rentcar_list에 insert해준다.
 	 */
-	public int ReturnToCampingcarList(String cpcid) {
+	public int returnToCampingcarList(String cpcid) {
 		try {
 		stmt = con.createStatement();
 		String fixtest = null;
