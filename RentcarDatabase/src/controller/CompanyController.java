@@ -1,84 +1,78 @@
 package controller;
 
-import model.DataModel_Company;
-
+import view.CompanyView;
+import model.CompanyModel;
+import controller.dataClass.CompanyInfo;
+import controller.dataClass.ResultState;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
-import controller.dataClass.*;
-
 public class CompanyController {
+	private final CompanyView companyView = new CompanyView();
+	private final CompanyModel companyModel = new CompanyModel();
 	
-	DataModel_Company companyModel = new DataModel_Company();
+	public CompanyController() {
+		setVisible(true);
+		readCompanyList();
+		listenToReadCompany();
+		listenToInsertCompany();
+		listenToUpdateCompany();
+		listenToDeleteCompany();
+		listenToRefreshCompany();
+	}
 	
-	//----
-		public String printCompanyList() {
-
-			String str = "회사 ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일 \t\t 담당자이름 \n";
-			
-			
-			str += companyModel.Company_List();;
-			
-			return str;
-		}
-		
-		
-		//----
-		public String searchCustomerList(String id) {
-			
-			String str = "회사 ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일 \t\t 담당자이름 \n"; 
-			
-			str += companyModel.search_Company_By_CompanyID(id);
-			
-			return str;
-		
-		}
-		
-		//----
-		public void insertCompanyList(CompanyInfo company) {
-			
-			int result = companyModel.insert_Company_Data(company);
-			
-			if (result == 1) {
-				JOptionPane.showMessageDialog(null, "입력완료!");
-			}
-			else if(result == 2) {
-				JOptionPane.showMessageDialog(null, "모든 텍스트 필드를 채워주세요!");
-			}
-			else {
-				JOptionPane.showMessageDialog(null, "다시입력해주세요!");
-			}
-
-		}
-		
-		public void editCompanyList(CompanyInfo company) {
-			
-			
-			int result = companyModel.update_Company_Data(company);
-			
-			
-			if (result == 1) {
-				JOptionPane.showMessageDialog(null, "수정완료");
-			} else if (result == 2) {
-				JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
-			} else {
-				JOptionPane.showMessageDialog(null, "다시입력하세요!");
-			}
-		}
-		
-		
-		public void deleteCompanyList(String id) {
-			
-			
-			/* 모델에 id를 넘겨주고, 처리 결과를 가져옴 */
-			int result = companyModel.delete_Company_Data(id);
-
-			if (result == 1) {
-				JOptionPane.showMessageDialog(null, "삭제 완료");
-			}else {
-				JOptionPane.showMessageDialog(null, "다시입력하세요!");
-			}
-		}
+	public void setVisible(boolean value) {
+		companyView.setVisible(true);
+	}
 	
+	public void readCompanyList() {
+		ArrayList<CompanyInfo> companyList = companyModel.readCompanyList();
+		companyView.readCompanyList(companyList);
+	}
+	
+	public void listenToReadCompany() {
+		companyView.searchButton.addActionListener(e -> {
+			String searchBy = companyView.companyID.getText();
+			CompanyInfo company = companyModel.readCompany(searchBy);
+			companyView.readCompany(company);
+		});
+	}
+	
+	public void listenToInsertCompany() {
+		companyView.insertButton.addActionListener(e ->{
+			CompanyInfo company = companyView.getCompanyInput();
+			ResultState result = companyModel.insertCompany(company);
+			companyView.showCompanyInsertResult(result);
+			readCompanyList();
+		});
+	}
+	
+	public void listenToUpdateCompany() {
+		companyView.updateButton.addActionListener(e ->{
+			CompanyInfo company = companyView.getCompanyInput();
+			ResultState result = companyModel.updateCompany(company);
+			companyView.showCompanyUpdateResult(result);
+			readCompanyList();
+			System.out.println(result);
+		});
+	}
+	
+	public void listenToDeleteCompany() {
+		companyView.deleteButton.addActionListener(e ->{
+			String companyID = companyView.companyID.getText();
+			ResultState result = companyModel.deleteCompany(companyID);
+			companyView.showCompanyDeleteResult(result);
+			readCompanyList();
+		});
+	}
+	
+	public void listenToRefreshCompany() {
+		companyView.refreshButton.addActionListener(e ->{
+			readCompanyList();
+		});
+	}
+	
+	// ------- 테스트 영역 --------
+	public static void main(String[] args) {
+		CompanyController co = new CompanyController();
+	}
 }
