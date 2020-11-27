@@ -7,7 +7,7 @@ import java.sql.Statement;
 public class DatabaseInitializer {
 
     // SQL 연결
-    Connection con = DatabaseConnector.connection;
+    Connection con = DatabaseConnector.getConnection();
     Statement stmt, stmt1;
     ResultSet rs;
 

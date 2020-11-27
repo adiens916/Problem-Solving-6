@@ -11,7 +11,7 @@ import controller.dataClass.ResultState;
 
 public class UserModel {
 	// DB 연결 -> DatabaseConnector를 통해 연결
-	private final Connection connection = DatabaseConnector.connection;
+	private final Connection connection = DatabaseConnector.getConnection();
 	private Statement statement;
 	private ResultSet resultSet;
 

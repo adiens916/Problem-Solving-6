@@ -12,7 +12,7 @@ import controller.dataClass.Garage;
 public class AdminModel {
 	
 	// SQL 연결
-    private final Connection con = DatabaseConnector.connection;
+    private final Connection con = DatabaseConnector.getConnection();
 	
 	 Statement stmt;
 	 ResultSet rs;

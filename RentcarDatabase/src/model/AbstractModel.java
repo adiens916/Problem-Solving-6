@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * */
 public abstract class AbstractModel<T> {
 
-    final Connection connection = DatabaseConnector.connection;
+    final Connection connection = DatabaseConnector.getConnection();
     Statement statement;
     ResultSet resultSet;
 

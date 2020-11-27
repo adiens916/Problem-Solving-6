@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class DataModel_Customer {
 
     // SQL 연결
-    private final Connection con = DatabaseConnector.connection;
+    private final Connection con = DatabaseConnector.getConnection();
     private Statement stmt,stmt2;
     private ResultSet rs,rs2;
 

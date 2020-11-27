@@ -7,7 +7,7 @@ import controller.dataClass.ResultState;
 
 public class CampingCarModel {
     /* SQL 연결 */
-    private final Connection connection = DatabaseConnector.connection;
+    private final Connection connection = DatabaseConnector.getConnection();
     private Statement statement;
     private ResultSet resultSet;
 

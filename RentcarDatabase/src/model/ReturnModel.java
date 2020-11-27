@@ -8,7 +8,7 @@ import controller.dataClass.ReturnInfo;
 
 public class ReturnModel {
 
-    private final Connection con = DatabaseConnector.connection;
+    private final Connection con = DatabaseConnector.getConnection();
 
     /*반환 버튼 클릭시 데이터 베이스에 업데이트 해주는 메소드*/
     public ResultState returnCar(ReturnInfo state) {
