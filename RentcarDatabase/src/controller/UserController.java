@@ -12,7 +12,7 @@ import javax.swing.ButtonGroup;
 
 public class UserController {
 	private final UserModel userModel = new UserModel();
-	private final UserView userView = new UserView();
+	private final UserView userView = UserView.getInstance();
 	private ReturnController returnController = new ReturnController();
 
 	public static UserController getInstance() {
