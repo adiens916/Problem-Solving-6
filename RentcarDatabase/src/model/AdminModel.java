@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
 import controller.dataClass.CampingCarInfo;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 
 public class AdminModel {
 	
@@ -54,15 +54,15 @@ public class AdminModel {
 	    }
 	 
 	 
-	 public ArrayList<GarageInfo> getGarageList() {
+	 public ArrayList<Garage> getGarageList() {
 	        try {
 	            stmt = con.createStatement();
 	            String query2=" select * from garage"; /* SQL 문 */
 	            rs = stmt.executeQuery(query2);
 
-	            ArrayList<GarageInfo> garageList = new ArrayList<>();
+	            ArrayList<Garage> garageList = new ArrayList<>();
 	            while(rs.next()) {
-	                GarageInfo garage = new GarageInfo();
+	                Garage garage = new Garage();
 	                garage.id = Integer.toString(rs.getInt(1));
 	                garage.name = rs.getString(2);
 	                garage.address = rs.getString(3);
@@ -77,8 +77,8 @@ public class AdminModel {
 	            return null;
 	        }
 	    }
-	 private GarageInfo toGarageFromResultSet(ResultSet result) {
-		 GarageInfo garage = new GarageInfo();
+	 private Garage toGarageFromResultSet(ResultSet result) {
+		 Garage garage = new Garage();
 	        try {
 	        	garage.id = Integer.toString(result.getInt(1));
 	        	garage.name = result.getString(2);

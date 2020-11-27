@@ -48,9 +48,9 @@ public class AdminView extends JFrame implements ActionListener{
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepair, garageId;
 	
 	DataView_Company companyForm;
-	DataView_Campingcar campingcarForm;
+	CampingCarView campingcarForm;
 	DataView_Customer customerForm;
-	DataView_Garage garageForm;
+	GarageView garageForm;
 	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
@@ -80,13 +80,13 @@ public class AdminView extends JFrame implements ActionListener{
 		companyForm = new DataView_Company();
 		companyForm.quit.addActionListener(this);
 		
-		campingcarForm = new DataView_Campingcar();
+		campingcarForm = new CampingCarView();
 		campingcarForm.quit.addActionListener(this);
 		
 		customerForm = new DataView_Customer();
 		customerForm.quit.addActionListener(this);
 		
-		garageForm = new DataView_Garage();
+		garageForm = new GarageView();
 		garageForm.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

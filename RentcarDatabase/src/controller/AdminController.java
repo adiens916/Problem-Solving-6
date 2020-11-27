@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import view.AdminView;
 import controller.dataClass.AdminInfo;
 import controller.dataClass.CampingCarInfo;
-import controller.dataClass.GarageInfo;
+import controller.dataClass.Garage;
 import model.AdminModel;
-import model.DataModel_CampingCar;
+import model.CampingCarModel;
 
 public class AdminController {
 	AdminModel adminModel = new AdminModel();
@@ -35,9 +35,9 @@ public class AdminController {
 	public String printGarageList() {
 
 		String str = "차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n";
-		ArrayList<GarageInfo> campingCarList = adminModel.getGarageList();
+		ArrayList<Garage> campingCarList = adminModel.getGarageList();
 		
-		for (GarageInfo garage : campingCarList) {
+		for (Garage garage : campingCarList) {
 			str += garage.id + '\t' +
 					garage.name + '\t' +
 					garage.address + '\t' +
