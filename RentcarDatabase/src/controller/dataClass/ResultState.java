@@ -1,5 +1,5 @@
 package controller.dataClass;
 
 public enum ResultState {
-    SUCCESS, FAILURE, NULL
+    SUCCESS, FAILURE, NULL, REGISTERED
 }

@@ -1,6 +1,7 @@
 package main;
 
 import controller.CampingCarController;
+import controller.CustomerController;
 import controller.GarageController;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class admin extends JFrame implements ActionListener{
 	
 	Companydata delform;
 	CampingCarController campform;
-	Customerdata cusform;
+	CustomerController cusform;
 	GarageController grgform;
 	JMenuItem mntmNewMenuItem_1_4;
 	JMenuItem mntmNewMenuItem_1_4_1;
@@ -112,7 +113,7 @@ public class admin extends JFrame implements ActionListener{
 		campform = new CampingCarController();
 		campform.quit.addActionListener(this);
 		
-		cusform = new Customerdata();
+		cusform = new CustomerController();
 		cusform.quit.addActionListener(this);
 		
 		grgform = new GarageController();

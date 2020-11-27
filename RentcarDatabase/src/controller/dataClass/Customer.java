@@ -1,6 +1,6 @@
 package controller.dataClass;
 
-public class CustomerInfo {
+public class Customer {
     public String licenseId;
     public String name;
     public String address;
