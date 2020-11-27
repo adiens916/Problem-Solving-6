@@ -6,6 +6,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.AdminController;
+import controller.GarageController;
 import controller.dataClass.AdminInfo;
 
 import javax.swing.JButton;
@@ -58,7 +59,7 @@ public class AdminView extends JFrame implements ActionListener{
 	DataView_Company companyForm;
 	CampingCarView campingcarForm;
 	DataView_Customer customerForm;
-	GarageView garageForm;
+	GarageController garageForm;
 
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
@@ -94,7 +95,7 @@ public class AdminView extends JFrame implements ActionListener{
 		customerForm = new DataView_Customer();
 		customerForm.quit.addActionListener(this);
 		
-		garageForm = new GarageView();
+		garageForm = new GarageController();
 		garageForm.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

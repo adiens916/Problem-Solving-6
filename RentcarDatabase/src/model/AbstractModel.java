@@ -18,12 +18,38 @@ public abstract class AbstractModel<T> {
     Statement statement;
     ResultSet resultSet;
 
-    private ResultState executeCreateOrUpdate(String query, T info) {
-        /* Create과 Update는 쿼리문 빼고 전부 같음
-         * -> 같은 부분은 남겨놓고, 다른 부분만 빼놨음 */
+    public ResultState create(T info) {
         if(isNullData(info)) { // 데이터 중 빈 값이 있으면
             return ResultState.NULL; // try 거치지 않고 바로 NULL 알려줌
+        } else {
+            return executeQuery(getCreateQuery(info));
         }
+    }
+
+    public ResultState update(T info) {
+        if(isNullData(info)) { // 데이터 중 빈 값이 있으면
+            return ResultState.NULL; // try 거치지 않고 바로 NULL 알려줌
+        } else {
+            return executeQuery(getUpdateQuery(info));
+        }
+    }
+
+    public ResultState delete(String id) {
+        return executeQuery(getDeleteQuery(id));
+    }
+
+    public ArrayList<T> readList() {
+        return executeReadingQuery(getReadAllQuery());
+    }
+
+    /* 단일 대상 출력도 리스트에 넣는 형식으로 했음 (<- 중복 제거) */
+    public ArrayList<T> read(String id) {
+        return executeReadingQuery(getReadQuery(id));
+    }
+
+    ResultState executeQuery(String query) {
+        /* Create & Update: 쿼리문 빼고 전부 같음
+         * -> 같은 부분은 남겨놓고, 다른 부분만 빼놨음 */
         try {
             statement = connection.createStatement();
             int result = statement.executeUpdate(query);
@@ -36,23 +62,12 @@ public abstract class AbstractModel<T> {
         return ResultState.FAILURE;
     }
 
-    public ResultState create(T info) {
-        return executeCreateOrUpdate(getCreateQuery(info), info);
-    }
-
-    public ResultState update(T info) {
-        return executeCreateOrUpdate(getUpdateQuery(info), info);
-    }
-
-    /* 전체 목록 출력하는 메서드의 추상형
-     * 밑의 대상 하나 출력하는 메서드와 매우 비슷함
-     * -> 밑의 메서드를 위 방식으로 흡수하기 */
-    public ArrayList<T> readList() {
+    /* 목록 출력하는 메서드의 추상형 */
+    ArrayList<T> executeReadingQuery(String query) {
         ArrayList<T> infoList = new ArrayList<>();
         try {
             statement = connection.createStatement();
-            resultSet = statement.executeQuery(getReadAllQuery());
-
+            resultSet = statement.executeQuery(query);
             while(resultSet.next()) {
                 T info = toInfoFromResultSet(resultSet);
                 infoList.add(info);
@@ -61,34 +76,6 @@ public abstract class AbstractModel<T> {
             e1.printStackTrace();
         }
         return infoList;
-    }
-
-    public T read(String id) {
-        T info = createInfo();
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(getReadQuery(id));
-
-            if(resultSet.next()) {
-                info = toInfoFromResultSet(resultSet);
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return info;
-    }
-
-    public ResultState delete(String id) {
-        try {
-            statement = connection.createStatement();
-            int result = statement.executeUpdate(getDeleteQuery(id));
-            if (result > 0) {
-                return ResultState.SUCCESS;
-            }
-        } catch (Exception e1) {
-            e1.printStackTrace();
-        }
-        return ResultState.FAILURE;
     }
 
     /* 쿼리문은 하위 클래스에 위임하여, 하위 클래스에서 구체화 */
@@ -104,9 +91,6 @@ public abstract class AbstractModel<T> {
 
     // 추상 클래스에선 데이터 클래스 참조 불가 -> 하위 클래스에 판단 넘김
     abstract boolean isNullData(T info);
-
-    /* 추상 클래스에선 빈 데이터 클래스를 생성할 수 없으므로, 하위 클래스에서 반환 */
-    abstract T createInfo();
 
     abstract T toInfoFromResultSet(ResultSet resultSet) throws Exception;
 }

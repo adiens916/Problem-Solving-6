@@ -52,11 +52,6 @@ public class GarageModel extends AbstractModel<Garage> {
     }
 
     @Override
-    Garage createInfo() {
-        return new Garage();
-    }
-
-    @Override
     Garage toInfoFromResultSet(ResultSet resultSet) throws SQLException{
         Garage garage = new Garage();
         garage.id = Integer.toString(resultSet.getInt(1));

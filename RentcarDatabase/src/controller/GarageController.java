@@ -7,16 +7,10 @@ import view.GarageView;
 public class GarageController
 		extends AbstractController<GarageModel, GarageView, Garage> {
 
-	public GarageController() {
+	@Override
+	void setModelAndView() {
 		model = new GarageModel();
 		view = new GarageView();
 		quit = view.quit;
-
-		readList();
-		listenToRefreshInput();
-		listenToCreate();
-		listenToRead();
-		listenToUpdate();
-		listenToDelete();
 	}
 }

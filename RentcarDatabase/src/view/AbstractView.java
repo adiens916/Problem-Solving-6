@@ -38,18 +38,6 @@ public abstract class AbstractView<T> extends JFrame {
 
     abstract void addComponent(); // UI 컴포넌트들은 하위 클래스에서 만들어 부착
 
-    public void readList(ArrayList<T> infoList) {
-        textArea.setText(getColumnList());
-        for (T info : infoList) {
-            textArea.append(toStringFromInfo(info));
-        }
-    }
-
-    public void read(T info) {
-        textArea.setText(getColumnList());
-        textArea.append(toStringFromInfo(info));
-    }
-
     public void showCreateResult(ResultState result) {
         if (result == ResultState.SUCCESS) {
             JOptionPane.showMessageDialog(null, "입력완료!");
@@ -75,6 +63,13 @@ public abstract class AbstractView<T> extends JFrame {
             JOptionPane.showMessageDialog(null, "삭제 완료");
         } else {
             JOptionPane.showMessageDialog(null, "ID를 입력해주세요.");
+        }
+    }
+
+    public void readList(ArrayList<T> infoList) {
+        textArea.setText(getColumnList());
+        for (T info : infoList) {
+            textArea.append(toStringFromInfo(info));
         }
     }
 }
