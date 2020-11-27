@@ -10,10 +10,18 @@ import model.CampingCarModel;
 
 public class AdminController {
 	AdminModel adminModel = new AdminModel();
-	AdminView adminView;
-	public AdminController(AdminView adminView) {
-		this.adminView = adminView;
+	AdminView adminView = AdminView.getInstance();
+
+	public static AdminController getInstance() {
+		return AdminControllerHolder.instance;
 	}
+
+	private static class AdminControllerHolder {
+		private static final AdminController instance = new AdminController();
+	}
+
+	public AdminController() {}
+
 	public String printCampingcarList() {
 		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 		ArrayList<CampingCarInfo> campingCarList = adminModel.getCampingCarList();
@@ -70,5 +78,9 @@ public class AdminController {
 	}
 	public void textFieldReset() {
 		adminModel.dataReset(adminView);
+	}
+
+	public void setVisible(boolean value) {
+		AdminView.getInstance().setVisible(value);
 	}
 }

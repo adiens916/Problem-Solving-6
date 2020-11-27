@@ -59,7 +59,7 @@ public class AdminView extends JFrame implements ActionListener{
 	CampingCarView campingcarForm;
 	DataView_Customer customerForm;
 	GarageView garageForm;
-	
+
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
     public JTextArea garageText = new JTextArea();
@@ -80,7 +80,7 @@ public class AdminView extends JFrame implements ActionListener{
 		setTitle("캠핑카프로젝트 - 관리자페이지");
 		
 		//컨트롤러 파트---------------------------------
-		adminController = new AdminController(this);
+		adminController = AdminController.getInstance();
 		campingCarText.setText(adminController.printCampingcarList());
 		garageText.setText(adminController.printGarageList());
 		//------------------------------------------

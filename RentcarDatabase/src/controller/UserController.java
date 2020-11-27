@@ -14,8 +14,16 @@ public class UserController {
 	private final UserModel userModel = new UserModel();
 	private final UserView userView = new UserView();
 	private ReturnController returnController = new ReturnController();
-	
-	public UserController(){		
+
+	public static UserController getInstance() {
+		return UserControllerHolder.instance;
+	}
+
+	private static class UserControllerHolder {
+		private static final UserController instance = new UserController();
+	}
+
+	private UserController(){
 		readRentableCampingCarList();
 		readRentList();
 		listenToReadRentableCampingCarList();

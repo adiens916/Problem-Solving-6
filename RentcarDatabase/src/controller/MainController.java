@@ -41,24 +41,24 @@ public class MainController {
 	private void addListenerToGoToAdminMenu() {
 		MainView.getInstance().goToAdminButton.addActionListener(e -> {
 			setVisible(false);
-			AdminView.getInstance().setVisible(true);
+			AdminController.getInstance().setVisible(true);
 		});
 	}
 
 	private void addListenerToGoToUserMenu() {
 		MainView.getInstance().goToUserButton.addActionListener(e -> {
 			setVisible(false);
-			UserView.getInstance().setVisible(true);
+			UserController.getInstance().setVisible(true);
 		});
 	}
 
 	private void addListenerToGoBackToMainMenu() {
 		AdminView.getInstance().backButton.addActionListener(e -> {
-			AdminView.getInstance().setVisible(false);
+			AdminController.getInstance().setVisible(false);
 			setVisible(true);
 		});
 		UserView.getInstance().backButton.addActionListener(e -> {
-			UserView.getInstance().setVisible(false);
+			UserController.getInstance().setVisible(false);
 			setVisible(true);
 		});
 	}
