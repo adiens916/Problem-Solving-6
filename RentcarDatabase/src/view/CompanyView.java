@@ -1,69 +1,69 @@
-package View;
+package view;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import controller.dataClass.CompanyInfo;
 
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
-import java.awt.SystemColor;
-import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.event.ActionEvent;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.JDesktopPane;
-import java.awt.Panel;
-import javax.swing.JLabel;
+import java.awt.*;
 
-import Controller.dataClass.CompanyInfo;
-import Controller.dataClass.ResultState;
-import java.util.*;
+public class CompanyView extends AbstractView<CompanyInfo>{
 
-public class CompanyView extends JFrame{
+	public JTextField companyID;
+	public JTextField companyName;
+	public JTextField companyAddress;
+	public JTextField companyPhoneNumber;
+	public JTextField companyOfficerEmail;
+	public JTextField companyOfficerName;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CompanyView frame = new CompanyView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	@Override
+	public void refreshInput() {
+		companyID.setText("");
+		companyName.setText("");
+		companyAddress.setText("");
+		companyPhoneNumber.setText("");
+		companyOfficerEmail.setText("");
+		companyOfficerName.setText("");
 	}
-	
-	private JPanel contentPane;
-	private JLabel instructionLabel,companyIDLabel,titleLabel,companyNameLabel,companyAddressLabel,companyPhoneNumberLabel,companyOfficerEmailLabel,companyOfficerNameLabel;
-	public JTextField companyID, companyName, companyAddress, companyPhoneNumber, companyOfficerEmail, companyOfficerName;
-	JTextArea companyTextArea = new JTextArea();
-	public JButton searchButton, insertButton, updateButton, refreshButton, deleteButton, quitButton;
-		
-	public CompanyView() {
-		addComponent();
+
+	@Override
+	public CompanyInfo getInput() {
+		CompanyInfo company = new CompanyInfo();
+		company.companyID = companyID.getText();
+		company.companyName = companyName.getText();
+		company.companyAddress = companyAddress.getText();
+		company.companyPhoneNumber = companyPhoneNumber.getText();
+		company.companyOfficerEmail = companyOfficerEmail.getText();
+		company.companyOfficerName = companyOfficerName.getText();
+		return company;
 	}
-	
-	private void addComponent() {
+
+	@Override
+	public String getId() {
+		return companyID.getText();
+	}
+
+	@Override
+	String getColumnList() {
+		return "회사ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일  \t 담당자이름 \n";
+	}
+
+	@Override
+	String toStringFromInfo(CompanyInfo company) {
+		return company.companyID + '\t' +
+				company.companyName + '\t' +
+				company.companyAddress + '\t' +
+				company.companyPhoneNumber + '\t' +
+				company.companyOfficerEmail + '\t' +
+				company.companyOfficerName + '\n';
+	}
+
+	@Override
+	void addComponent() {
 		setTitle("회사정보 관리페이지");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1001, 453);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
@@ -76,44 +76,44 @@ public class CompanyView extends JFrame{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(311, 98, 652, 287);
 		panel.add(scrollPane);
-		scrollPane.setViewportView(companyTextArea);
+		scrollPane.setViewportView(textArea);
 		
 //Label--------------------------------------------------------------------------
-		titleLabel = new JLabel("회사 정보 입력 | 수정 | 삭제");
+		JLabel titleLabel = new JLabel("회사 정보 입력 | 수정 | 삭제");
 		titleLabel.setFont(new Font("양재튼튼체B", Font.BOLD, 28));
 		titleLabel.setBounds(317, 4, 391, 39);
 		panel.add(titleLabel);
-		
-		instructionLabel = new JLabel("회사ID 검색후 수정,삭제하시면 더 편리합니다.");
+
+		JLabel instructionLabel = new JLabel("회사ID 검색후 수정,삭제하시면 더 편리합니다.");
 		instructionLabel.setBounds(389, 49, 256, 15);
 		panel.add(instructionLabel);
-		
-		companyIDLabel = new JLabel("회사ID입력");
+
+		JLabel companyIDLabel = new JLabel("회사ID입력");
 		companyIDLabel.setFont(new Font("굴림", Font.BOLD, 18));
 		companyIDLabel.setBounds(16, 100, 120, 20);
 		panel.add(companyIDLabel);
-		
-		companyNameLabel = new JLabel("회사명");
+
+		JLabel companyNameLabel = new JLabel("회사명");
 		companyNameLabel.setFont(new Font("굴림", Font.BOLD, 18));
 		companyNameLabel.setBounds(16, 143, 96, 20);
 		panel.add(companyNameLabel);
-		
-		companyAddressLabel = new JLabel("주소");
+
+		JLabel companyAddressLabel = new JLabel("주소");
 		companyAddressLabel.setFont(new Font("굴림", Font.BOLD, 18));
 		companyAddressLabel.setBounds(16, 176, 96, 20);
 		panel.add(companyAddressLabel);
-		
-		companyPhoneNumberLabel = new JLabel("전화번호");
+
+		JLabel companyPhoneNumberLabel = new JLabel("전화번호");
 		companyPhoneNumberLabel.setFont(new Font("굴림", Font.BOLD, 18));
 		companyPhoneNumberLabel.setBounds(16, 215, 96, 20);
 		panel.add(companyPhoneNumberLabel);
-		
-		companyOfficerEmailLabel = new JLabel("담당자이메일");
+
+		JLabel companyOfficerEmailLabel = new JLabel("담당자이메일");
 		companyOfficerEmailLabel.setFont(new Font("굴림", Font.BOLD, 16));
 		companyOfficerEmailLabel.setBounds(16, 253, 96, 20);
 		panel.add(companyOfficerEmailLabel);
-		
-		companyOfficerNameLabel = new JLabel("담당자이름");
+
+		JLabel companyOfficerNameLabel = new JLabel("담당자이름");
 		companyOfficerNameLabel.setFont(new Font("굴림", Font.BOLD, 16));
 		companyOfficerNameLabel.setBounds(16, 289, 96, 20);
 		panel.add(companyOfficerNameLabel);
@@ -150,19 +150,19 @@ public class CompanyView extends JFrame{
 		panel.add(companyOfficerName);
 		
 //Button-------------------------------------------------------------
-		searchButton = new JButton("검색");
-		searchButton.setBounds(210, 100, 60, 23);
-		panel.add(searchButton);
+		readButton = new JButton("검색");
+		readButton.setBounds(210, 100, 60, 23);
+		panel.add(readButton);
 		
 		refreshButton = new JButton("새로고침");
 		refreshButton.setBounds(16, 18, 96, 20);
 		panel.add(refreshButton);
 		
-		insertButton = new JButton("입력");
-		insertButton.setForeground(Color.BLACK);
-		insertButton.setFont(new Font("굴림", Font.BOLD, 15));
-		insertButton.setBounds(42, 322, 70, 29);
-		panel.add(insertButton);
+		createButton = new JButton("입력");
+		createButton.setForeground(Color.BLACK);
+		createButton.setFont(new Font("굴림", Font.BOLD, 15));
+		createButton.setBounds(42, 322, 70, 29);
+		panel.add(createButton);
 		
 		updateButton = new JButton("수정");
 		updateButton.setForeground(Color.BLACK);
@@ -176,85 +176,10 @@ public class CompanyView extends JFrame{
 		deleteButton.setBounds(205, 322, 70, 29);
 		panel.add(deleteButton);
 		
-		quitButton = new JButton("닫기");
-		quitButton.setForeground(Color.BLACK);
-		quitButton.setFont(new Font("굴림", Font.BOLD, 15));
-		quitButton.setBounds(123, 361, 70, 22);
-		panel.add(quitButton);
+		quit = new JButton("닫기");
+		quit.setForeground(Color.BLACK);
+		quit.setFont(new Font("굴림", Font.BOLD, 15));
+		quit.setBounds(123, 361, 70, 22);
+		panel.add(quit);
 	}
-	
-	public String getCompanyColumnList() {
-		return "회사ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일  \t 담당자이름 \n";
-	}
-	
-	public String getCompanyID() {
-		return companyID.getText();
-	}
-	
-	public void readCompanyList(ArrayList<CompanyInfo> companyList) {
-		companyTextArea.setText("");
-		String list = getCompanyColumnList();
-		for (CompanyInfo company : companyList) {
-			list += toStringFromCompanyInfo(company);
-		}
-		companyTextArea.append(list);
-	}
-	
-	public void readCompany(CompanyInfo company) {
-		companyTextArea.setText("");
-		String list = getCompanyColumnList();
-		list += toStringFromCompanyInfo(company);
-		companyTextArea.append(list);
-	}
-	
-	public String toStringFromCompanyInfo(CompanyInfo company) {
-		return company.companyID + '\t' +
-				company.companyName + '\t' +
-				company.companyAddress + '\t' +
-				company.companyPhoneNumber + '\t' +
-				company.companyOfficerEmail + '\t' +
-				company.companyOfficerName + '\n';
-	}
-	
-	public CompanyInfo getCompanyInput() {
-		CompanyInfo company = new CompanyInfo();
-		company.companyID = companyID.getText();
-		company.companyName = companyName.getText();
-		company.companyAddress = companyAddress.getText();
-		company.companyPhoneNumber = companyPhoneNumber.getText();
-		company.companyOfficerEmail = companyOfficerEmail.getText();
-		company.companyOfficerName = companyOfficerName.getText();
-		return company;
-	}
-	
-	public void showCompanyInsertResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 입력 완료");
-		} else if (result == ResultState.NULL){
-			JOptionPane.showMessageDialog(null,"모든 입력 칸을 채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 입력 실패");
-		}
-	}
-	
-	public void showCompanyUpdateResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 수정 완료");
-		} else if (result == ResultState.NULL){
-			JOptionPane.showMessageDialog(null,"모든 입력 칸을 채워주세요");
-		} else {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 수정 실패");
-		}
-	}
-	
-	public void showCompanyDeleteResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 삭제 완료");
-		} else if (result == ResultState.NULL){
-			JOptionPane.showMessageDialog(null,"삭제할 캠핑카 회사 ID를 입력해주세요");
-		} else {
-			JOptionPane.showMessageDialog(null,"캠핑카 회사 삭제 실패");
-		}
-	}
-	
 }
