@@ -1,6 +1,7 @@
 package main;
 
 import controller.CampingCarController;
+import controller.CompanyController;
 import controller.CustomerController;
 import controller.GarageController;
 
@@ -16,7 +17,7 @@ public class admin extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	
-	Companydata delform;
+	CompanyController delform;
 	CampingCarController campform;
 	CustomerController cusform;
 	GarageController grgform;
@@ -107,7 +108,7 @@ public class admin extends JFrame implements ActionListener{
 		grgresult();
 		
 		
-		delform = new Companydata();
+		delform = new CompanyController();
 		delform.quit.addActionListener(this);
 		
 		campform = new CampingCarController();
