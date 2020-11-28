@@ -9,6 +9,8 @@ import java.awt.*;
 
 public class MainController {
 
+	AdminView adminView = new AdminView();
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -41,7 +43,8 @@ public class MainController {
 	private void addListenerToGoToAdminMenu() {
 		MainView.getInstance().goToAdminButton.addActionListener(e -> {
 			setVisible(false);
-			AdminController.getInstance().setVisible(true);
+			// AdminController.getInstance().setVisible(true);
+			adminView.setVisible(true);
 		});
 	}
 
@@ -53,8 +56,8 @@ public class MainController {
 	}
 
 	private void addListenerToGoBackToMainMenu() {
-		AdminView.getInstance().backButton.addActionListener(e -> {
-			AdminController.getInstance().setVisible(false);
+		adminView.backButton.addActionListener(e -> {
+			adminView.setVisible(false);
 			setVisible(true);
 		});
 		UserView.getInstance().backButton.addActionListener(e -> {
