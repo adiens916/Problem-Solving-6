@@ -10,9 +10,6 @@ import controller.dataClass.ResultState;
 
 public class CampingCarView extends AbstractView<CampingCarInfo>  {
 
-	
-	private JPanel contentPanel;
-
 	private JTextField campingCarIdTextField;
 	private JTextField campingCarNameTextField;
 	private JTextField campingCarNumberTextField;
@@ -24,6 +21,7 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 	private JTextField campingCarRegitstdateTextField;
 	private JTextField campingCarRentCompanyIdTextField;
 
+	@Override
 	public void refreshInput() {
 		campingCarIdTextField.setText("");
 		campingCarNameTextField.setText("");
@@ -38,6 +36,7 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 
 	}
 
+	@Override
 	public CampingCarInfo getInput() {
 		CampingCarInfo campingCar = new CampingCarInfo();
 		campingCar.campingCarId = campingCarIdTextField.getText();
@@ -53,14 +52,17 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 		return campingCar;
 	}
 
+	@Override
 	public String getId() {
 		return campingCarIdTextField.getText();
 	}
 
+	@Override
 	String getColumnList() {
 		return "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 	}
 
+	@Override
 	String toStringFromInfo(CampingCarInfo campingCar) {
 		return campingCar.campingCarId + '\t' + campingCar.campingCarName + '\t' + campingCar.campingCarNumber + '\t'
 				+ campingCar.campingCarSits + '\t' + campingCar.campingCarManufacutre + '\t'
@@ -68,14 +70,14 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 				+ campingCar.campingCarRentprice + '\t' + campingCar.campingCarRegitstdate + '\t'
 				+ campingCar.campingCarRentCompanyId + '\n';
 	}
-	
-	
+
+	@Override
 	void addComponent() {
 		setTitle("캠핑카프로젝트 리팩토링");
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1174, 496);
-		contentPanel = new JPanel();
+		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPanel);
@@ -103,8 +105,6 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 		refreshButton = new JButton("새로고침");
 		refreshButton.setBounds(16, 18, 96, 20);
 		panel.add(refreshButton);
-		
-		
 		
 //데이터 입력-------------------------------------------------------------------------------		
 		readButton = new JButton("검색");
@@ -163,7 +163,6 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 		campingCarRentCompanyIdLabel.setBounds(16, 313, 102, 20);
 		panel.add(campingCarRentCompanyIdLabel);
 		
-		
 		//텍스트 필드
 		campingCarIdTextField = new JTextField();
 		campingCarIdTextField.setColumns(10);
@@ -215,14 +214,12 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 		campingCarManufactureYearTextField.setBounds(126, 217, 141, 21);
 		panel.add(campingCarManufactureYearTextField);
 		
-		
 //하단에 입력, 수정, 삭제 버튼 기능-------------------------------------------------------------
 		createButton = new JButton("입력");
 		createButton.setForeground(Color.BLACK);
 		createButton.setFont(new Font("굴림", Font.BOLD, 15));
 		createButton.setBounds(34, 380, 70, 29);
 		panel.add(createButton);
-
 
 		updateButton = new JButton("수정");
 		updateButton.setForeground(Color.BLACK);
@@ -241,7 +238,5 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 		quit.setFont(new Font("굴림", Font.BOLD, 15));
 		quit.setBounds(115, 419, 70, 22);
 		panel.add(quit);
-		
 	}
-	
 }
