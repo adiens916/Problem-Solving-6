@@ -289,6 +289,14 @@ public class UserView extends JFrame{
 		return "번호 \t 캠핑카ID \t 금액 \n";
 	}
 	
+	public String getSearchCampingCar() {
+		return searchCampingCar.getText();
+	}
+	
+	public ButtonGroup getRadioGroup() {
+		return radioGroup;
+	}
+	
 	public void readRentableCampingCarList(ArrayList<CampingCarInfo> rentableCampingCarList) {
 		listarea.setText("");
 		String list = getCampingCarColumnList();
@@ -323,9 +331,9 @@ public class UserView extends JFrame{
 	}
 	
 	private String toStringFromRentInfo(RentInfo rent) {
-		return  '\t' +
-				rent.campingCarID + '\t' /*+
-				rent.rentPrice + '\n'*/;
+		return  '\t' + 
+				rent.campingCarID + '\t' +
+				rent.rentPrice + '\n';				
 	}
 	
 	public RentInfo getRentInput() {
@@ -349,6 +357,11 @@ public class UserView extends JFrame{
 			JOptionPane.showMessageDialog(null, "대여 실패 모든 대여 정보 칸을 채워주세요");
 		}
 	}
+	
+	public void showSearchFailed() {
+		JOptionPane.showMessageDialog(null,"조건 라디오 버튼을 먼저 클릭해주세요");
+	}
+
 	/*private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
 			public void mousePressed(MouseEvent e) {
