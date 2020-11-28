@@ -23,6 +23,7 @@ public class ReturnController {
 	}
 
 	public void setVisible(boolean value) {
+		returnView.refreshInput();
 		returnView.setVisible(value);
 	}
 

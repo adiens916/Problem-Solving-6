@@ -21,6 +21,15 @@ public class ReturnView extends JFrame {
 		addComponent();
 	}
 
+	public void refreshInput() {
+		cpid.setText("");
+		front.setText("");
+		right.setText("");
+		back.setText("");
+		left.setText("");
+		fix.setText("");
+	}
+
 	public Return getCarStateInput() {
 		Return state = new Return();
 		state.front = front.getText();
@@ -35,9 +44,9 @@ public class ReturnView extends JFrame {
 	/*반환 버튼 클릭후 데이터 베이스에 업데이트 결과 나타내는 함수*/
 	public void showReturnResult(ResultState result) {
 		if (result == ResultState.SUCCESS) {
-			JOptionPane.showMessageDialog(null, "반환완료");
+			JOptionPane.showMessageDialog(null, "반환 완료");
 		} else {
-			JOptionPane.showMessageDialog(null, "차의 모든 상태 및 캠핑카ID를 확인해주세요.");
+			JOptionPane.showMessageDialog(null, "차의 모든 상태 및 캠핑카 ID를 확인해주세요.");
 		}
 	}
 
