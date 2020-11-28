@@ -31,7 +31,7 @@ public class CompanyController {
 	
 	public void listenToReadCompany() {
 		companyView.searchButton.addActionListener(e -> {
-			String searchBy = companyView.companyID.getText();
+			String searchBy = companyView.getCompanyID();
 			CompanyInfo company = companyModel.readCompany(searchBy);
 			companyView.readCompany(company);
 		});
@@ -52,13 +52,12 @@ public class CompanyController {
 			ResultState result = companyModel.updateCompany(company);
 			companyView.showCompanyUpdateResult(result);
 			readCompanyList();
-			System.out.println(result);
 		});
 	}
 	
 	public void listenToDeleteCompany() {
 		companyView.deleteButton.addActionListener(e ->{
-			String companyID = companyView.companyID.getText();
+			String companyID = companyView.getCompanyID();
 			ResultState result = companyModel.deleteCompany(companyID);
 			companyView.showCompanyDeleteResult(result);
 			readCompanyList();
