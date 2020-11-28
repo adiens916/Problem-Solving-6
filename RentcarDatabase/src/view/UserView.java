@@ -1,45 +1,14 @@
 package view;
 
-import java.util.*;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.Font;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-
-import javax.swing.JTextArea;
-import javax.swing.JTextField;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JPopupMenu;
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JRadioButton;
-import javax.swing.border.BevelBorder;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
-import java.awt.SystemColor;
-
 import controller.dataClass.CampingCarInfo;
 import controller.dataClass.RentInfo;
-import controller.UserController;
 import controller.dataClass.ResultState;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import java.awt.*;
+import java.util.ArrayList;
 
 public class UserView extends JFrame{
 
@@ -63,8 +32,6 @@ public class UserView extends JFrame{
 			}
 		});
 	}
-	
-	private JPanel contentPane;
 
 	public JTextField searchCampingCar = new JTextField();
     public JButton returnButton = new JButton("반환하러가기"); 
@@ -84,7 +51,7 @@ public class UserView extends JFrame{
 		setTitle("캠핑카프로젝트 리팩토링");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1074, 532);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBackground(Color.LIGHT_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -318,22 +285,26 @@ public class UserView extends JFrame{
 	}
 	
 	private String toStringFromCampingCarInfo(CampingCarInfo campingCar) {
-		return  campingCar.id + '\t' +
-				campingCar.name + '\t' +
-				campingCar.number + '\t' +
-				campingCar.seats+ '\t' +
-				campingCar.manufacturer + '\t' +
-				campingCar.builtDate+ '\t' +
-				campingCar.mileage + '\t' +
-				campingCar.rentalFee + '\t' +
-				campingCar.registryDate + '\t' +
-				campingCar.companyId + '\n';
+		return  campingCar.campingCarId + '\t' +
+				campingCar.campingCarName + '\t' +
+				campingCar.campingCarNumber + '\t' +
+				campingCar.campingCarSits + '\t' +
+				campingCar.campingCarManufacutre + '\t' +
+				campingCar.campingCarManufactureYear + '\t' +
+				campingCar.campingCarMileage + '\t' +
+				campingCar.campingCarRentprice + '\t' +
+				campingCar.campingCarRegitstdate + '\t' +
+				campingCar.campingCarRentCompanyId + '\n';
 	}
 	
 	private String toStringFromRentInfo(RentInfo rent) {
-		return  '\t' + 
-				rent.campingCarID + '\t' +
-				rent.rentPrice + '\n';				
+		return  rent.campingCarID + '\t' +
+				rent.license + '\t' +
+				rent.rentStartDate + '\t' +
+				rent.rentPeriod + '\t' +
+				rent.rentEndDate + '\t' +
+				rent.extraGoods + '\t' +
+				rent.extraGoodsPrice + '\n';
 	}
 	
 	public RentInfo getRentInput() {

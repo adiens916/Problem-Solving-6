@@ -1,10 +1,11 @@
-package VIEW;
+package view;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import controller.AdminController;
+import controller.CompanyController;
 import controller.dataClass.AdminInfo;
 import javax.swing.JButton;
 import java.awt.Font;
@@ -101,13 +102,13 @@ public class AdminView extends JFrame implements ActionListener{
 		garageText.setText(adminController.printGarageList());
 		//------------------------------------------
 		
-		companyView = new DataView_Company();
+		companyView = new CompanyView();
 		companyView.quit.addActionListener(this);
 		
 		campingCarView = new CampingCarView();
 		campingCarView.quit.addActionListener(this);
 		
-		customerView = new DataView_Customer();
+		customerView = new CustomerView();
 		customerView.quit.addActionListener(this);
 		
 		garageView = new GarageView();

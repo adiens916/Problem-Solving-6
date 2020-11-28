@@ -1,4 +1,4 @@
-package MODEL;
+package model;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ import controller.dataClass.Garage;
 public class AdminModel {
 	
 	// SQL 연결
-    private final Connection con = DatabaseConnector.connection;
+    private final Connection con = DatabaseConnector.getConnection();
 	
 	 Statement stmt;
 	 ResultSet rs;
@@ -36,16 +36,16 @@ public class AdminModel {
 	 private CampingCarInfo toCampingCarFromResultSet(ResultSet result) {
 	        CampingCarInfo campingCar = new CampingCarInfo();
 	        try {
-	            campingCar.id = Integer.toString(result.getInt(1));
-	            campingCar.name = result.getString(2);
-	            campingCar.number = result.getString(3);
-	            campingCar.seats = result.getString(4);
-	            campingCar.manufacturer = result.getString(5);
-	            campingCar.builtDate = result.getString(6);
-	            campingCar.mileage = result.getString(7);
-	            campingCar.rentalFee = result.getString(8);
-	            campingCar.registryDate = result.getString(9);
-	            campingCar.companyId = result.getString(10);
+	            campingCar.campingCarId = Integer.toString(result.getInt(1));
+	            campingCar.campingCarName = result.getString(2);
+	            campingCar.campingCarNumber = result.getString(3);
+	            campingCar.campingCarSits = result.getString(4);
+	            campingCar.campingCarManufacutre = result.getString(5);
+	            campingCar.campingCarManufactureYear = result.getString(6);
+	            campingCar.campingCarMileage = result.getString(7);
+	            campingCar.campingCarRentprice = result.getString(8);
+	            campingCar.campingCarRegitstdate = result.getString(9);
+	            campingCar.campingCarRentCompanyId = result.getString(10);
 	        } catch(Exception e1) {
 	            System.out.println(e1);
 	        }

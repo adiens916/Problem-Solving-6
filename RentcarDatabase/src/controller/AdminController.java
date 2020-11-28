@@ -1,4 +1,4 @@
-package CONTROLLER;
+package controller;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
@@ -15,16 +15,17 @@ public class AdminController {
 		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 		ArrayList<CampingCarInfo> campingCarList = adminModel.getCampingCarList();
 		for (CampingCarInfo campingCar : campingCarList) {
-			str += campingCar.id + '\t' +
-            campingCar.name + '\t' +
-            campingCar.number + '\t' +
-            campingCar.seats+ '\t' +
-            campingCar.manufacturer + '\t' +
-            campingCar.builtDate+ '\t' +
-            campingCar.mileage + '\t' +
-            campingCar.rentalFee + '\t' +
-            campingCar.registryDate + '\t' +
-            campingCar.companyId + '\n';
+			str +=
+			campingCar.campingCarId + '\t' +
+            campingCar.campingCarName + '\t' +
+            campingCar.campingCarNumber + '\t' +
+            campingCar.campingCarSits + '\t' +
+            campingCar.campingCarManufacutre + '\t' +
+            campingCar.campingCarManufactureYear + '\t' +
+            campingCar.campingCarMileage + '\t' +
+            campingCar.campingCarRentprice + '\t' +
+            campingCar.campingCarRegitstdate + '\t' +
+            campingCar.campingCarRentCompanyId + '\n';
 		}
 		return str;
 	}
