@@ -35,7 +35,11 @@ public abstract class AbstractModel<T> {
     }
 
     public ResultState delete(String id) {
-        return executeQuery(getDeleteQuery(id));
+        if (id.length() == 0) {
+            return ResultState.NULL;
+        } else {
+            return executeQuery(getDeleteQuery(id));
+        }
     }
 
     public ArrayList<T> readList() {

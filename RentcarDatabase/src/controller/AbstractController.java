@@ -19,16 +19,18 @@ public abstract class AbstractController
 
     public AbstractController() {
         setModelAndView();
-        readList();
-        setListenerToRefreshInput();
-        setListenerToCreate();
-        setListenerToRead();
-        setListenerToUpdate();
-        setListenerToDelete();
+        addListenerToRefreshInput();
+        addListenerToCreate();
+        addListenerToRead();
+        addListenerToUpdate();
+        addListenerToDelete();
     }
 
     // AdminController에서 하위 페이지 띄울 때 쓰는 메서드 (<- view가 default라 접근 불가)
     public void setVisible(boolean value) {
+        if (value) {
+            readList();
+        }
         view.setVisible(value);
     }
 
@@ -39,7 +41,7 @@ public abstract class AbstractController
         view.readList(infoList); // 뷰에서 목록 출력
     }
 
-    void setListenerToRefreshInput() {
+    void addListenerToRefreshInput() {
         // 뷰의 새로고침 버튼 동작 설정
         view.refreshButton.addActionListener(e -> { // 뷰의 새로고침 버튼에 리스너 추가
             readList(); // 현재 목록 출력
@@ -47,7 +49,7 @@ public abstract class AbstractController
         });
     }
 
-    void setListenerToCreate() {
+    void addListenerToCreate() {
         view.createButton.addActionListener(e -> {
             T info = view.getInput(); // 뷰에서 입력 받아옴
             ResultState result = model.create(info); // 입력을 모델에 보내고, 결과 받음
@@ -56,7 +58,7 @@ public abstract class AbstractController
         });
     }
 
-    void setListenerToRead() {
+    void addListenerToRead() {
         view.readButton.addActionListener(e -> {
             String id = view.getId(); // 뷰에서 ID 입력 받아옴
             ArrayList<T> infoList = model.read(id); // 입력을 모델에 보내고, 해당 정보 가져옴
@@ -64,7 +66,7 @@ public abstract class AbstractController
         });
     }
 
-    void setListenerToUpdate() {
+    void addListenerToUpdate() {
         view.updateButton.addActionListener(e -> {
             T info = view.getInput(); // 뷰에서 입력 가져옴 
             ResultState result = model.update(info); // 입력을 모델에 보내고 결과 받음
@@ -73,7 +75,7 @@ public abstract class AbstractController
         });
     }
 
-    void setListenerToDelete() {
+    void addListenerToDelete() {
         view.deleteButton.addActionListener(e -> {
             String id = view.getId();
             ResultState result = model.delete(id);

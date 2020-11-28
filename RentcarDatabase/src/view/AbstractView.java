@@ -38,38 +38,40 @@ public abstract class AbstractView<T> extends JFrame {
 
     abstract void addComponent(); // UI 컴포넌트들은 하위 클래스에서 만들어 부착
 
+    public void readList(ArrayList<T> infoList) {
+        textArea.setText(getColumnList());
+        for (T info : infoList) {
+            textArea.append(toStringFromInfo(info));
+        }
+    }
+
     public void showCreateResult(ResultState result) {
         if (result == ResultState.SUCCESS) {
-            JOptionPane.showMessageDialog(null, "입력완료!");
+            JOptionPane.showMessageDialog(null, "입력 완료");
         } else if (result == ResultState.NULL) {
-            JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
+            JOptionPane.showMessageDialog(null, "모든 입력 칸을 채워주세요");
         } else {
-            JOptionPane.showMessageDialog(null, "다시입력해주세요!");
+            JOptionPane.showMessageDialog(null, "입력 실패");
         }
     }
 
     public void showUpdateResult(ResultState result) {
         if (result == ResultState.SUCCESS) {
-            JOptionPane.showMessageDialog(null, "수정완료");
+            JOptionPane.showMessageDialog(null, "수정 완료");
         } else if (result == ResultState.NULL) {
-            JOptionPane.showMessageDialog(null, "빈칸을 모두채워주세요");
+            JOptionPane.showMessageDialog(null, "모든 입력 칸을 채워주세요");
         } else {
-            JOptionPane.showMessageDialog(null, "다시입력하세요!");
+            JOptionPane.showMessageDialog(null, "수정 실패");
         }
     }
 
     public void showDeleteResult(ResultState result) {
         if (result == ResultState.SUCCESS) {
             JOptionPane.showMessageDialog(null, "삭제 완료");
-        } else {
+        } else if (result == ResultState.NULL) {
             JOptionPane.showMessageDialog(null, "ID를 입력해주세요.");
-        }
-    }
-
-    public void readList(ArrayList<T> infoList) {
-        textArea.setText(getColumnList());
-        for (T info : infoList) {
-            textArea.append(toStringFromInfo(info));
+        } else {
+            JOptionPane.showMessageDialog(null, "삭제 실패");
         }
     }
 }
