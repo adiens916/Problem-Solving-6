@@ -1,4 +1,4 @@
-package view;
+package View;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -29,8 +29,8 @@ import javax.swing.JDesktopPane;
 import java.awt.Panel;
 import javax.swing.JLabel;
 
-import controller.dataClass.CompanyInfo;
-import controller.dataClass.ResultState;
+import Controller.dataClass.CompanyInfo;
+import Controller.dataClass.ResultState;
 import java.util.*;
 
 public class CompanyView extends JFrame{
@@ -185,6 +185,10 @@ public class CompanyView extends JFrame{
 	
 	public String getCompanyColumnList() {
 		return "회사ID \t 회사명 \t 주소 \t 전화번호 \t 담당자이메일  \t 담당자이름 \n";
+	}
+	
+	public String getCompanyID() {
+		return companyID.getText();
 	}
 	
 	public void readCompanyList(ArrayList<CompanyInfo> companyList) {
