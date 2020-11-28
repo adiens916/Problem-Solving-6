@@ -38,7 +38,7 @@ public class Customer extends JFrame implements ActionListener{
 	private JPanel contentPane;
 	 
 	
-	ReturnController returncarform = new ReturnController();
+	ReturnController returncarform = ReturnController.getInstance();
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -97,7 +97,7 @@ public class Customer extends JFrame implements ActionListener{
 	   }
 	public Customer() {
 		setTitle("17013152 최종혁 -고객페이지");
-		returncarform.returnButton.addActionListener(this);
+//		returncarform.returnButton.addActionListener(this);
 		conDB();
 		returnresult();
 		madangrentlist();
@@ -481,11 +481,11 @@ public class Customer extends JFrame implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource()== returncarform.returnButton) {
+//		if(e.getSource()== returncarform.returnButton) {
 			returnresult();
 			madangrentlist();
 			returncarform.setVisible(false);
 			setVisible(true);
-		}
+//		}
 	}
 }

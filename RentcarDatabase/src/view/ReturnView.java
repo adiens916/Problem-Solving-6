@@ -1,44 +1,28 @@
 package view;
 
-import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.Image;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.border.EmptyBorder;
 import controller.dataClass.ResultState;
-import controller.dataClass.ReturnInfo;
+import controller.dataClass.Return;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 
 public class ReturnView extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField cpid, front, right, back, left, fix;
-	public JButton returnbtn;
+	public JButton returnButton;
+	private JTextField cpid;
+	private JTextField front;
+	private JTextField right;
+	private JTextField back;
+	private JTextField left;
+	private JTextField fix;
 
 	public ReturnView() {
 		addComponent();
 	}
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ReturnView frame = new ReturnView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	public ReturnInfo getCarStateInput() {
-		ReturnInfo state = new ReturnInfo();
+	public Return getCarStateInput() {
+		Return state = new Return();
 		state.front = front.getText();
 		state.right = right.getText();
 		state.left = left.getText();
@@ -62,7 +46,7 @@ public class ReturnView extends JFrame {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 464, 369);
-		contentPane = new JPanel();
+		JPanel contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
@@ -128,10 +112,10 @@ public class ReturnView extends JFrame {
 		cpid.setBounds(247, 266, 55, 21);
 		contentPane.add(cpid);
 //반환 버튼 기능----------------------------------------------------------------------------
-		returnbtn = new JButton("반환");
-		returnbtn.setFont(new Font("양재튼튼체B", Font.BOLD, 15));
-		returnbtn.setBounds(309, 237, 74, 52);
-		contentPane.add(returnbtn);
+		returnButton = new JButton("반환");
+		returnButton.setFont(new Font("양재튼튼체B", Font.BOLD, 15));
+		returnButton.setBounds(309, 237, 74, 52);
+		contentPane.add(returnButton);
 
 //가운데 자동차 이미지-------------------------------------------------------------------------
 		JLabel Label6 = new JLabel("");

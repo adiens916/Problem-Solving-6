@@ -1,6 +1,6 @@
 package controller.dataClass;
 
-public class ReturnInfo {
+public class Return {
     public String front;
     public String right;
     public String left;

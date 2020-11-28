@@ -1,17 +1,18 @@
 package model;
 
+import controller.dataClass.ResultState;
+import controller.dataClass.Return;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import controller.dataClass.ResultState;
-import controller.dataClass.ReturnInfo;
 
 public class ReturnModel {
 
     private final Connection con = DatabaseConnector.getConnection();
 
     /*반환 버튼 클릭시 데이터 베이스에 업데이트 해주는 메소드*/
-    public ResultState returnCar(ReturnInfo state) {
+    public ResultState returnCar(Return state) {
         try {
             Statement statement = con.createStatement();
             String query2 = " select * from customer_rent_list where campingcar_id='" + state.carId + "'";
@@ -23,7 +24,7 @@ public class ReturnModel {
             if (resultSet.next()) {
                 rent_id = resultSet.getString(1);
                 for (int i = 0; i < rentedCarInfo.length; i++) {
-                    rentedCarInfo[i] = resultSet.getString(i + 1);
+                    rentedCarInfo[i] = resultSet.getString(i + 2);
                 }
             }
 

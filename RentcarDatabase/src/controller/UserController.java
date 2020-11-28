@@ -13,7 +13,6 @@ import javax.swing.ButtonGroup;
 public class UserController {
 	private final UserModel userModel = new UserModel();
 	private final UserView userView = UserView.getInstance();
-	private ReturnController returnController = new ReturnController();
 
 	public static UserController getInstance() {
 		return UserControllerHolder.instance;
@@ -117,7 +116,7 @@ public class UserController {
 	public void listenToReturnCampingCar() {
 		userView.returnButton.addActionListener(e -> {
 			setVisible(false);
-			returnController.setVisible(true);
+			ReturnController.getInstance().setVisible(true);
 		});
 	}
 	
