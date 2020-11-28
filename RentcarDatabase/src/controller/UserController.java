@@ -23,7 +23,7 @@ public class UserController {
 		private static final UserController instance = new UserController();
 	}
 
-	private UserController(){
+	public UserController(){		
 		readRentableCampingCarList();
 		readRentList();
 		listenToReadRentableCampingCarList();
@@ -53,7 +53,7 @@ public class UserController {
 		try {
 			checkedRadio = radioGroup.getSelection().getActionCommand();
 		} catch(Exception e) {
-			System.out.println("조건 라디오 버튼을 먼저 클릭해주세요");
+			System.out.println("검색 실패 : "+e);
 		}
 		
 		return checkedRadio;
@@ -61,9 +61,9 @@ public class UserController {
 	
 	public void listenToReadRentableCampingCarList() {
 		userView.searchButton.addActionListener(e -> {
-			ButtonGroup radioGroup = userView.radioGroup;
+			ButtonGroup radioGroup = userView.getRadioGroup();
 			String checkedRadio = getCheckedRadio(radioGroup);
-			String searchBy = userView.searchCampingCar.getText();
+			String searchBy = userView.getSearchCampingCar();
 			ArrayList<CampingCarInfo> rentableCampingCarList;
 			
 			switch(checkedRadio) {
@@ -90,6 +90,9 @@ public class UserController {
 				case "최대대여비용" :
 					rentableCampingCarList = userModel.readRentableCampingCarListByPrice(searchBy);
 					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				default :	
+					userView.showSearchFailed();
 					break;
 			}			
 		});
