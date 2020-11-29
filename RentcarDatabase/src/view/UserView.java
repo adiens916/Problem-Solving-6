@@ -300,13 +300,9 @@ public class UserView extends JFrame{
 	}
 	
 	private String toStringFromRentInfo(RentDataClass rent) {
-		return  rent.campingCarID + '\t' +
-				rent.license + '\t' +
-				rent.rentStartDate + '\t' +
-				rent.rentPeriod + '\t' +
-				rent.rentEndDate + '\t' +
-				rent.extraGoods + '\t' +
-				rent.extraGoodsPrice + '\n';
+		return  '\t' + 
+			rent.campingCarID + '\t' +
+			rent.rentPrice + '\n';	
 	}
 	
 	public RentDataClass getRentInput() {
