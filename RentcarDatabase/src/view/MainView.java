@@ -56,7 +56,7 @@ public class MainView extends JFrame {
 		contentPane.add(goToUserButton);
 //------로고 이미지를 넣기위한 라벨 생성-------------------------------------------------------------------------------
 		JLabel imageLabel = new JLabel("");
-		Image img = new ImageIcon(this.getClass().getResource("logo.png")).getImage();
+		Image img = new ImageIcon(this.getClass().getResource("/logo.png")).getImage();
 		imageLabel.setIcon(new ImageIcon(img));
 		imageLabel.setBounds(278, 47, 97, 86);
 		contentPane.add(imageLabel);
