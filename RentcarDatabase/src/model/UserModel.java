@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.RentInfo;
-import controller.dataClass.ResultState;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.RentDataClass;
+import model.dataClass.ResultStateDataClass;
 
 public class UserModel {
 	// DB 연결 -> DatabaseConnector를 통해 연결
@@ -15,9 +15,9 @@ public class UserModel {
 	private Statement statement;
 	private ResultSet resultSet;
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarList() {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarList() {
 		// 맨 처음 뷰를 띄웠을때, 대여 가능한 캠핑카 리스트 전체를 불러오는 기능
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -25,7 +25,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -36,9 +36,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListByID(String searchCampingCarID) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListByID(String searchCampingCarID) {
 		// 조건 검색 1, 뷰에서 캠핑카ID 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -46,7 +46,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -57,9 +57,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListByName(String searchCampingCarName) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListByName(String searchCampingCarName) {
 		// 조건 검색 2, 뷰에서 차명 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -67,7 +67,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -78,9 +78,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListBySeats(String searchCampingCarSeat) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListBySeats(String searchCampingCarSeat) {
 		// 조건 검색 3, 뷰에서 최소승차인원 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -88,7 +88,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -99,9 +99,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListByManufacture(String searchCampingCarManufacture) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListByManufacture(String searchCampingCarManufacture) {
 		// 조건 검색 4, 뷰에서 제조회사 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -109,7 +109,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -120,9 +120,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListByMileage(String searchCampingCarMileage) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListByMileage(String searchCampingCarMileage) {
 		// 조건 검색 5, 뷰에서 최대주행거리 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -130,7 +130,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -141,9 +141,9 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<CampingCarInfo> readRentableCampingCarListByPrice(String searchCampingCarPrice) {
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListByPrice(String searchCampingCarPrice) {
 		// 조건 검색 6, 뷰에서 최대대여비용 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarInfo> rentableCampingCarList = new ArrayList<>();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -151,7 +151,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				CampingCarInfo rentableCampingCar = toCampingCarFromResultSet(resultSet);
+				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
 				rentableCampingCarList.add(rentableCampingCar);
 			}
 
@@ -162,11 +162,11 @@ public class UserModel {
 		return rentableCampingCarList;
 	}
 
-	public ArrayList<RentInfo> readRentList() {
+	public ArrayList<RentDataClass> readRentList() {
 		// 대여 현황을 출력한다. 뷰에서 대여 현황은 ( 대여 번호 | 대여중인 캠핑카 ID | 대여중인 캠핑카 가격 ) 으로 되어있다.
 		// Query를 실행한 결과를 받아오는 ResultSet을 리턴하는 것으로 일단 해놨으나, ResultSet을 가공해서 스트링으로 만들어
 		// 리턴하는 방향으로 바꿀수도 있다. -> ArrayList<String>을 반환하는 것으로 바꿈
-		ArrayList<RentInfo> rentList = new ArrayList<>();
+		ArrayList<RentDataClass> rentList = new ArrayList<>();
 
 		try {
 			statement = connection.createStatement();
@@ -174,7 +174,7 @@ public class UserModel {
 			resultSet = statement.executeQuery(Query);
 
 			while (resultSet.next()) {
-				RentInfo rent = toRentFromResultSet(resultSet);
+				RentDataClass rent = toRentFromResultSet(resultSet);
 				rentList.add(rent);
 			}
 
@@ -185,7 +185,7 @@ public class UserModel {
 		return rentList;
 	}
 
-	public ResultState rentCampingCar(RentInfo rent) {
+	public ResultStateDataClass rentCampingCar(RentDataClass rent) {
 		// 캠핑카를 대여하는 기능 -> 원하는 캠핑카를 대여했다 가정하고, 캠핑카 대여 현황 리스트에 Insert한다.
 		// 인자로 7개의 String을 받는데, 이는 Insert Query에 삽입할 Values로 쓰인다.
 		// String CampingCar_ID, String Customer_License, String Rent_Start_Date,
@@ -195,7 +195,7 @@ public class UserModel {
 		
 		if (rent.isNull()) {
 			System.out.println("대여할 캠핑카 정보를 모두다 입력해주세요.");
-			return ResultState.NULL;
+			return ResultStateDataClass.NULL;
 		} else {
 			try {
 				statement = connection.createStatement();
@@ -228,7 +228,7 @@ public class UserModel {
 							int checkDelete = statement.executeUpdate(deleteQuery);
 							// 마지막 Delete까지 완료되었으면, Rent_Check를 1로 바꿔줌.
 							if (checkDelete == 1)
-								return ResultState.SUCCESS;
+								return ResultStateDataClass.SUCCESS;
 						} catch (Exception e3) {
 							System.out.println("캠핑카 대여 SQL 에러 (DELETE) in CustomerModel" + e3);
 						}
@@ -242,12 +242,12 @@ public class UserModel {
 			}
 		}
 
-		return ResultState.FAILURE;
+		return ResultStateDataClass.FAILURE;
 	}
 
 	/* [모델] ResultSet을 캠핑카 데이터 클래스 형태로 바꿔주는 기능 */
-	private CampingCarInfo toCampingCarFromResultSet(ResultSet result) throws Exception {
-		CampingCarInfo campingCar = new CampingCarInfo();
+	private CampingCarDataClass toCampingCarFromResultSet(ResultSet result) throws Exception {
+		CampingCarDataClass campingCar = new CampingCarDataClass();
 		campingCar.campingCarId =  Integer.toString(result.getInt(1));
 		campingCar.campingCarName =  result.getString(2);
 		campingCar.campingCarNumber =  result.getString(3);
@@ -261,8 +261,8 @@ public class UserModel {
 		return campingCar;
 	}
 
-	private RentInfo toRentFromResultSet(ResultSet result) throws Exception {
-		RentInfo rent = new RentInfo();
+	private RentDataClass toRentFromResultSet(ResultSet result) throws Exception {
+		RentDataClass rent = new RentDataClass();
 
 //		rent.rentID = result.getString(1);
 		rent.campingCarID = result.getString(9);

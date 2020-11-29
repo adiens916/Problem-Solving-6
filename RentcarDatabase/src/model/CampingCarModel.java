@@ -1,14 +1,14 @@
 package model;
 
-import controller.dataClass.CampingCarInfo;
+import model.dataClass.CampingCarDataClass;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class CampingCarModel extends AbstractModel<CampingCarInfo>{
+public class CampingCarModel extends AbstractModel<CampingCarDataClass>{
 
     @Override
-	String getCreateQuery(CampingCarInfo campingCar) {
+	String getCreateQuery(CampingCarDataClass campingCar) {
         return "insert into campingcar_list(" +
                 "cc_name,cc_number,cc_sits,cc_manufacture,cc_manufacture_year," +
                 "cc_mileage,cc_rent_price,cc_regist_date,campingcar_rent_company_id)" +
@@ -35,7 +35,7 @@ public class CampingCarModel extends AbstractModel<CampingCarInfo>{
     }
 
     @Override
-    String getUpdateQuery(CampingCarInfo campingCar) {
+    String getUpdateQuery(CampingCarDataClass campingCar) {
         return "update campingcar_list set cc_name='"+campingCar.campingCarName+
                 "',cc_number='"+campingCar.campingCarNumber+
                 "',cc_sits='"+campingCar.campingCarSits+
@@ -54,14 +54,14 @@ public class CampingCarModel extends AbstractModel<CampingCarInfo>{
     }
 	
 	@Override
-    boolean isNullData(CampingCarInfo campingCar) {
+    boolean isNullData(CampingCarDataClass campingCar) {
         return campingCar.isNull();
     }
 
     @Override
-    CampingCarInfo toInfoFromResultSet(ResultSet resultSet) throws SQLException{
-        CampingCarInfo campingCar = new CampingCarInfo();
-        campingCar.campingCarRentCompanyId = Integer.toString(resultSet.getInt(1));
+    CampingCarDataClass toInfoFromResultSet(ResultSet resultSet) throws SQLException{
+        CampingCarDataClass campingCar = new CampingCarDataClass();
+        campingCar.campingCarId = Integer.toString(resultSet.getInt(1));
         campingCar.campingCarName = resultSet.getString(2);
         campingCar.campingCarNumber = resultSet.getString(3);
         campingCar.campingCarSits = resultSet.getString(4);

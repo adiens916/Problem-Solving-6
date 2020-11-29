@@ -5,9 +5,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import view.AdminView;
-import controller.dataClass.AdminInfo;
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.Garage;
+import model.dataClass.AdminDataClass;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.GarageDataClass;
 
 public class AdminModel {
 	
@@ -17,14 +17,14 @@ public class AdminModel {
 	 Statement stmt;
 	 ResultSet rs;
 	 int result, result1;
-	 public ArrayList<CampingCarInfo> getCampingCarList() {
-	        ArrayList<CampingCarInfo> campingCarList = new ArrayList<>();
+	 public ArrayList<CampingCarDataClass> getCampingCarList() {
+	        ArrayList<CampingCarDataClass> campingCarList = new ArrayList<>();
 	        try {
 	            stmt = con.createStatement();
 	            String query = " select * from campingcar_list"; /* SQL 문 */
 	            rs = stmt.executeQuery(query);
 	            while (rs.next()) {
-	                CampingCarInfo campingCar = toCampingCarFromResultSet(rs);
+	                CampingCarDataClass campingCar = toCampingCarFromResultSet(rs);
 	                campingCarList.add(campingCar);
 	            }
 	        } catch(Exception e1) {
@@ -33,8 +33,8 @@ public class AdminModel {
 	        return campingCarList;
 	    }
 	 
-	 private CampingCarInfo toCampingCarFromResultSet(ResultSet result) {
-	        CampingCarInfo campingCar = new CampingCarInfo();
+	 private CampingCarDataClass toCampingCarFromResultSet(ResultSet result) {
+	        CampingCarDataClass campingCar = new CampingCarDataClass();
 	        try {
 	            campingCar.campingCarId = Integer.toString(result.getInt(1));
 	            campingCar.campingCarName = result.getString(2);
@@ -53,15 +53,15 @@ public class AdminModel {
 	    }
 	 
 	 
-	 public ArrayList<Garage> getGarageList() {
+	 public ArrayList<GarageDataClass> getGarageList() {
 	        try {
 	            stmt = con.createStatement();
 	            String query2=" select * from garage"; /* SQL 문 */
 	            rs = stmt.executeQuery(query2);
 
-	            ArrayList<Garage> garageList = new ArrayList<>();
+	            ArrayList<GarageDataClass> garageList = new ArrayList<>();
 	            while(rs.next()) {
-	            	Garage garage = new Garage();
+	            	GarageDataClass garage = new GarageDataClass();
 	                garage.id = Integer.toString(rs.getInt(1));
 	                garage.name = rs.getString(2);
 	                garage.address = rs.getString(3);
@@ -89,15 +89,15 @@ public class AdminModel {
 	}
 	
 	
-	public int insetToGarage(ArrayList<AdminInfo> adminData) {
+	public int insetToGarage(ArrayList<AdminDataClass> adminData) {
 		String fixTest = null;
 		String rentId=null;
 		String lisenceId = null;
 		String companyId = null;
 		
 		//View로부터 입력받은 데이터값 받아오기
-		AdminInfo admin = new AdminInfo();
-		for(AdminInfo i : adminData) {
+		AdminDataClass admin = new AdminDataClass();
+		for(AdminDataClass i : adminData) {
 			admin.garageId = i.garageId;
 			admin.torepair = i.torepair;
        	 	admin.repairListDuedate = i.repairListDuedate;
@@ -173,7 +173,7 @@ public class AdminModel {
 		query="select * from campingcar_list where campingcar_list_id='"+cpcid+"'";
 		rs = stmt.executeQuery(query);
 		
-		AdminInfo admin = new AdminInfo();
+		AdminDataClass admin = new AdminDataClass();
          if(rs.next()) {
         	 admin.campingCarName = rs.getString(2);
         	 admin.campingCarNumber =rs.getString(3);

@@ -1,12 +1,12 @@
 package model;
 
-import controller.dataClass.CompanyInfo;
+import model.dataClass.CompanyDataClass;
 import java.sql.ResultSet;
 
-public class CompanyModel extends AbstractModel<CompanyInfo> {
+public class CompanyModel extends AbstractModel<CompanyDataClass> {
 
 	@Override
-	String getCreateQuery(CompanyInfo company) {
+	String getCreateQuery(CompanyDataClass company) {
 		return "INSERT INTO campingcar_rent_company(cp_name,cp_address,cp_number,cp_mng_email,cp_mng_name) VALUES('" +
 				company.companyName + "','" +
 				company.companyAddress + "','" +
@@ -26,7 +26,7 @@ public class CompanyModel extends AbstractModel<CompanyInfo> {
 	}
 
 	@Override
-	String getUpdateQuery(CompanyInfo company) {
+	String getUpdateQuery(CompanyDataClass company) {
 		return "update campingcar_rent_company set " +
 				"cp_name='" + company.companyName + "'" +
 				",cp_address='" + company.companyAddress +
@@ -42,13 +42,13 @@ public class CompanyModel extends AbstractModel<CompanyInfo> {
 	}
 
 	@Override
-	boolean isNullData(CompanyInfo info) {
+	boolean isNullData(CompanyDataClass info) {
 		return false;
 	}
 
 	@Override
-	CompanyInfo toInfoFromResultSet(ResultSet resultSet) throws Exception {
-		CompanyInfo company = new CompanyInfo();
+	CompanyDataClass toInfoFromResultSet(ResultSet resultSet) throws Exception {
+		CompanyDataClass company = new CompanyDataClass();
 		company.companyID = Integer.toString(resultSet.getInt(1));
 		company.companyName = resultSet.getString(2);
 		company.companyAddress = resultSet.getString(3);

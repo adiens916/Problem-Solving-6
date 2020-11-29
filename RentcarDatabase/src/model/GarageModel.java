@@ -1,14 +1,14 @@
 package model;
 
-import controller.dataClass.Garage;
+import model.dataClass.GarageDataClass;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class GarageModel extends AbstractModel<Garage> {
+public class GarageModel extends AbstractModel<GarageDataClass> {
 
     @Override
-    String getCreateQuery(Garage garage) {
+    String getCreateQuery(GarageDataClass garage) {
         return "insert into garage(garage_id,g_name,g_address,g_number,g_manager,g_email)"
                 + " values('"+garage.id
                 +"','"+garage.name
@@ -30,7 +30,7 @@ public class GarageModel extends AbstractModel<Garage> {
     }
 
     @Override
-    String getUpdateQuery(Garage garage) {
+    String getUpdateQuery(GarageDataClass garage) {
         return "update garage " +
                 "set g_name='" + garage.name
                 +"',g_address='"+garage.address
@@ -47,13 +47,13 @@ public class GarageModel extends AbstractModel<Garage> {
     }
 
     @Override
-    boolean isNullData(Garage garage) {
+    boolean isNullData(GarageDataClass garage) {
         return garage.isNull();
     }
 
     @Override
-    Garage toInfoFromResultSet(ResultSet resultSet) throws SQLException{
-        Garage garage = new Garage();
+    GarageDataClass toInfoFromResultSet(ResultSet resultSet) throws SQLException{
+        GarageDataClass garage = new GarageDataClass();
         garage.id = Integer.toString(resultSet.getInt(1));
         garage.name = resultSet.getString(2);
         garage.address = resultSet.getString(3);

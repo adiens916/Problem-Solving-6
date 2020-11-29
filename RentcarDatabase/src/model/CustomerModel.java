@@ -1,29 +1,29 @@
 package model;
 
-import controller.dataClass.Customer;
-import controller.dataClass.ResultState;
+import model.dataClass.CustomerDataClass;
+import model.dataClass.ResultStateDataClass;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class CustomerModel extends AbstractModel<Customer>  {
+public class CustomerModel extends AbstractModel<CustomerDataClass>  {
 
     // SQL 연결
     private final Connection con = DatabaseConnector.getConnection();
 
     @Override
-    public ResultState create(Customer info) {
+    public ResultStateDataClass create(CustomerDataClass info) {
         if (isRegisteredCustomer(info.licenseId)) {
-            return ResultState.REGISTERED;
+            return ResultStateDataClass.REGISTERED;
         } else {
             return super.create(info);
         }
     }
 
     @Override
-    String getCreateQuery(Customer customer) {
+    String getCreateQuery(CustomerDataClass customer) {
         return "insert into customer(license_id,c_name,c_address,c_number,c_email)" +
                 " values('"+
                 customer.licenseId +"','"+
@@ -44,7 +44,7 @@ public class CustomerModel extends AbstractModel<Customer>  {
     }
 
     @Override
-    String getUpdateQuery(Customer customer) {
+    String getUpdateQuery(CustomerDataClass customer) {
         return "update customer set c_name='"+customer.name+"'"
                 + ",c_address='"+customer.address
                 + "',c_number='"+customer.number+"'"
@@ -58,13 +58,13 @@ public class CustomerModel extends AbstractModel<Customer>  {
     }
 
     @Override
-    boolean isNullData(Customer customer) {
+    boolean isNullData(CustomerDataClass customer) {
         return customer.isNull();
     }
 
     @Override
-    Customer toInfoFromResultSet(ResultSet resultSet) throws Exception {
-        Customer customer = new Customer();
+    CustomerDataClass toInfoFromResultSet(ResultSet resultSet) throws Exception {
+        CustomerDataClass customer = new CustomerDataClass();
         customer.licenseId = Integer.toString(resultSet.getInt(1));
         customer.name = resultSet.getString(2);
         customer.address = resultSet.getString(3);

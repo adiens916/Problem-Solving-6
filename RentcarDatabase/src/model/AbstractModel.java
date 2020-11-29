@@ -1,6 +1,6 @@
 package model;
 
-import controller.dataClass.ResultState;
+import model.dataClass.ResultStateDataClass;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -18,25 +18,25 @@ public abstract class AbstractModel<T> {
     Statement statement;
     ResultSet resultSet;
 
-    public ResultState create(T info) {
+    public ResultStateDataClass create(T info) {
         if(isNullData(info)) { // 데이터 중 빈 값이 있으면
-            return ResultState.NULL; // try 거치지 않고 바로 NULL 알려줌
+            return ResultStateDataClass.NULL; // try 거치지 않고 바로 NULL 알려줌
         } else {
             return executeQuery(getCreateQuery(info));
         }
     }
 
-    public ResultState update(T info) {
+    public ResultStateDataClass update(T info) {
         if(isNullData(info)) { // 데이터 중 빈 값이 있으면
-            return ResultState.NULL; // try 거치지 않고 바로 NULL 알려줌
+            return ResultStateDataClass.NULL; // try 거치지 않고 바로 NULL 알려줌
         } else {
             return executeQuery(getUpdateQuery(info));
         }
     }
 
-    public ResultState delete(String id) {
+    public ResultStateDataClass delete(String id) {
         if (id.length() == 0) {
-            return ResultState.NULL;
+            return ResultStateDataClass.NULL;
         } else {
             return executeQuery(getDeleteQuery(id));
         }
@@ -51,19 +51,19 @@ public abstract class AbstractModel<T> {
         return executeReadingQuery(getReadQuery(id));
     }
 
-    ResultState executeQuery(String query) {
+    ResultStateDataClass executeQuery(String query) {
         /* Create & Update: 쿼리문 빼고 전부 같음
          * -> 같은 부분은 남겨놓고, 다른 부분만 빼놨음 */
         try {
             statement = connection.createStatement();
             int result = statement.executeUpdate(query);
             if (result > 0) {
-                return ResultState.SUCCESS;
+                return ResultStateDataClass.SUCCESS;
             }
         }catch(Exception e1) {
             e1.printStackTrace();
         }
-        return ResultState.FAILURE;
+        return ResultStateDataClass.FAILURE;
     }
 
     /* 목록 출력하는 메서드의 추상형 */
