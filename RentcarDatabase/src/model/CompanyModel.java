@@ -42,8 +42,8 @@ public class CompanyModel extends AbstractModel<CompanyDataClass> {
 	}
 
 	@Override
-	boolean isNullData(CompanyDataClass info) {
-		return false;
+	boolean isNullData(CompanyDataClass company) {
+		return company.isNull();
 	}
 
 	@Override
