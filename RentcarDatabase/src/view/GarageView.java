@@ -5,9 +5,9 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import controller.dataClass.Garage;
+import model.dataClass.GarageDataClass;
 
-public class GarageView extends AbstractView<Garage> {
+public class GarageView extends AbstractView<GarageDataClass> {
 
 	private JTextField garageIdTextField;
 	private JTextField nameTextField;
@@ -26,8 +26,8 @@ public class GarageView extends AbstractView<Garage> {
 	}
 
 	@Override
-	public Garage getInput() {
-		Garage garage = new Garage();
+	public GarageDataClass getInput() {
+		GarageDataClass garage = new GarageDataClass();
 		garage.name = nameTextField.getText();
 		garage.address = addressTextField.getText();
 		garage.number = phoneNumberTextField.getText();
@@ -48,7 +48,7 @@ public class GarageView extends AbstractView<Garage> {
 	}
 
 	@Override
-	String toStringFromInfo(Garage garage) {
+	String toStringFromInfo(GarageDataClass garage) {
 		return	garage.id + "\t" +
 				garage.name + "\t" +
 				garage.address + "\t" +

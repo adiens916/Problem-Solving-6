@@ -1,13 +1,13 @@
 package view;
 
-import controller.dataClass.Customer;
-import controller.dataClass.ResultState;
+import model.dataClass.CustomerDataClass;
+import model.dataClass.ResultStateDataClass;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CustomerView extends AbstractView<Customer>{
+public class CustomerView extends AbstractView<CustomerDataClass>{
 
 	private JTextField lisenceid;
 	private JTextField name;
@@ -25,8 +25,8 @@ public class CustomerView extends AbstractView<Customer>{
 	}
 
 	@Override
-	public Customer getInput() {
-		Customer customer = new Customer();
+	public CustomerDataClass getInput() {
+		CustomerDataClass customer = new CustomerDataClass();
 		customer.name = name.getText();
 		customer.address = address.getText();
 		customer.number = number.getText();
@@ -46,7 +46,7 @@ public class CustomerView extends AbstractView<Customer>{
 	}
 
 	@Override
-	String toStringFromInfo(Customer customer) {
+	String toStringFromInfo(CustomerDataClass customer) {
 		return customer.licenseId + "\t" +
 				customer.name + "\t" +
 				customer.address + "\t" +
@@ -55,8 +55,8 @@ public class CustomerView extends AbstractView<Customer>{
 	}
 
 	@Override
-	public void showCreateResult(ResultState result) {
-		if (result == ResultState.REGISTERED) {
+	public void showCreateResult(ResultStateDataClass result) {
+		if (result == ResultStateDataClass.REGISTERED) {
 			JOptionPane.showMessageDialog(null, "이미 가입하신 고객입니다.");
 		} else {
 			super.showCreateResult(result);

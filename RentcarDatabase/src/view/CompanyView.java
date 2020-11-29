@@ -1,12 +1,12 @@
 package view;
 
-import controller.dataClass.CompanyInfo;
+import model.dataClass.CompanyDataClass;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class CompanyView extends AbstractView<CompanyInfo>{
+public class CompanyView extends AbstractView<CompanyDataClass>{
 
 	public JTextField companyID;
 	public JTextField companyName;
@@ -26,8 +26,8 @@ public class CompanyView extends AbstractView<CompanyInfo>{
 	}
 
 	@Override
-	public CompanyInfo getInput() {
-		CompanyInfo company = new CompanyInfo();
+	public CompanyDataClass getInput() {
+		CompanyDataClass company = new CompanyDataClass();
 		company.companyID = companyID.getText();
 		company.companyName = companyName.getText();
 		company.companyAddress = companyAddress.getText();
@@ -48,7 +48,7 @@ public class CompanyView extends AbstractView<CompanyInfo>{
 	}
 
 	@Override
-	String toStringFromInfo(CompanyInfo company) {
+	String toStringFromInfo(CompanyDataClass company) {
 		return company.companyID + '\t' +
 				company.companyName + '\t' +
 				company.companyAddress + '\t' +

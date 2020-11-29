@@ -4,11 +4,10 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.Garage;
-import controller.dataClass.ResultState;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.ResultStateDataClass;
 
-public class CampingCarView extends AbstractView<CampingCarInfo>  {
+public class CampingCarView extends AbstractView<CampingCarDataClass>  {
 
 	private JTextField campingCarIdTextField;
 	private JTextField campingCarNameTextField;
@@ -37,8 +36,8 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 	}
 
 	@Override
-	public CampingCarInfo getInput() {
-		CampingCarInfo campingCar = new CampingCarInfo();
+	public CampingCarDataClass getInput() {
+		CampingCarDataClass campingCar = new CampingCarDataClass();
 		campingCar.campingCarId = campingCarIdTextField.getText();
 		campingCar.campingCarName = campingCarNameTextField.getText();
 		campingCar.campingCarNumber = campingCarNumberTextField.getText();
@@ -63,7 +62,7 @@ public class CampingCarView extends AbstractView<CampingCarInfo>  {
 	}
 
 	@Override
-	String toStringFromInfo(CampingCarInfo campingCar) {
+	String toStringFromInfo(CampingCarDataClass campingCar) {
 		return campingCar.campingCarId + '\t' + campingCar.campingCarName + '\t' + campingCar.campingCarNumber + '\t'
 				+ campingCar.campingCarSits + '\t' + campingCar.campingCarManufacutre + '\t'
 				+ campingCar.campingCarManufactureYear + '\t' + campingCar.campingCarMileage + '\t'

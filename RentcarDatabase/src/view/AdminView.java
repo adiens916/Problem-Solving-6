@@ -5,7 +5,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.*;
-import controller.dataClass.*;
+import model.dataClass.*;
 
 import java.awt.Font;
 import java.awt.Color;
@@ -16,7 +16,7 @@ import java.awt.Component;
 import javax.swing.border.CompoundBorder;
 
 public class AdminView extends JFrame {
-	
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -29,7 +29,7 @@ public class AdminView extends JFrame {
 			}
 		});
 		
-	}
+	}*/
 		
 	private JPanel contentPanel;
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepairId, garageId;
@@ -40,7 +40,7 @@ public class AdminView extends JFrame {
 	CampingCarController campingCarController = new CampingCarController();
 	CustomerController customerController = new CustomerController();
 	GarageController garageController = new GarageController();
-	AdminInfo admin = new AdminInfo();
+	AdminDataClass admin = new AdminDataClass();
 	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
@@ -227,7 +227,7 @@ public class AdminView extends JFrame {
 		//------정비소로 보내기-----------------------------------------------------------------------------
 		insertToGarageButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ArrayList<AdminInfo> adminData = new ArrayList<>();
+				ArrayList<AdminDataClass> adminData = new ArrayList<>();
 				getInput();
            	 	adminData.add(admin);
 				adminController.insetGarageData(adminData);
@@ -329,7 +329,7 @@ public class AdminView extends JFrame {
 		repairListOtherInfo.setText("");
 	}
 	
-	public AdminInfo getInput() {
+	public AdminDataClass getInput() {
    	 	admin.garageId  = garageId.getText();
    	 	admin.torepair = torepairId.getText();
    	 	admin.repairListDuedate = repairListDuedate.getText();

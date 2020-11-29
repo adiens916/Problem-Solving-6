@@ -1,6 +1,6 @@
 package view;
 
-import controller.dataClass.ResultState;
+import model.dataClass.ResultStateDataClass;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -45,30 +45,30 @@ public abstract class AbstractView<T> extends JFrame {
         }
     }
 
-    public void showCreateResult(ResultState result) {
-        if (result == ResultState.SUCCESS) {
+    public void showCreateResult(ResultStateDataClass result) {
+        if (result == ResultStateDataClass.SUCCESS) {
             JOptionPane.showMessageDialog(null, "입력 완료");
-        } else if (result == ResultState.NULL) {
+        } else if (result == ResultStateDataClass.NULL) {
             JOptionPane.showMessageDialog(null, "모든 입력 칸을 채워주세요");
         } else {
             JOptionPane.showMessageDialog(null, "입력 실패");
         }
     }
 
-    public void showUpdateResult(ResultState result) {
-        if (result == ResultState.SUCCESS) {
+    public void showUpdateResult(ResultStateDataClass result) {
+        if (result == ResultStateDataClass.SUCCESS) {
             JOptionPane.showMessageDialog(null, "수정 완료");
-        } else if (result == ResultState.NULL) {
+        } else if (result == ResultStateDataClass.NULL) {
             JOptionPane.showMessageDialog(null, "모든 입력 칸을 채워주세요");
         } else {
             JOptionPane.showMessageDialog(null, "수정 실패");
         }
     }
 
-    public void showDeleteResult(ResultState result) {
-        if (result == ResultState.SUCCESS) {
+    public void showDeleteResult(ResultStateDataClass result) {
+        if (result == ResultStateDataClass.SUCCESS) {
             JOptionPane.showMessageDialog(null, "삭제 완료");
-        } else if (result == ResultState.NULL) {
+        } else if (result == ResultStateDataClass.NULL) {
             JOptionPane.showMessageDialog(null, "ID를 입력해주세요.");
         } else {
             JOptionPane.showMessageDialog(null, "삭제 실패");

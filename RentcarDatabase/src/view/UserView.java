@@ -1,8 +1,8 @@
 package view;
 
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.RentInfo;
-import controller.dataClass.ResultState;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.RentDataClass;
+import model.dataClass.ResultStateDataClass;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -20,6 +20,7 @@ public class UserView extends JFrame{
 		private static final UserView instance = new UserView();
 	}
 
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -32,6 +33,7 @@ public class UserView extends JFrame{
 			}
 		});
 	}
+	*/
 
 	public JTextField searchCampingCar = new JTextField();
     public JButton returnButton = new JButton("반환하러가기"); 
@@ -264,27 +266,27 @@ public class UserView extends JFrame{
 		return radioGroup;
 	}
 	
-	public void readRentableCampingCarList(ArrayList<CampingCarInfo> rentableCampingCarList) {
+	public void readRentableCampingCarList(ArrayList<CampingCarDataClass> rentableCampingCarList) {
 		listarea.setText("");
 		String list = getCampingCarColumnList();
-		for (CampingCarInfo CampingCar : rentableCampingCarList ) {
+		for (CampingCarDataClass CampingCar : rentableCampingCarList ) {
 			list += toStringFromCampingCarInfo(CampingCar);
 		}
 		listarea.append(list);
 	}
 	
-	public void readRentList(ArrayList<RentInfo> rentList) {
+	public void readRentList(ArrayList<RentDataClass> rentList) {
 		starea.setText("");
 		String list = getRentColumnList();
 		int rentNumber = 1;
-		for (RentInfo rent : rentList) {
+		for (RentDataClass rent : rentList) {
 			list += rentNumber + toStringFromRentInfo(rent);
 			rentNumber++;
 		}
 		starea.append(list);
 	}
 	
-	private String toStringFromCampingCarInfo(CampingCarInfo campingCar) {
+	private String toStringFromCampingCarInfo(CampingCarDataClass campingCar) {
 		return  campingCar.campingCarId + '\t' +
 				campingCar.campingCarName + '\t' +
 				campingCar.campingCarNumber + '\t' +
@@ -297,7 +299,7 @@ public class UserView extends JFrame{
 				campingCar.campingCarRentCompanyId + '\n';
 	}
 	
-	private String toStringFromRentInfo(RentInfo rent) {
+	private String toStringFromRentInfo(RentDataClass rent) {
 		return  rent.campingCarID + '\t' +
 				rent.license + '\t' +
 				rent.rentStartDate + '\t' +
@@ -307,8 +309,8 @@ public class UserView extends JFrame{
 				rent.extraGoodsPrice + '\n';
 	}
 	
-	public RentInfo getRentInput() {
-		RentInfo rent = new RentInfo();
+	public RentDataClass getRentInput() {
+		RentDataClass rent = new RentDataClass();
 		
 		rent.campingCarID = campingCarID.getText();
 		rent.license = license.getText();
@@ -321,8 +323,8 @@ public class UserView extends JFrame{
 		return rent;
 	}
 	
-	public void showRentResult(ResultState result) {
-		if (result == ResultState.SUCCESS) {
+	public void showRentResult(ResultStateDataClass result) {
+		if (result == ResultStateDataClass.SUCCESS) {
 			JOptionPane.showMessageDialog(null,"대여 완료");
 		} else {
 			JOptionPane.showMessageDialog(null, "대여 실패 모든 대여 정보 칸을 채워주세요");
