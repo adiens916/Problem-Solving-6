@@ -1,7 +1,10 @@
 package model.dataClass;
 
 public class RentDataClass {
+	public String rentID;
 	public String campingCarID;
+	public String campingCarCompanyID;
+	public String rentPrice;
 	public String license;
 	public String rentStartDate;
 	public String rentPeriod;
