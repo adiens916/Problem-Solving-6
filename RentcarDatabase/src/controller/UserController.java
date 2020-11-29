@@ -2,10 +2,10 @@ package controller;
 
 import model.UserModel;
 import view.UserView;
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.RentInfo;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.RentDataClass;
 import controller.ReturnController;
-import controller.dataClass.ResultState;
+import model.dataClass.ResultStateDataClass;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
 
@@ -37,12 +37,12 @@ public class UserController {
 	}
 	
 	public void readRentableCampingCarList() {
-		ArrayList<CampingCarInfo> rentableCampingCarList = userModel.readRentableCampingCarList();
+		ArrayList<CampingCarDataClass> rentableCampingCarList = userModel.readRentableCampingCarList();
 		userView.readRentableCampingCarList(rentableCampingCarList);
 	}
 	
 	public void readRentList() {
-		ArrayList<RentInfo> rentList = userModel.readRentList();
+		ArrayList<RentDataClass> rentList = userModel.readRentList();
 		userView.readRentList(rentList);		
 	}
 	
@@ -63,7 +63,7 @@ public class UserController {
 			ButtonGroup radioGroup = userView.getRadioGroup();
 			String checkedRadio = getCheckedRadio(radioGroup);
 			String searchBy = userView.getSearchCampingCar();
-			ArrayList<CampingCarInfo> rentableCampingCarList;
+			ArrayList<CampingCarDataClass> rentableCampingCarList;
 			
 			switch(checkedRadio) {
 				case "캠핑카ID" :
@@ -105,8 +105,8 @@ public class UserController {
 	
 	public void listenToRentCampingCar() {
 		userView.rentButton.addActionListener(e -> {
-			RentInfo rent = userView.getRentInput();
-			ResultState result = userModel.rentCampingCar(rent);
+			RentDataClass rent = userView.getRentInput();
+			ResultStateDataClass result = userModel.rentCampingCar(rent);
 			userView.showRentResult(result);
 			readRentableCampingCarList();
 			readRentList();

@@ -1,11 +1,11 @@
 package controller;
 
-import controller.dataClass.CampingCarInfo;
+import model.dataClass.CampingCarDataClass;
 import model.CampingCarModel;
 import view.CampingCarView;
 
 public class CampingCarController
-		extends AbstractController<CampingCarModel, CampingCarView, CampingCarInfo> {
+		extends AbstractController<CampingCarModel, CampingCarView, CampingCarDataClass> {
 
 	@Override
 	void setModelAndView() {

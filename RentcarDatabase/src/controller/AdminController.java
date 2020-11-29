@@ -3,18 +3,19 @@ package controller;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
-import controller.dataClass.AdminInfo;
-import controller.dataClass.CampingCarInfo;
-import controller.dataClass.Garage;
+import model.dataClass.AdminDataClass;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.GarageDataClass;
 import model.AdminModel;
 
 public class AdminController {
+	
 	AdminModel adminModel = new AdminModel();
 	
 	public String printCampingcarList() {
 		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
-		ArrayList<CampingCarInfo> campingCarList = adminModel.getCampingCarList();
-		for (CampingCarInfo campingCar : campingCarList) {
+		ArrayList<CampingCarDataClass> campingCarList = adminModel.getCampingCarList();
+		for (CampingCarDataClass campingCar : campingCarList) {
 			str +=
 			campingCar.campingCarId + '\t' +
             campingCar.campingCarName + '\t' +
@@ -32,8 +33,8 @@ public class AdminController {
 
 	public String printGarageList() {
 		String str = "차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n";
-		ArrayList<Garage> campingCarList = adminModel.getGarageList();
-		for (Garage garage : campingCarList) {
+		ArrayList<GarageDataClass> campingCarList = adminModel.getGarageList();
+		for (GarageDataClass garage : campingCarList) {
 			str += garage.id + '\t' +
 					garage.name + '\t' +
 					garage.address + '\t' +
@@ -46,7 +47,7 @@ public class AdminController {
 	
 	
 	
-	public void insetGarageData(ArrayList<AdminInfo> adminData) {
+	public void insetGarageData(ArrayList<AdminDataClass> adminData) {
 		int result = adminModel.insetToGarage(adminData);
 		if(result ==1 ) {JOptionPane.showMessageDialog(null, "처리 완료");}
 		else if(result ==0 ) JOptionPane.showMessageDialog(null, "수리할필요없습니다. 반환하세요.");

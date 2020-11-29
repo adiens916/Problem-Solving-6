@@ -1,11 +1,11 @@
 package controller;
 
-import controller.dataClass.Garage;
+import model.dataClass.GarageDataClass;
 import model.GarageModel;
 import view.GarageView;
 
 public class GarageController
-		extends AbstractController<GarageModel, GarageView, Garage> {
+		extends AbstractController<GarageModel, GarageView, GarageDataClass> {
 
 	@Override
 	void setModelAndView() {

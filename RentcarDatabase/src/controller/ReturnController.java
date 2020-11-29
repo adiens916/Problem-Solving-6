@@ -1,7 +1,7 @@
 package controller;
 
-import controller.dataClass.ResultState;
-import controller.dataClass.Return;
+import model.dataClass.ResultStateDataClass;
+import model.dataClass.ReturnDataClass;
 import model.ReturnModel;
 import view.ReturnView;
 
@@ -29,11 +29,11 @@ public class ReturnController {
 
 	private void addListenerToReturnCar() {
 		returnView.returnButton.addActionListener(e -> {
-			Return state = returnView.getCarStateInput();
-			ResultState result = returnModel.returnCar(state);
+			ReturnDataClass state = returnView.getCarStateInput();
+			ResultStateDataClass result = returnModel.returnCar(state);
 			returnView.showReturnResult(result);
 
-			if (result == ResultState.SUCCESS) {
+			if (result == ResultStateDataClass.SUCCESS) {
 				setVisible(false);
 				UserController.getInstance().readRentList();
 				UserController.getInstance().readRentableCampingCarList();

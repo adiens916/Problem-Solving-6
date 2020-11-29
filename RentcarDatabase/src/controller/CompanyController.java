@@ -1,11 +1,11 @@
 package controller;
 
-import controller.dataClass.CompanyInfo;
+import model.dataClass.CompanyDataClass;
 import model.CompanyModel;
 import view.CompanyView;
 
 public class CompanyController
-		extends AbstractController<CompanyModel, CompanyView, CompanyInfo> {
+		extends AbstractController<CompanyModel, CompanyView, CompanyDataClass> {
 
 	@Override
 	void setModelAndView() {

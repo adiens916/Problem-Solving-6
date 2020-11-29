@@ -43,7 +43,7 @@ public class MainController {
 	private void addListenerToGoToAdminMenu() {
 		MainView.getInstance().goToAdminButton.addActionListener(e -> {
 			setVisible(false);
-			// AdminController.getInstance().setVisible(true);
+			//AdminController.getInstance().setVisible(true);
 			adminView.setVisible(true);
 		});
 	}

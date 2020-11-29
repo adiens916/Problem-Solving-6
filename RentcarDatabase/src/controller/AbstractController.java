@@ -1,6 +1,6 @@
 package controller;
 
-import controller.dataClass.ResultState;
+import model.dataClass.ResultStateDataClass;
 import model.AbstractModel;
 import view.AbstractView;
 
@@ -52,7 +52,7 @@ public abstract class AbstractController
     void addListenerToCreate() {
         view.createButton.addActionListener(e -> {
             T info = view.getInput(); // 뷰에서 입력 받아옴
-            ResultState result = model.create(info); // 입력을 모델에 보내고, 결과 받음
+            ResultStateDataClass result = model.create(info); // 입력을 모델에 보내고, 결과 받음
             view.showCreateResult(result); // 결과를 뷰에 보내서 출력
             readList(); // 바뀐 목록 출력
         });
@@ -69,7 +69,7 @@ public abstract class AbstractController
     void addListenerToUpdate() {
         view.updateButton.addActionListener(e -> {
             T info = view.getInput(); // 뷰에서 입력 가져옴 
-            ResultState result = model.update(info); // 입력을 모델에 보내고 결과 받음
+            ResultStateDataClass result = model.update(info); // 입력을 모델에 보내고 결과 받음
             view.showUpdateResult(result); // 결과를 뷰에 보내서 출력
             readList(); // 바뀐 목록 출력
         });
@@ -78,7 +78,7 @@ public abstract class AbstractController
     void addListenerToDelete() {
         view.deleteButton.addActionListener(e -> {
             String id = view.getId();
-            ResultState result = model.delete(id);
+            ResultStateDataClass result = model.delete(id);
             view.showDeleteResult(result);
             readList();
         });
