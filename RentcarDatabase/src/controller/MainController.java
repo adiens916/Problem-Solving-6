@@ -43,8 +43,8 @@ public class MainController {
 	private void addListenerToGoToAdminMenu() {
 		MainView.getInstance().goToAdminButton.addActionListener(e -> {
 			setVisible(false);
-			//AdminController.getInstance().setVisible(true);
-			adminView.setVisible(true);
+			AdminController.getInstance().setVisible(true);
+			//adminView.setVisible(true);
 		});
 	}
 
@@ -56,8 +56,8 @@ public class MainController {
 	}
 
 	private void addListenerToGoBackToMainMenu() {
-		adminView.backButton.addActionListener(e -> {
-			adminView.setVisible(false);
+		adminView.getInstance().backButton.addActionListener(e -> {
+			AdminController.getInstance().setVisible(false);
 			setVisible(true);
 		});
 		UserView.getInstance().backButton.addActionListener(e -> {
