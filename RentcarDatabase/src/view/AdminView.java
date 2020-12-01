@@ -16,21 +16,15 @@ import java.awt.Component;
 import javax.swing.border.CompoundBorder;
 
 public class AdminView extends JFrame {
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					AdminView frame = new AdminView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	
+	public static AdminView getInstance() {
+		return AdminViewHolder.instance;
+	}
 		
-	}*/
-		
+	private static class AdminViewHolder {
+		private static final AdminView instance = new AdminView();
+	}
+	
 	private JPanel contentPanel;
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepairId, garageId;
 
@@ -48,12 +42,15 @@ public class AdminView extends JFrame {
 
     public JButton backButton = new JButton("《 뒤로가기");
     JButton resetButton = new JButton("초기화");
-    JButton searchButton1 = new JButton("검색1");
-    JButton searchButton2 = new JButton("검색1");
-    JButton searchButton3 = new JButton("검색1");
-    JButton searchButton4 = new JButton("검색1");
-	JButton insertToGarageButton = new JButton("정비소로보내기");
-	JButton returnButton = new JButton("반 환 하 기");
+    public JButton searchButton[] = new JButton[4];
+    /*
+    JButton searchButton[0] = new JButton("검색1");
+    JButton searchButton[1] = new JButton("검색2");
+    JButton searchButton[2] = new JButton("검색3");
+    JButton searchButton[3] = new JButton("검색4");
+    */
+	public JButton insertToGarageButton = new JButton("정비소로보내기");
+	public JButton returnButton = new JButton("반 환 하 기");
 	
 	JLabel fix1Label = new JLabel("수리여부 1 : 수리필요");
 	JLabel fix2Label = new JLabel("수리여부 0 : 수리필요없음");
@@ -83,12 +80,10 @@ public class AdminView extends JFrame {
 	//------------------------------------------------------------
 	public AdminView() {
 		setTitle("캠핑카프로젝트 리팩토링");
-		
-		//컨트롤러 파트---------------------------------
-		adminController = new AdminController();
-		campingCarText.setText(adminController.printCampingcarList());
-		garageText.setText(adminController.printGarageList());
-
+		searchButton[0] = new JButton("검색1");
+		searchButton[1] = new JButton("검색2");
+		searchButton[2] = new JButton("검색3");
+		searchButton[3] = new JButton("검색4");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1094, 565);
 //영역 설정------------------------------------------------------------------------------------------		
@@ -167,43 +162,20 @@ public class AdminView extends JFrame {
 		searchLabel.setFont(new Font("굴림", Font.BOLD, 20));
 		searchLabel.setBounds(614, 10, 110, 21);
 		panel.add(searchLabel);
-		
-		searchButton1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchText.setText("검색1 결과\n");
-				adminController.printSearch(1,searchText);
-			}
-		});
-		searchButton1.setBounds(955, 26, 105, 23);
-		panel.add(searchButton1);
+		searchButton[0].setBounds(955, 26, 105, 23);
+		panel.add(searchButton[0]);
 				
-		searchButton2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchText.setText("검색2 결과\n");
-				adminController.printSearch(2,searchText);
-			}
-		});
-		searchButton2.setBounds(955, 53, 105, 23);
-		panel.add(searchButton2);
+		
+		searchButton[1].setBounds(955, 53, 105, 23);
+		panel.add(searchButton[1]);
 		
 		
-		searchButton3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchText.setText("검색3\n");
-				adminController.printSearch(3,searchText);
-			}
-		});
-		searchButton3.setBounds(955, 79, 105, 23);
-		panel.add(searchButton3);
+		searchButton[2].setBounds(955, 79, 105, 23);
+		panel.add(searchButton[2]);
 		
-		searchButton4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				searchText.setText("검색4 결과\n");
-				adminController.printSearch(4,searchText);
-			}
-		});
-		searchButton4.setBounds(955, 105, 105, 23);
-		panel.add(searchButton4);
+		
+		searchButton[3].setBounds(955, 105, 105, 23);
+		panel.add(searchButton[3]);
 		
 		search1.setBounds(614, 30, 321, 15);
 		panel.add(search1);
@@ -225,15 +197,7 @@ public class AdminView extends JFrame {
 		infoLabel.setBounds(614, 279, 446, 26);
 		panel.add(infoLabel);
 		//------정비소로 보내기-----------------------------------------------------------------------------
-		insertToGarageButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				ArrayList<AdminDataClass> adminData = new ArrayList<>();
-				getInput();
-           	 	adminData.add(admin);
-				adminController.insetGarageData(adminData);
-				refreshInput();
-			}
-		});
+		
 		insertToGarageButton.setFont(new Font("굴림", Font.BOLD, 15));
 		insertToGarageButton.setBounds(889, 315, 142, 77);
 		panel.add(insertToGarageButton);
@@ -242,8 +206,8 @@ public class AdminView extends JFrame {
 		returnButton.setFont(new Font("굴림", Font.BOLD, 18));
 		returnButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				adminController.returnToCampingCarData(torepairId.getText());
-				refreshInput();
+				//adminController.returnToCampingCarData(torepairId.getText());
+				//refreshInput();
 			}
 		});
 		returnButton.setBounds(889, 402, 142, 77);
@@ -319,6 +283,31 @@ public class AdminView extends JFrame {
 		});
 	}
 	
+	public AdminDataClass getAdminInput() {
+		AdminDataClass adminData = new AdminDataClass();
+		adminData.garageId  = garageId.getText();
+		adminData.torepair = torepairId.getText();
+		adminData.repairListDuedate = repairListDuedate.getText();
+		adminData.repairListFixDate = repairListFixDate.getText();
+		adminData.repairListLog = repairListLog.getText();
+		adminData.repairListOtherInfo = repairListOtherInfo.getText();
+		adminData.repairListprice = repairListprice.getText();
+		return adminData;
+	}
+	public void showInsertToGarageResult(ResultStateDataClass result) {
+		if(result ==ResultStateDataClass.SUCCESS ) JOptionPane.showMessageDialog(null, "처리 완료");
+		else if(result ==ResultStateDataClass.BACK ) JOptionPane.showMessageDialog(null, "수리할필요없습니다. 반환하세요.");
+		else if(result ==ResultStateDataClass.NULL ) JOptionPane.showMessageDialog(null, "빈칸을 모두 채워주세요");
+		else JOptionPane.showMessageDialog(null, "오류");
+	}
+	
+	public void showReturnToCampingCaraListResult(ResultStateDataClass result) {
+		if(result ==ResultStateDataClass.BACK ) JOptionPane.showMessageDialog(null, "수리가필요한 캠핑카입니다.");
+		else if(result ==ResultStateDataClass.SUCCESS ) JOptionPane.showMessageDialog(null, "반환 완료!");
+		else if(result ==ResultStateDataClass.NULL ) JOptionPane.showMessageDialog(null, "캠핑카ID를 입력해주세요!");
+		else JOptionPane.showMessageDialog(null, "오류");
+	}
+	
 	public void refreshInput() {
 		torepairId.setText("");
 		garageId.setText("");
@@ -329,14 +318,4 @@ public class AdminView extends JFrame {
 		repairListOtherInfo.setText("");
 	}
 	
-	public AdminDataClass getInput() {
-   	 	admin.garageId  = garageId.getText();
-   	 	admin.torepair = torepairId.getText();
-   	 	admin.repairListDuedate = repairListDuedate.getText();
-   	 	admin.repairListFixDate = repairListFixDate.getText();
-   	 	admin.repairListLog = repairListLog.getText();
-   	 	admin.repairListOtherInfo = repairListOtherInfo.getText();
-   	 	admin.repairListprice = repairListprice.getText();
-		return admin;
-	}
 }
