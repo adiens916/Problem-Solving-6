@@ -3,35 +3,56 @@ package controller;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
+
 import model.dataClass.AdminDataClass;
-import model.dataClass.CampingCarDataClass;
 import model.dataClass.GarageDataClass;
+import model.dataClass.ResultStateDataClass;
+import view.AdminView;
 import model.AdminModel;
 
 public class AdminController {
+	private final AdminModel adminModel = new AdminModel();
+	private final AdminView adminView = AdminView.getInstance();
 	
-	AdminModel adminModel = new AdminModel();
-	
-	public String printCampingcarList() {
-		String str = "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
-		ArrayList<CampingCarDataClass> campingCarList = adminModel.getCampingCarList();
-		for (CampingCarDataClass campingCar : campingCarList) {
-			str +=
-			campingCar.campingCarId + '\t' +
-            campingCar.campingCarName + '\t' +
-            campingCar.campingCarNumber + '\t' +
-            campingCar.campingCarSits + '\t' +
-            campingCar.campingCarManufacutre + '\t' +
-            campingCar.campingCarManufactureYear + '\t' +
-            campingCar.campingCarMileage + '\t' +
-            campingCar.campingCarRentprice + '\t' +
-            campingCar.campingCarRegitstdate + '\t' +
-            campingCar.campingCarRentCompanyId + '\n';
-		}
-		return str;
+	public static AdminController getInstance() {
+		return AdminControllerHolder.instance;
 	}
 
-	public String printGarageList() {
+	private static class AdminControllerHolder {
+		private static final AdminController instance = new AdminController();
+	}
+	public AdminController(){
+		 insertGarageData();	
+		 printCampingCarRentList();
+		 returnToCampingCarData();
+		 printGarageList();
+		 printSearch();
+		 setVisible(true);
+	}
+	public void setVisible(boolean value) {
+		adminView.setVisible(value);
+	}
+	public void printCampingCarRentList() {
+		String str = "앞쪽 \t 오른쪽 \t 왼쪽 \t 뒤쪽 \t 수리여부 \t 캠핑카ID \t 고유대여ID\n";
+		ArrayList<AdminDataClass> adminList = adminModel.getCampingCarReturnList();
+		try {
+			for(AdminDataClass admin : adminList) {
+				str +=
+				admin.front + '\t' +
+				admin.right + '\t' +
+				admin.left + '\t' +
+				admin.back + '\t' +
+				admin.repairListFixDate + '\t' +
+				admin.campingcarId + '\t' +
+				admin.rentId + '\n';
+			}
+		}catch(Exception e1) {
+			e1.printStackTrace();
+		}
+		adminView.campingCarText.setText(str);
+	}
+
+	public void printGarageList() {
 		String str = "차고지ID \t 카센터이름 \t 주소 \t 번호 \t 매니저이름 \t 이메일주소\n";
 		ArrayList<GarageDataClass> campingCarList = adminModel.getGarageList();
 		for (GarageDataClass garage : campingCarList) {
@@ -42,36 +63,76 @@ public class AdminController {
 					garage.manager + '\t' +
 					garage.emailAddress+ '\n';
 		}
-		return str;
+		adminView.garageText.setText(str);
 	}
 	
-	
-	
-	public void insetGarageData(ArrayList<AdminDataClass> adminData) {
-		int result = adminModel.insetToGarage(adminData);
-		if(result ==1 ) {JOptionPane.showMessageDialog(null, "처리 완료");}
-		else if(result ==0 ) JOptionPane.showMessageDialog(null, "수리할필요없습니다. 반환하세요.");
-		else if(result ==2 ) JOptionPane.showMessageDialog(null, "빈칸을 모두 채워주세요");
+
+	public void insertGarageData() {
+		adminView.insertToGarageButton.addActionListener(e -> {
+			AdminDataClass adminData = adminView.getAdminInput();
+			ResultStateDataClass result = adminModel.insertToGarage(adminData);
+			adminView.showInsertToGarageResult(result);
+		});
 	}
 	
-	public void returnToCampingCarData(String cpcid) {
-		int result = adminModel.returnToCampingcarList(cpcid);
-		if(result==1) JOptionPane.showMessageDialog(null, "수리가필요한 캠핑카입니다."); 
-		else if(result==2) JOptionPane.showMessageDialog(null, "반환 완료!"); 
-		else if(result==3) JOptionPane.showMessageDialog(null, "캠핑카ID를 입력해주세요!");
+	public void returnToCampingCarData() {
+		adminView.returnButton.addActionListener(e -> {
+			AdminDataClass adminData = adminView.getAdminInput();
+			ResultStateDataClass result = adminModel.returnToCampingcarList(adminData.torepair);
+			adminView.showReturnToCampingCaraListResult(result);
+			adminView.refreshInput();
+			printCampingCarRentList();
+		});
 		
 	}
 	
-	public void printSearch(int num, JTextArea searchText) {
-		try {
-			 ArrayList<String> search = new ArrayList<>();
-			 search = adminModel.getSearch(num);
-			for(String i : search) {
-				//adminView.searchText.append(i);
-				searchText.append(i);
+	public void printSearch() {
+		adminView.searchButton[0].addActionListener(e -> {
+			adminView.searchText.setText("검색1\n");
+			try {
+				ArrayList<String> search = new ArrayList<>();
+				search = adminModel.getSearch(1);
+				for (String i : search) {
+					adminView.searchText.append(i);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
 			}
-		}catch(Exception e1) {
-			e1.printStackTrace();
-		}
+		});
+		adminView.searchButton[1].addActionListener(e -> {
+			adminView.searchText.setText("검색2\n");
+
+			try {
+				ArrayList<String> search = new ArrayList<>();
+				search = adminModel.getSearch(2);
+				for (String i : search) {
+					adminView.searchText.append(i);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});adminView.searchButton[2].addActionListener(e -> {			adminView.searchText.setText("검색1");
+			adminView.searchText.setText("검색3\n");
+			try {
+				ArrayList<String> search = new ArrayList<>();
+				search = adminModel.getSearch(3);
+				for (String i : search) {
+					adminView.searchText.append(i);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});adminView.searchButton[3].addActionListener(e -> {
+			adminView.searchText.setText("검색4\n");
+			try {
+				ArrayList<String> search = new ArrayList<>();
+				search = adminModel.getSearch(4);
+				for (String i : search) {
+					adminView.searchText.append(i);
+				}
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		});
 	}
 }
