@@ -1,62 +1,26 @@
 package main;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+import controller.CampingCarController;
+import controller.CompanyController;
+import controller.CustomerController;
+import controller.GarageController;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import java.awt.Component;
-import java.awt.Cursor;
-import java.awt.ComponentOrientation;
-import java.awt.SystemColor;
-import javax.swing.JTable;
-import javax.swing.JPopupMenu;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import java.awt.Point;
-import java.awt.Dimension;
-import java.awt.Insets;
-import javax.swing.JSlider;
-import java.awt.List;
-import javax.swing.JToolBar;
-import javax.swing.JLabel;
-import javax.swing.JScrollPane;
-import javax.swing.table.DefaultTableModel;
-import java.awt.Window.Type;
-import javax.swing.border.BevelBorder;
+import javax.swing.*;
 import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class admin extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	
-	Companydata delform;
-	Campingcardata campform;
-	Customerdata cusform;
-	Garagedata grgform;
+	CompanyController delform;
+	CampingCarController campform;
+	CustomerController cusform;
+	GarageController grgform;
 	JMenuItem mntmNewMenuItem_1_4;
 	JMenuItem mntmNewMenuItem_1_4_1;
 	JMenuItem mntmNewMenuItem_1_4_2;
@@ -144,16 +108,16 @@ public class admin extends JFrame implements ActionListener{
 		grgresult();
 		
 		
-		delform = new Companydata();
+		delform = new CompanyController();
 		delform.quit.addActionListener(this);
 		
-		campform = new Campingcardata();
+		campform = new CampingCarController();
 		campform.quit.addActionListener(this);
 		
-		cusform = new Customerdata();
+		cusform = new CustomerController();
 		cusform.quit.addActionListener(this);
 		
-		grgform = new Garagedata();
+		grgform = new GarageController();
 		grgform.quit.addActionListener(this);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

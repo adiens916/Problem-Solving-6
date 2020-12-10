@@ -1,118 +1,127 @@
 package controller;
 
-import model.CustomerModel;
-
+import model.UserModel;
+import view.UserView;
+import model.dataClass.CampingCarDataClass;
+import model.dataClass.RentDataClass;
+import controller.ReturnController;
+import model.dataClass.ResultStateDataClass;
 import java.util.ArrayList;
-import java.util.Enumeration;
-
-import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
-import javax.swing.JOptionPane;
-import javax.swing.JRadioButton;
 
-import controller.dataClass.*;
 
 public class UserController {
-	
-	CustomerModel customerModel = new CustomerModel();
-	
-	
-	public String printRentedCampingCarList() {
-		
-		ArrayList<String> list = customerModel.Rented_CampingCar_List();
-		
-		String str = "캠핑카ID \t 금액\n";
-		
-		for(int i=0;i<list.size();i++) {
-			str += list.get(i);
-		}
-		
-		return str;
-		
-	}
-	
-	public String printCampingCarList() {
-		
-		ArrayList<String> list = customerModel.CampingCar_List();
-		
-		String str = "캠핑카ID \t차명 \t차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
-		
-		for(int i=0;i<list.size();i++) {
-			str += list.get(i);
-		}
-		
-		return str;
-		
-	}
-	
-	public String printCampingCarListByButton(ButtonGroup bg, String info) {
-		
-		ArrayList<String> list = null;
-		Enumeration<AbstractButton> btn = bg.getElements();
-		String btnText = "";
-		String str = "캠핑카ID \t차명 \t차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
-		
-		while (btn.hasMoreElements()) { 
-			AbstractButton ab = btn.nextElement();
+	private final UserModel userModel = new UserModel();
+	private final UserView userView = UserView.getInstance();
 
-			if (((JRadioButton) ab).isSelected()) {
-				btnText = ((JRadioButton) ab).getText();
-			}
-		}
-		
-		
-		switch (btnText) {
-		case "캠핑카ID":
-			list = customerModel.CampingCar_List_By_CampingCarID(info);
-			break;
-			
-		case "차명":
-			list = customerModel.CampingCar_List_By_CampingCarName(info);
-			break;
-			
-		case "최소승차인원":
-			list = customerModel.CampingCar_List_By_CampingCarSeats(info);
-			break;
-			
-		case "제조회사":
-			list = customerModel.CampingCar_List_By_CampingCarManufacture(info);
-			break;
-			
-		case "최대주행거리":
-			list = customerModel.CampingCar_List_By_CampingCarMileage(info);
-			break;
-			
-		case "최대대여비용(단위:만원)":
-			list = customerModel.CampingCar_List_By_CampingCarPrice(info);
-			break;
-			
-		default:
-			return str;
-		}
+	public static UserController getInstance() {
+		return UserControllerHolder.instance;
+	}
 
-	
-		for(int i=0;i<list.size();i++) {
-			str += list.get(i);
-		}
-		
-		
-		return str;
+	private static class UserControllerHolder {
+		private static final UserController instance = new UserController();
+	}
+
+	public UserController(){		
+		readRentableCampingCarList();
+		readRentList();
+		listenToReadRentableCampingCarList();
+		listenToRefreshRentableCampingCarList();
+		listenToRentCampingCar();
+		listenToReturnCampingCar();
+		setVisible(true);
 	}
 	
-	public void rentCampingCar(RentInfo rent) {
-		
-		int res = customerModel.Rent_CampingCar(rent);
-		switch(res){
-		case 1: 
-			JOptionPane.showMessageDialog(null, "대여 완료");
-			break;
-		case 2:
-			JOptionPane.showMessageDialog(null, "옳바른 데이터값을 입력해주세요.");
-			break;
-		default:
-			JOptionPane.showMessageDialog(null, "데이터값 재입력");
-			break;
-		}
+	public void setVisible(boolean value) {
+		userView.setVisible(value);
 	}
 	
+	public void readRentableCampingCarList() {
+		ArrayList<CampingCarDataClass> rentableCampingCarList = userModel.readRentableCampingCarList();
+		userView.readRentableCampingCarList(rentableCampingCarList);
+	}
+	
+	public void readRentList() {
+		ArrayList<RentDataClass> rentList = userModel.readRentList();
+		userView.readRentList(rentList);		
+	}
+	
+	public String getCheckedRadio(ButtonGroup radioGroup) {
+		String checkedRadio = "";
+		
+		try {
+			checkedRadio = radioGroup.getSelection().getActionCommand();
+		} catch(Exception e) {
+			System.out.println("검색 실패 : "+e);
+		}
+		
+		return checkedRadio;
+	}
+	
+	public void listenToReadRentableCampingCarList() {
+		userView.searchButton.addActionListener(e -> {
+			ButtonGroup radioGroup = userView.getRadioGroup();
+			String checkedRadio = getCheckedRadio(radioGroup);
+			String searchBy = userView.getSearchCampingCar();
+			ArrayList<CampingCarDataClass> rentableCampingCarList;
+			
+			switch(checkedRadio) {
+				case "캠핑카ID" :
+					rentableCampingCarList = userModel.readRentableCampingCarListByID(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				case "차명" :
+					rentableCampingCarList = userModel.readRentableCampingCarListByName(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				case "최소승차인원" :
+					rentableCampingCarList = userModel.readRentableCampingCarListBySeats(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				case "제조회사" :
+					rentableCampingCarList = userModel.readRentableCampingCarListByManufacture(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				case "최대주행거리" :
+					rentableCampingCarList = userModel.readRentableCampingCarListByMileage(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				case "최대대여비용" :
+					rentableCampingCarList = userModel.readRentableCampingCarListByPrice(searchBy);
+					userView.readRentableCampingCarList(rentableCampingCarList);
+					break;
+				default :	
+					userView.showSearchFailed();
+					break;
+			}			
+		});
+	}
+	
+	public void listenToRefreshRentableCampingCarList() {
+		userView.refreshButton.addActionListener(e -> {
+			readRentableCampingCarList();
+		});
+	}
+	
+	public void listenToRentCampingCar() {
+		userView.rentButton.addActionListener(e -> {
+			RentDataClass rent = userView.getRentInput();
+			ResultStateDataClass result = userModel.rentCampingCar(rent);
+			userView.showRentResult(result);
+			readRentableCampingCarList();
+			readRentList();
+		});
+	}
+	
+	public void listenToReturnCampingCar() {
+		userView.returnButton.addActionListener(e -> {
+			setVisible(false);
+			ReturnController.getInstance().setVisible(true);
+		});
+	}
+	
+	// ------- 테스트 영역 --------
+	public static void main(String[] args) {
+		UserController us = new UserController();
+	}
 }

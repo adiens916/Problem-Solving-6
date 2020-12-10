@@ -1,42 +1,31 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 
-public class MainModel {
+public class DatabaseInitializer {
 
     // SQL 연결
-    Connection con;
-    PreparedStatement psmt;
+    Connection con = DatabaseConnector.getConnection();
     Statement stmt, stmt1;
     ResultSet rs;
-    String Driver = "";
-    String url = "jdbc:mysql://localhost:3306/madang?&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true&useSSL=false";
-    String userid = "madang";
-    String pwd = "madang";
 
-    public MainModel() {
-        conDB();
+    public static DatabaseInitializer getInstance() {
+        return InitializerHolder.instance;
     }
 
-    public void conDB() {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            //System.out.println("드라이버 로드 성공");
-        } catch (ClassNotFoundException e1) {
-            e1.printStackTrace();
-        }
-        try {
-            //System.out.println("데이터베이스 연결 준비...");
-            con = DriverManager.getConnection(url, userid, pwd);
-            System.out.println("CONNECTION SUCCESFUL\nREADY TO USE PROGRAM");
-        } catch (SQLException e1) {
-            e1.printStackTrace();
-        }
+    private static class InitializerHolder {
+        private static final DatabaseInitializer instance = new DatabaseInitializer();
+    }
+
+    private DatabaseInitializer() {}
+
+    public void init() {
+        resetDatabase();
+        dropTables();
+        createTables();
+        inputSampleData();
     }
 
     public ResultSet getReturnedList() {
@@ -45,12 +34,12 @@ public class MainModel {
             String query = "SELECT * FROM campingcar_return;";
             rs = stmt.executeQuery(query);
         } catch(Exception e1) {
-            System.out.println(e1);
+            e1.printStackTrace();
         }
         return rs;
     }
 
-    public void resetDatabase() {
+    private void resetDatabase() {
         try {
             stmt1 = con.createStatement();
             String query = "DROP SCHEMA IF EXISTS `madang` ;";
@@ -68,7 +57,7 @@ public class MainModel {
         }
     }
 
-    public void dropTables() {
+    private void dropTables() {
         try {
             stmt1 = con.createStatement();
             String query;
@@ -97,7 +86,7 @@ public class MainModel {
         }
     }
 
-    public void createTables() {
+    private void createTables() {
         try {
             stmt1 = con.createStatement();
             String query;
@@ -274,7 +263,7 @@ public class MainModel {
 /* 샘플 데이터 넣는 부분
 * 엄청 긴데, 차라리 따로 Sample 클래스로 빼는 게 나을지도
 * */
-    public void inputSampleData() {
+    private void inputSampleData() {
         try {
             stmt1 = con.createStatement();
             stmt1.executeUpdate(getSampleOfCompany());
@@ -304,7 +293,7 @@ public class MainModel {
         }
     }
 
-    public String getSampleOfCompany() {
+    private String getSampleOfCompany() {
         String query = "insert into campingcar_rent_company values" +
                 "('1','SAMSUNG','서울시 서초구','02-345-5676','samsungcprent@naver.com','김삼성')," +
                 "('2','LG','서울시 강남구','02-546-5474','lgcprent@naver.com','최엘쥐')," +
@@ -324,7 +313,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfCampingCar() {
+    private String getSampleOfCampingCar() {
         String query = "insert into campingcar_list values" +
                 "('1','TIGERJK','23하 4534','8','samsung','1945','20000','30','2017-04-20','1')," +
                 "('2','LIONG2','45호 3453','6','LG','1975','31000','30','2019-05-20','2')," +
@@ -360,7 +349,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfCustomer() {
+    private String getSampleOfCustomer() {
         String query = "insert into customer values" +
                 "('1111111','김마당','서울시 영등포구','010-3735-2396','uiurihappy@naver.com')," +
                 "('2235235','최종혁','서울시 서초구','010-9773-5873','cjh@naver.com')," +
@@ -380,7 +369,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfRentalList() {
+    private String getSampleOfRentalList() {
         String query = "insert into customer_rent_list values" +
                 "('1','2019-11-14','7','2019-11-11','캠핑의자','2','1','1023454','17','30')," +
                 "('2','2019-01-04','4','2019-01-01','바베큐그릴','4','2','1124635','18','20')," +
@@ -400,7 +389,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfReturnedList() {
+    private String getSampleOfReturnedList() {
         String query = "insert into campingcar_return values" +
                 "('양호','양호','양호','양호','0','30','17')," +
                 "('양호','양호','양호','양호','0','29','18')," +
@@ -419,7 +408,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfGarage() {
+    private String getSampleOfGarage() {
         String query = "insert into garage values" +
                 "('1','정의로운카센터','서울시 양천구','010-0943-5493','정카터','justice@naver.com')," +
                 "('2','잘고침카센터','서울시 금천구','010-2343-5454','잘수요','sdgse@naver.com')," +
@@ -439,7 +428,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfRepairInfoList() {
+    private String getSampleOfRepairInfoList() {
         String query = "insert into repair_list values" +
                 "('1','타이어','2019-11-25','4','2019-11-28','범퍼', '1111111', '1', '1', '342')," +
                 "('2','라디에이터','2019-01-11','8','2019-01-14','배터리', '2235235', '2', '2', '342')," +
@@ -459,7 +448,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfRentedCampingCar() {
+    private String getSampleOfRentedCampingCar() {
         String query = "insert into rentcar_list values" +
                 "('1','TIGERJK','23하 4534','8','SAMSUNG','1945','20000','30','2017-04-20','1')," +
                 "('2','LIONG2','45호 3453','6','LG','1975','31000','30','2019-05-20','2')," +
@@ -478,7 +467,7 @@ public class MainModel {
         return query;
     }
 
-    public String getSampleOfFinishedRentalList() {
+    private String getSampleOfFinishedRentalList() {
         String query = "insert into customer_rent_old_list values" +
                 "('17','2019-11-25','7','2019-11-22','바베큐그릴','4','15','9467242','16','30')," +
                 "('18','2019-11-25','7','2019-11-22','바베큐그릴','4','15','9467242','16','30')," +

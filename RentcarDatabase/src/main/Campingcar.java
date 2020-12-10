@@ -1,6 +1,6 @@
 package main;
 
-import model.MainModel;
+import model.DatabaseInitializer;
 
 import java.awt.Color;
 import java.awt.event.ActionListener;
@@ -24,7 +24,7 @@ public class Campingcar extends JFrame implements ActionListener {
 	Customer cstform;
 
 /* 조작할 수 있는 모델 추가 [컨트롤러 부분에 있어야 하는 내용]*/
-	private MainModel model = new MainModel();
+	// private DatabaseInitializer model = new DatabaseInitializer();
 
 	/**
 	 * Launch the application.
@@ -125,7 +125,7 @@ public class Campingcar extends JFrame implements ActionListener {
 	public void showReturnedList(){
 		try {
 			form.returnresulttxt.setText("앞쪽 \t 오른쪽 \t 왼쪽 \t 뒤쪽 \t 수리여부 \t 캠핑카ID \t 고유대여ID \n");
-			ResultSet rs = model.getReturnedList();
+			ResultSet rs = DatabaseInitializer.getInstance().getReturnedList();
 			while (rs.next()) {
 				String str = rs.getString(1) + "\t" + rs.getString(2) + "\t" +
 						rs.getString(3) + "\t" + rs.getString(4) + "\t" +
@@ -137,12 +137,9 @@ public class Campingcar extends JFrame implements ActionListener {
 		}
 	}
 
-/* 기존의 데이터 초기화 기능을 전부 모델에서 담당하도록 변경
-* & 장황한 메서드를 각 기능 별로 분리 */
+
 	public void datareset() {
-		model.resetDatabase();
-		model.dropTables();
-		model.createTables();
-		model.inputSampleData();
+		// DatabaseInitializer dbinit = new DatabaseInitializer();
+		// dbinit.init();
 	}
 }

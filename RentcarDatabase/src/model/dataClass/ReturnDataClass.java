@@ -1,10 +1,10 @@
-package controller.dataClass;
+package model.dataClass;
 
-public class ReturnInfo {
+public class ReturnDataClass {
     public String front;
     public String right;
     public String left;
     public String back;
     public String fix;
-    public String carId;
+    public String campingCarId;
 }

@@ -1,6 +1,6 @@
-package controller.dataClass;
+package model.dataClass;
 
-public class CompanyInfo {
+public class CompanyDataClass {
 	public String companyID;
 	public String companyName;
 	public String companyAddress;
