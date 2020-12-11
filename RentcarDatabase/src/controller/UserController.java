@@ -5,10 +5,10 @@ import view.UserView;
 import model.dataClass.CampingCarDataClass;
 import model.dataClass.RentDataClass;
 import controller.ReturnController;
+import controller.AdminController;
 import model.dataClass.ResultStateDataClass;
 import java.util.ArrayList;
 import javax.swing.ButtonGroup;
-
 
 public class UserController {
 	private final UserModel userModel = new UserModel();
@@ -25,10 +25,11 @@ public class UserController {
 	public UserController(){		
 		readRentableCampingCarList();
 		readRentList();
-		listenToReadRentableCampingCarList();
+		listenToReadRentableCampingCarListBy();
 		listenToRefreshRentableCampingCarList();
 		listenToRentCampingCar();
 		listenToReturnCampingCar();
+		listenToBack();
 		setVisible(true);
 	}
 	
@@ -46,54 +47,19 @@ public class UserController {
 		userView.readRentList(rentList);		
 	}
 	
-	public String getCheckedRadio(ButtonGroup radioGroup) {
-		String checkedRadio = "";
-		
-		try {
-			checkedRadio = radioGroup.getSelection().getActionCommand();
-		} catch(Exception e) {
-			System.out.println("검색 실패 : "+e);
-		}
-		
-		return checkedRadio;
-	}
-	
-	public void listenToReadRentableCampingCarList() {
+	public void listenToReadRentableCampingCarListBy() {
 		userView.searchButton.addActionListener(e -> {
-			ButtonGroup radioGroup = userView.getRadioGroup();
-			String checkedRadio = getCheckedRadio(radioGroup);
-			String searchBy = userView.getSearchCampingCar();
 			ArrayList<CampingCarDataClass> rentableCampingCarList;
+			String checkedRadio = userView.getCheckedRadio();
+			String searchTerm = userView.getSearchTerm();
 			
-			switch(checkedRadio) {
-				case "캠핑카ID" :
-					rentableCampingCarList = userModel.readRentableCampingCarListByID(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				case "차명" :
-					rentableCampingCarList = userModel.readRentableCampingCarListByName(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				case "최소승차인원" :
-					rentableCampingCarList = userModel.readRentableCampingCarListBySeats(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				case "제조회사" :
-					rentableCampingCarList = userModel.readRentableCampingCarListByManufacture(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				case "최대주행거리" :
-					rentableCampingCarList = userModel.readRentableCampingCarListByMileage(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				case "최대대여비용" :
-					rentableCampingCarList = userModel.readRentableCampingCarListByPrice(searchBy);
-					userView.readRentableCampingCarList(rentableCampingCarList);
-					break;
-				default :	
-					userView.showSearchFailed();
-					break;
-			}			
+			if(!userView.isCheckedRadioNull(checkedRadio)) {
+				rentableCampingCarList = userModel.readRentableCampingCarListBy(checkedRadio, searchTerm);
+				userView.readRentableCampingCarList(rentableCampingCarList);
+			} else {
+				userView.showSearchFailed(ResultStateDataClass.FAILURE);
+			}
+			
 		});
 	}
 	
@@ -120,8 +86,10 @@ public class UserController {
 		});
 	}
 	
-	// ------- 테스트 영역 --------
-	public static void main(String[] args) {
-		UserController us = new UserController();
+	public void listenToBack() {
+		userView.backButton.addActionListener(e -> {
+			setVisible(false);
+			MainController.getInstance().setVisible(true);
+		});
 	}
 }
