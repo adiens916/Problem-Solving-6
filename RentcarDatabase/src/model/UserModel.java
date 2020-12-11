@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.dataClass.CampingCarDataClass;
 import model.dataClass.RentDataClass;
@@ -38,38 +39,24 @@ public class UserModel {
 	}
 	
 	// 메소드 2 -> 대여 가능 캠핑카 리스트 조건 검색
-	private String getReadQuery(String checkedRadio, String searchTerm) {
-		// 조건 검색 쿼리 반환 메소드
-		String Query = "";
+	private HashMap<String,String> getReadQueryHash(String searchTerm){
+		HashMap<String,String> readQueryHash = new HashMap<>();
 		
-		switch(checkedRadio) {
-		case "캠핑카ID" :
-			Query = "SELECT * FROM rentcar_list WHERE rent_id='" + searchTerm + "'";
-			break;
-		case "차명" :
-			Query = "SELECT * FROM rentcar_list WHERE cc_name='" + searchTerm + "'";
-			break;
-		case "최소승차인원" :
-			Query = "SELECT * FROM rentcar_list WHERE cc_sits>='" + searchTerm + "'";
-			break;
-		case "제조회사" :
-			Query = "SELECT * FROM rentcar_list WHERE cc_manufacture='" + searchTerm + "'";
-			break;
-		case "최대주행거리" :
-			Query = "SELECT * FROM rentcar_list WHERE cc_mileage<='" + searchTerm + "'";
-			break;
-		case "최대대여비용" :
-			Query = "SELECT * FROM rentcar_list WHERE cc_rent_price<='" + searchTerm + "'";
-			break;
-		}
+		readQueryHash.put("캠핑카ID","SELECT * FROM rentcar_list WHERE rent_id='" + searchTerm + "'");
+		readQueryHash.put("차명","SELECT * FROM rentcar_list WHERE cc_name='" + searchTerm + "'");
+		readQueryHash.put("최소승차인원","SELECT * FROM rentcar_list WHERE cc_sits>='" + searchTerm + "'");
+		readQueryHash.put("제조회사","SELECT * FROM rentcar_list WHERE cc_manufacture='" + searchTerm + "'");
+		readQueryHash.put("최대주행거리","SELECT * FROM rentcar_list WHERE cc_mileage<='" + searchTerm + "'");
+		readQueryHash.put("최대대여비용","SELECT * FROM rentcar_list WHERE cc_rent_price<='" + searchTerm + "'");
 		
-		return Query;
+		return readQueryHash;
 	}
 	
 	public ArrayList<CampingCarDataClass> readRentableCampingCarListBy(String checkedRadio, String searchTerm){
 		// 조건 검색 1~6, 뷰에서 조건 라디오가 체크 되었을 때, 이 메소드를 호출
 		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-		String Query = getReadQuery(checkedRadio,searchTerm);	
+		HashMap<String,String> readQueryHash = getReadQueryHash(searchTerm);
+		String Query = readQueryHash.get(checkedRadio);	
 		
 		try {
 			statement = connection.createStatement();
