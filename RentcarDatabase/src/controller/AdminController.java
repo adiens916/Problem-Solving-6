@@ -1,6 +1,8 @@
 package controller;
 
 import java.util.ArrayList;
+
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
@@ -87,6 +89,7 @@ public class AdminController {
 	}
 	
 	public void printSearch() {
+	
 		adminView.searchButton[0].addActionListener(e -> {
 			adminView.searchText.setText("검색1\n");
 			try {
@@ -111,7 +114,8 @@ public class AdminController {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});adminView.searchButton[2].addActionListener(e -> {			adminView.searchText.setText("검색1");
+		});
+		adminView.searchButton[2].addActionListener(e -> {		
 			adminView.searchText.setText("검색3\n");
 			try {
 				ArrayList<String> search = new ArrayList<>();
@@ -122,7 +126,8 @@ public class AdminController {
 			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
-		});adminView.searchButton[3].addActionListener(e -> {
+		});
+		adminView.searchButton[3].addActionListener(e -> {
 			adminView.searchText.setText("검색4\n");
 			try {
 				ArrayList<String> search = new ArrayList<>();
