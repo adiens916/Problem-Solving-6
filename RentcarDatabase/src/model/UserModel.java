@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.dataClass.CampingCarDataClass;
 import model.dataClass.RentDataClass;
@@ -14,274 +15,188 @@ public class UserModel {
 	private final Connection connection = DatabaseConnector.getConnection();
 	private Statement statement;
 	private ResultSet resultSet;
-
+	
+	// 읽기 쿼리 실행
+	private ResultSet executeReadQuery(String Query) throws Exception {			
+		statement = connection.createStatement();
+		resultSet = statement.executeQuery(Query);
+		
+		return resultSet;
+	}
+	
+	// 업데이트 쿼리 실행
+	private int executeUpdateQuery(String Query) throws Exception {
+		statement = connection.createStatement();
+		
+		return statement.executeUpdate(Query);
+	}
+	
+	// 메소드 1 -> 대여 가능한 캠핑카 리스트 전체 출력
 	public ArrayList<CampingCarDataClass> readRentableCampingCarList() {
-		// 맨 처음 뷰를 띄웠을때, 대여 가능한 캠핑카 리스트 전체를 불러오는 기능
+		// 맨 처음 뷰를 띄웠을때, 대여 가능한 캠핑카 리스트 전체를 불러오는 기능		
 		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
+		
 		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 SQL 에러 in CustomerModel" + e1);
+			resultSet = executeReadQuery("SELECT * FROM rentcar_list");
+			rentableCampingCarList = toCampingCarFromResultSet(resultSet);
+		} catch(Exception e) {
+			System.out.println("대여 가능 캠핑카 리스트 SQL 에러 in CustomerModel" + e);
 		}
-
+		
 		return rentableCampingCarList;
 	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListByID(String searchCampingCarID) {
-		// 조건 검색 1, 뷰에서 캠핑카ID 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
-		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE rent_id='" + searchCampingCarID + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카ID SQL 에러 in CustomerModel" + e1);
-		}
-
-		return rentableCampingCarList;
+	
+	// 메소드 2 -> 대여 가능 캠핑카 리스트 조건 검색
+	private HashMap<String,String> getReadQueryHash(String searchTerm){
+		HashMap<String,String> readQueryHash = new HashMap<>();
+		
+		readQueryHash.put("캠핑카ID","SELECT * FROM rentcar_list WHERE rent_id='" + searchTerm + "'");
+		readQueryHash.put("차명","SELECT * FROM rentcar_list WHERE cc_name='" + searchTerm + "'");
+		readQueryHash.put("최소승차인원","SELECT * FROM rentcar_list WHERE cc_sits>='" + searchTerm + "'");
+		readQueryHash.put("제조회사","SELECT * FROM rentcar_list WHERE cc_manufacture='" + searchTerm + "'");
+		readQueryHash.put("최대주행거리","SELECT * FROM rentcar_list WHERE cc_mileage<='" + searchTerm + "'");
+		readQueryHash.put("최대대여비용","SELECT * FROM rentcar_list WHERE cc_rent_price<='" + searchTerm + "'");
+		
+		return readQueryHash;
 	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListByName(String searchCampingCarName) {
-		// 조건 검색 2, 뷰에서 차명 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
+	
+	public ArrayList<CampingCarDataClass> readRentableCampingCarListBy(String checkedRadio, String searchTerm) {
+		// 조건 검색 1~6, 뷰에서 조건 라디오가 체크 되었을 때, 이 메소드를 호출
+		HashMap<String,String> readQueryHash = getReadQueryHash(searchTerm);
 		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
+		
 		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE cc_name='" + searchCampingCarName + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 이름 SQL 에러 in CustomerModel" + e1);
+			resultSet = executeReadQuery(readQueryHash.get(checkedRadio));
+			rentableCampingCarList = toCampingCarFromResultSet(resultSet);
+		} catch(Exception e) {
+			System.out.println("대여 가능 캠핑카 리스트 조건 검색 오류" + e);
 		}
-
-		return rentableCampingCarList;
+		
+		return rentableCampingCarList;		
 	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListBySeats(String searchCampingCarSeat) {
-		// 조건 검색 3, 뷰에서 최소승차인원 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
-		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE cc_sits>='" + searchCampingCarSeat + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 좌석 SQL 에러 in CustomerModel" + e1);
-		}
-
-		return rentableCampingCarList;
-	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListByManufacture(String searchCampingCarManufacture) {
-		// 조건 검색 4, 뷰에서 제조회사 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
-		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE cc_manufacture='" + searchCampingCarManufacture + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 제조회사 SQL 에러 in CustomerModel" + e1);
-		}
-
-		return rentableCampingCarList;
-	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListByMileage(String searchCampingCarMileage) {
-		// 조건 검색 5, 뷰에서 최대주행거리 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
-		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE cc_mileage<='" + searchCampingCarMileage + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 최대주행거리 SQL 에러 in CustomerModel" + e1);
-		}
-
-		return rentableCampingCarList;
-	}
-
-	public ArrayList<CampingCarDataClass> readRentableCampingCarListByPrice(String searchCampingCarPrice) {
-		// 조건 검색 6, 뷰에서 최대대여비용 라디오 버튼이 체크되었을 때, 이 메소드를 호출.
-		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
-
-		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM rentcar_list WHERE cc_rent_price<='" + searchCampingCarPrice + "'";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				CampingCarDataClass rentableCampingCar = toCampingCarFromResultSet(resultSet);
-				rentableCampingCarList.add(rentableCampingCar);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 가능 캠핑카 리스트 By 캠핑카 최대대여비용 SQL 에러 in CustomerModel" + e1);
-		}
-
-		return rentableCampingCarList;
-	}
-
+	
+	// 메소드 3 -> 대여 현황 조회
 	public ArrayList<RentDataClass> readRentList() {
 		// 대여 현황을 출력한다. 뷰에서 대여 현황은 ( 대여 번호 | 대여중인 캠핑카 ID | 대여중인 캠핑카 가격 ) 으로 되어있다.
-		// Query를 실행한 결과를 받아오는 ResultSet을 리턴하는 것으로 일단 해놨으나, ResultSet을 가공해서 스트링으로 만들어
-		// 리턴하는 방향으로 바꿀수도 있다. -> ArrayList<String>을 반환하는 것으로 바꿈
 		ArrayList<RentDataClass> rentList = new ArrayList<>();
-
+		
 		try {
-			statement = connection.createStatement();
-			String Query = "SELECT * FROM customer_rent_list";
-			resultSet = statement.executeQuery(Query);
-
-			while (resultSet.next()) {
-				RentDataClass rent = toRentFromResultSet(resultSet);
-				rentList.add(rent);
-			}
-
-		} catch (Exception e1) {
-			System.out.println("대여 현황 리스트 SQL 에러 in CustomerModel" + e1);
+			resultSet = executeReadQuery("SELECT * FROM customer_rent_list");
+			rentList = toRentFromResultSet(resultSet);
+		} catch(Exception e) {
+			System.out.println("대여 현황 리스트 SQL 에러 in CustomerModel" + e);
 		}
 
 		return rentList;
 	}
-
-	public ResultStateDataClass rentCampingCar(RentDataClass rent) {
-		// 캠핑카를 대여하는 기능 -> 원하는 캠핑카를 대여했다 가정하고, 캠핑카 대여 현황 리스트에 Insert한다.
-		// 인자로 7개의 String을 받는데, 이는 Insert Query에 삽입할 Values로 쓰인다.
-		// String CampingCar_ID, String Customer_License, String Rent_Start_Date,
-		// String Rent_Period, String Rent_End_Date, String Extra_Goods, String
-		// Extra_Goods_Price
+	
+	// 메소드 4-1 -> 대여 시 필요한 Value 얻기 (CampingCarPrice, CompanyID)
+	private String[] getRentParams(RentDataClass rent) {
+		String[] params = new String[2];
+		
+		try {
+			resultSet = executeReadQuery("SELECT cc_rent_price,camping_rent_company_id FROM rentcar_list where rent_id='"
+					+ rent.campingCarID + "'");			
+			while (resultSet.next()) {
+				params[0] = resultSet.getString(1);
+				params[1] = resultSet.getString(2);
+			}
+		} catch(Exception e) {
+			System.out.println("캠핑카 대여 SQL 에러 (SELECT) in CustomerModel" + e);
+		}
+		
+		return params;		
+	}
+	
+	// 메소드 4-2 -> 캠핑카 대여 및 성공 여부 반환
+	private int rentCampingCar(RentDataClass rent, String[] params) {
 		int rentCheck = 0;
 		
-		if (rent.isNull()) {
-			System.out.println("대여할 캠핑카 정보를 모두다 입력해주세요.");
-			return ResultStateDataClass.NULL;
-		} else {
-			try {
-				statement = connection.createStatement();
-				String selectQuery = "SELECT cc_rent_price,camping_rent_company_id FROM rentcar_list where rent_id='"
-						+ rent.campingCarID + "'";
-				resultSet = statement.executeQuery(selectQuery);
-
-				// 단, 여기서 CampingCar_CompanyID와 CampingCar_Price는 함수 인자로 넘겨받지 않고 (뷰에서 입력받지 않고)
-				// 캠핑카 테이블에서 캠핑카 아이디를 키로 하여 받아온다.
-				String campingCarPrice = "";
-				String campingCarCompanyID = "";
-				if (resultSet.next()) {
-					campingCarPrice = resultSet.getString(1);
-					campingCarCompanyID = resultSet.getString(2);
-				}
-
-				// 대여 기능 수행 -> 대여 현황 리스트에 해당 캠핑카의 정보를 Insert.
-				try {
-					statement = connection.createStatement();
-					String insertQuery = "INSERT INTO customer_rent_list(start_date,rent_time,due_date,otherthing,others_price,campingcar_company_id,c_license_id,campingcar_id,cc_price)"
+		try {
+			rentCheck = executeUpdateQuery("INSERT INTO customer_rent_list(start_date,rent_time,due_date,otherthing,others_price,campingcar_company_id,c_license_id,campingcar_id,cc_price)"
 							+ " VALUES('" + rent.rentStartDate + "','" + rent.rentPeriod + "','" + rent.rentEndDate + "','"
-							+ rent.extraGoods + "','" + rent.extraGoodsPrice + "','" + campingCarCompanyID + "','"
-							+ rent.license + "','" + rent.campingCarID + "','" + campingCarPrice + "')";
-					int checkInsert = statement.executeUpdate(insertQuery);
-					// 대여 현황 리스트에 Insert가 제대로 되었다면, 대여 가능 리스트에서 해당 차의 행을 지워준다.
-					if (checkInsert == 1) {
-						try {
-							statement = connection.createStatement();
-							String deleteQuery = "DELETE FROM rentcar_list WHERE rent_id = '" + rent.campingCarID + "'";
-							int checkDelete = statement.executeUpdate(deleteQuery);
-							// 마지막 Delete까지 완료되었으면, Rent_Check를 1로 바꿔줌.
-							if (checkDelete == 1)
-								return ResultStateDataClass.SUCCESS;
-						} catch (Exception e3) {
-							System.out.println("캠핑카 대여 SQL 에러 (DELETE) in CustomerModel" + e3);
-						}
-					}
-				} catch (Exception e2) {
-					System.out.println("캠핑카 대여 SQL 에러 (INSERT) in CustomerModel" + e2);
-				}
-
-			} catch (Exception e1) {
-				System.out.println("캠핑카 대여 SQL 에러 (SELECT) in CustomerModel" + e1);
+							+ rent.extraGoods + "','" + rent.extraGoodsPrice + "','" + params[1] + "','"
+							+ rent.license + "','" + rent.campingCarID + "','" + params[0] + "')");
+		} catch(Exception e) {
+			System.out.println("캠핑카 대여 SQL 에러 (INSERT) in CustomerModel" + e);
+		}
+		
+		return rentCheck;
+	}
+	
+	// 메소드 4-3 -> 캠핑카 대여가 성공했을 시 대여 가능 리스트에서 해당 캠핑카 삭제
+	private int deleteCampingCarFromRentableList(RentDataClass rent, int rentCheck) {
+		int deleteCheck = 0;
+		
+		if (rentCheck == 1) {
+			try {
+				deleteCheck = executeUpdateQuery("DELETE FROM rentcar_list WHERE rent_id = '" + rent.campingCarID + "'");
+			} catch(Exception e) {
+				System.out.println("캠핑카 대여 SQL 에러 (DELETE) in CustomerModel" + e);
 			}
 		}
-
+		
+		return deleteCheck;
+	}
+	
+	// 메소드 4 -> 캠핑카 대여 과정 -> 메소드 4-1,4-2,4-3 실행
+	public ResultStateDataClass rentCampingCarDriver(RentDataClass rent) {		
+		// 대여 정보가 비어있을시 실패
+		if (rent.isNull())			
+			return ResultStateDataClass.NULL;
+		
+		String[] params = getRentParams(rent);
+		int rentCheck = rentCampingCar(rent, params);
+		int deleteCheck = deleteCampingCarFromRentableList(rent, rentCheck);
+		
+		// 대여 성공 및 대여 가능 리스트에서 삭제 둘다 성공 -> 성공
+		if (rentCheck == 1 && deleteCheck == 1)
+			return ResultStateDataClass.SUCCESS;
+		
+		// 아니면 실패
 		return ResultStateDataClass.FAILURE;
 	}
 
-	/* [모델] ResultSet을 캠핑카 데이터 클래스 형태로 바꿔주는 기능 */
-	private CampingCarDataClass toCampingCarFromResultSet(ResultSet result) throws Exception {
-		CampingCarDataClass campingCar = new CampingCarDataClass();
-		campingCar.campingCarId =  Integer.toString(result.getInt(1));
-		campingCar.campingCarName =  result.getString(2);
-		campingCar.campingCarNumber =  result.getString(3);
-		campingCar.campingCarSits =  result.getString(4);
-		campingCar.campingCarManufacutre =  result.getString(5);
-		campingCar.campingCarManufactureYear =  result.getString(6);
-		campingCar.campingCarMileage =  result.getString(7);
-		campingCar.campingCarRentprice =  result.getString(8);
-		campingCar.campingCarRegitstdate =  result.getString(9);
-		campingCar.campingCarRentCompanyId =  result.getString(10);
-		return campingCar;
+	// 쿼리 실행 결과 ResultSet을 데이터 클래스로 변환
+	private ArrayList<CampingCarDataClass> toCampingCarFromResultSet(ResultSet result) throws Exception {
+		ArrayList<CampingCarDataClass> rentableCampingCarList = new ArrayList<>();
+		
+		while(result.next()) {
+			CampingCarDataClass campingCar = new CampingCarDataClass();
+			campingCar.campingCarId =  Integer.toString(result.getInt(1));
+			campingCar.campingCarName =  result.getString(2);
+			campingCar.campingCarNumber =  result.getString(3);
+			campingCar.campingCarSits =  result.getString(4);
+			campingCar.campingCarManufacutre =  result.getString(5);
+			campingCar.campingCarManufactureYear =  result.getString(6);
+			campingCar.campingCarMileage =  result.getString(7);
+			campingCar.campingCarRentprice =  result.getString(8);
+			campingCar.campingCarRegitstdate =  result.getString(9);
+			campingCar.campingCarRentCompanyId =  result.getString(10);
+			rentableCampingCarList.add(campingCar);
+		}
+		
+		return rentableCampingCarList;
 	}
 
-	private RentDataClass toRentFromResultSet(ResultSet result) throws Exception {
-		RentDataClass rent = new RentDataClass();
+	private ArrayList<RentDataClass> toRentFromResultSet(ResultSet result) throws Exception {
+		ArrayList<RentDataClass> rentList = new ArrayList<>();
+		
+		while(result.next()) {
+			RentDataClass rent = new RentDataClass();
+			rent.rentID = result.getString(1);
+			rent.campingCarID = result.getString(9);
+			rent.campingCarCompanyID = result.getString(7);
+			rent.rentPrice = result.getString(10);
+			rent.license = result.getString(8);
+			rent.rentStartDate = result.getString(2);
+			rent.rentPeriod = result.getString(3);
+			rent.rentEndDate = result.getString(4);
+			rent.extraGoods = result.getString(5);
+			rent.extraGoodsPrice = result.getString(6);
+			rentList.add(rent);
+		}
 
-//		rent.rentID = result.getString(1);
-		rent.campingCarID = result.getString(9);
-//		rent.campingCarCompanyID = result.getString(7);
-//		rent.rentPrice = result.getString(10);
-		rent.license = result.getString(8);
-		rent.rentStartDate = result.getString(2);
-		rent.rentPeriod = result.getString(3);
-		rent.rentEndDate = result.getString(4);
-		rent.extraGoods = result.getString(5);
-		rent.extraGoodsPrice = result.getString(6);
-
-		return rent;
+		return rentList;
 	}
-	
-	// ----- 테스트 영역 -----	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

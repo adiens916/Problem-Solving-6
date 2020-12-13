@@ -4,6 +4,7 @@ import model.dataClass.CampingCarDataClass;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class CampingCarModel extends AbstractModel<CampingCarDataClass>{
 
@@ -59,18 +60,24 @@ public class CampingCarModel extends AbstractModel<CampingCarDataClass>{
     }
 
     @Override
-    CampingCarDataClass toInfoFromResultSet(ResultSet resultSet) throws SQLException{
-        CampingCarDataClass campingCar = new CampingCarDataClass();
-        campingCar.campingCarId = Integer.toString(resultSet.getInt(1));
-        campingCar.campingCarName = resultSet.getString(2);
-        campingCar.campingCarNumber = resultSet.getString(3);
-        campingCar.campingCarSits = resultSet.getString(4);
-        campingCar.campingCarManufacutre = resultSet.getString(5);
-        campingCar.campingCarManufactureYear = resultSet.getString(6);
-        campingCar.campingCarMileage = resultSet.getString(7);
-        campingCar.campingCarRentprice = resultSet.getString(8);
-        campingCar.campingCarRegitstdate = resultSet.getString(9);
-        campingCar.campingCarRentCompanyId = resultSet.getString(10);
-        return campingCar;
+    ArrayList<CampingCarDataClass> toInfoFromResultSet(ResultSet resultSet) throws SQLException{
+    	ArrayList<CampingCarDataClass> campingCarList = new ArrayList<>();
+    	
+    	while(resultSet.next()) {
+    	    CampingCarDataClass campingCar = new CampingCarDataClass();
+            campingCar.campingCarId = Integer.toString(resultSet.getInt(1));
+            campingCar.campingCarName = resultSet.getString(2);
+            campingCar.campingCarNumber = resultSet.getString(3);
+            campingCar.campingCarSits = resultSet.getString(4);
+            campingCar.campingCarManufacutre = resultSet.getString(5);
+            campingCar.campingCarManufactureYear = resultSet.getString(6);
+            campingCar.campingCarMileage = resultSet.getString(7);
+            campingCar.campingCarRentprice = resultSet.getString(8);
+            campingCar.campingCarRegitstdate = resultSet.getString(9);
+            campingCar.campingCarRentCompanyId = resultSet.getString(10);
+            campingCarList.add(campingCar);
+    	}
+    
+        return campingCarList;
     }
 }

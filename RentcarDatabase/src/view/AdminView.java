@@ -1,19 +1,16 @@
 package view;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
+import model.dataClass.AdminDataClass;
+import model.dataClass.ResultStateDataClass;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import controller.*;
-import model.dataClass.*;
-
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Component;
 import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.util.ArrayList;
 
 public class AdminView extends JFrame {
 	
@@ -24,25 +21,18 @@ public class AdminView extends JFrame {
 	private static class AdminViewHolder {
 		private static final AdminView instance = new AdminView();
 	}
-	
-	private JPanel contentPanel;
+
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepairId, garageId;
 
 	//------------------------------------------
 
-	CompanyController companyController = new CompanyController();
-	CampingCarController campingCarController = new CampingCarController();
-	CustomerController customerController = new CustomerController();
-	GarageController garageController = new GarageController();
-	AdminDataClass admin = new AdminDataClass();
-	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
     public JTextArea garageText = new JTextArea();
 
     public JButton backButton = new JButton("《 뒤로가기");
-    JButton resetButton = new JButton("초기화");
-    public JButton searchButton[] = new JButton[4];
+    public JButton resetButton = new JButton("초기화");
+    public JButton[] searchButton = new JButton[4];
     /*
     JButton searchButton[0] = new JButton("검색1");
     JButton searchButton[1] = new JButton("검색2");
@@ -70,12 +60,11 @@ public class AdminView extends JFrame {
 	JLabel search3 = new JLabel("3.   수리할 필요가 없는, 수리필요여부가 1인 캠핑카");
 	JLabel search4 = new JLabel("4.   대여기간이 10일이상인 고객이름");
 
-	CRUDMenu<CompanyController> menuCompany;
-	CRUDMenu<CampingCarController> menuCampingcar;
-	CRUDMenu<CustomerController> menuCustomer;
-	CRUDMenu<GarageController> menuGarage;
-	AdminController adminController;
-	
+	public MenuForSubPage companyMenu;
+	public MenuForSubPage campingCarMenu;
+	public MenuForSubPage customerMenu;
+	public MenuForSubPage garageMenu;
+
 
 	//------------------------------------------------------------
 	public AdminView() {
@@ -87,7 +76,7 @@ public class AdminView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1094, 565);
 //영역 설정------------------------------------------------------------------------------------------		
-		contentPanel = new JPanel();
+		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPanel);
@@ -109,7 +98,7 @@ public class AdminView extends JFrame {
 		panel.add(resetButton);
 		resetButton.setBorder(new CompoundBorder());
 		resetButton.setBackground(new Color(205, 133, 63));
-		
+
 		//뒤로가기 버튼--------------------------------------------------------------------------------
 		backButton.setForeground(Color.WHITE);
 		backButton.setBounds(513, 13, 66, 19);
@@ -143,20 +132,20 @@ public class AdminView extends JFrame {
 		setJMenuBar(menuBar);
 		
 //------대여회사 메뉴 설정-------------------------------------------------------------------------------
-		menuCompany = new CRUDMenu<>("대여회사", companyController, this);
-		menuBar.add(menuCompany);
+		companyMenu = new MenuForSubPage("대여회사");
+		menuBar.add(companyMenu);
 
 //------캠핑카 메뉴 설정--------------------------------------------------------------------------------
-		menuCampingcar = new CRUDMenu<>("캠핑카", campingCarController, this);
-		menuBar.add(menuCampingcar);
+		campingCarMenu = new MenuForSubPage("캠핑카");
+		menuBar.add(campingCarMenu);
 
 //------고객 메뉴 설정---------------------------------------------------------------------------------
-		menuCustomer = new CRUDMenu<>("고객", customerController, this);
-		menuBar.add(menuCustomer);
+		customerMenu = new MenuForSubPage("고객");
+		menuBar.add(customerMenu);
 
 //------정비소 메뉴 설정---------------------------------------------------------------------------------
-		menuGarage = new CRUDMenu<>("정비소", garageController, this);
-		menuBar.add(menuGarage);
+		garageMenu = new MenuForSubPage("정비소");
+		menuBar.add(garageMenu);
 
 //------우측상단 영역 설정------------------------------------------------------------------------------	
 		searchLabel.setFont(new Font("굴림", Font.BOLD, 20));
@@ -204,12 +193,6 @@ public class AdminView extends JFrame {
 		
 		//------다시 캠핑카 업체로 반환하기---------------------------------------------------------------------
 		returnButton.setFont(new Font("굴림", Font.BOLD, 18));
-		returnButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//adminController.returnToCampingCarData(torepairId.getText());
-				//refreshInput();
-			}
-		});
 		returnButton.setBounds(889, 402, 142, 77);
 		panel.add(returnButton);
 		
@@ -276,11 +259,6 @@ public class AdminView extends JFrame {
 		repairListOtherInfo.setColumns(10);
 		repairListOtherInfo.setBounds(727, 461, 150, 21);
 		panel.add(repairListOtherInfo);
-
-		resetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 	}
 	
 	public AdminDataClass getAdminInput() {
@@ -306,6 +284,18 @@ public class AdminView extends JFrame {
 		else if(result ==ResultStateDataClass.SUCCESS ) JOptionPane.showMessageDialog(null, "반환 완료!");
 		else if(result ==ResultStateDataClass.NULL ) JOptionPane.showMessageDialog(null, "캠핑카ID를 입력해주세요!");
 		else JOptionPane.showMessageDialog(null, "오류");
+	}
+
+	public void printSearchResult(int index, ArrayList<String> searchResult) {
+		searchText.setText("검색" + index + "\n");
+		int count = 0;
+		for (String s : searchResult) {
+			searchText.append(s);
+			count++;
+			if (count % 5 == 0) {
+				searchText.append("\n");
+			}
+		}
 	}
 	
 	public void refreshInput() {

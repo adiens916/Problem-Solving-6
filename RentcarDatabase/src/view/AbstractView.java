@@ -2,7 +2,10 @@ package view;
 
 import model.dataClass.ResultStateDataClass;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
 import java.util.ArrayList;
 
 /* 뷰의 공통 기능들을 포함하는 슈퍼 클래스

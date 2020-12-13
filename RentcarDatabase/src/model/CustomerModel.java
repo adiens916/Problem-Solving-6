@@ -63,14 +63,20 @@ public class CustomerModel extends AbstractModel<CustomerDataClass>  {
     }
 
     @Override
-    CustomerDataClass toInfoFromResultSet(ResultSet resultSet) throws Exception {
-        CustomerDataClass customer = new CustomerDataClass();
-        customer.licenseId = Integer.toString(resultSet.getInt(1));
-        customer.name = resultSet.getString(2);
-        customer.address = resultSet.getString(3);
-        customer.number = resultSet.getString(4);
-        customer.emailAddress = resultSet.getString(5);
-        return customer;
+    ArrayList<CustomerDataClass> toInfoFromResultSet(ResultSet resultSet) throws Exception {
+    	ArrayList<CustomerDataClass> customerList = new ArrayList<>();
+    	
+    	while(resultSet.next()) {
+    		CustomerDataClass customer = new CustomerDataClass();
+            customer.licenseId = Integer.toString(resultSet.getInt(1));
+            customer.name = resultSet.getString(2);
+            customer.address = resultSet.getString(3);
+            customer.number = resultSet.getString(4);
+            customer.emailAddress = resultSet.getString(5);
+            customerList.add(customer);
+    	}
+       
+        return customerList;
     }
 
     private boolean isRegisteredCustomer(String customerId) {
@@ -89,4 +95,3 @@ public class CustomerModel extends AbstractModel<CustomerDataClass>  {
         return false;
     }
 }
-

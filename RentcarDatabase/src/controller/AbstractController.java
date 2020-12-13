@@ -24,6 +24,7 @@ public abstract class AbstractController
         addListenerToRead();
         addListenerToUpdate();
         addListenerToDelete();
+        addListenerToQuit();
     }
 
     // AdminController에서 하위 페이지 띄울 때 쓰는 메서드 (<- view가 default라 접근 불가)
@@ -81,6 +82,13 @@ public abstract class AbstractController
             ResultStateDataClass result = model.delete(id);
             view.showDeleteResult(result);
             readList();
+        });
+    }
+
+    void addListenerToQuit() {
+        quit.addActionListener(e -> {
+            setVisible(false);
+            AdminController.getInstance().setVisible(true);
         });
     }
 }

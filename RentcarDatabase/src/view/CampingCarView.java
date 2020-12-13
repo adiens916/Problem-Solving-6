@@ -1,11 +1,18 @@
 package view;
 
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import java.awt.*;
-import java.util.ArrayList;
 import model.dataClass.CampingCarDataClass;
-import model.dataClass.ResultStateDataClass;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
+
 
 public class CampingCarView extends AbstractView<CampingCarDataClass>  {
 

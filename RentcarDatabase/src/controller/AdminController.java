@@ -1,19 +1,27 @@
 package controller;
 
-import java.util.ArrayList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-
+import model.DatabaseInitializer;
 import model.dataClass.AdminDataClass;
 import model.dataClass.GarageDataClass;
 import model.dataClass.ResultStateDataClass;
-import view.AdminView;
 import model.AdminModel;
+import view.AdminView;
+import view.MenuForSubPage;
+
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+
 
 public class AdminController {
 	private final AdminModel adminModel = new AdminModel();
 	private final AdminView adminView = AdminView.getInstance();
-	
+
+	CompanyController companyController = new CompanyController();
+	CampingCarController campingCarController = new CampingCarController();
+	CustomerController customerController = new CustomerController();
+	GarageController garageController = new GarageController();
+
 	public static AdminController getInstance() {
 		return AdminControllerHolder.instance;
 	}
@@ -27,6 +35,8 @@ public class AdminController {
 		 returnToCampingCarData();
 		 printGarageList();
 		 printSearch();
+		 addListenersToGoToSubPage();
+		 addListenerToResetButton();
 		 setVisible(true);
 	}
 	public void setVisible(boolean value) {
@@ -87,51 +97,47 @@ public class AdminController {
 	}
 	
 	public void printSearch() {
-		adminView.searchButton[0].addActionListener(e -> {
-			adminView.searchText.setText("검색1\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(1);
-				for (String i : search) {
-					adminView.searchText.append(i);
+		for (int i = 0; i < 4; i++) {
+			int index = i + 1;
+			adminView.searchButton[i].addActionListener(e -> {
+				try {
+					ArrayList<String> search = adminModel.getSearch(index);
+					adminView.printSearchResult(index, search);
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
-		adminView.searchButton[1].addActionListener(e -> {
-			adminView.searchText.setText("검색2\n");
+			});
+		}
+	}
 
+	private void addListenersToGoToSubPage() {
+		addListenerToEachSubPage(adminView.companyMenu, companyController);
+		addListenerToEachSubPage(adminView.campingCarMenu, campingCarController);
+		addListenerToEachSubPage(adminView.customerMenu, customerController);
+		addListenerToEachSubPage(adminView.garageMenu, garageController);
+	}
+
+	private void addListenerToEachSubPage(MenuForSubPage menu, AbstractController controller) {
+		for (JMenuItem menuItem : menu.getMenuItems()) {
+			menuItem.addActionListener(actionEvent -> {
+				AdminController.getInstance().setVisible(false);
+				controller.setVisible(true);
+			});
+		}
+	}
+
+	private void addListenerToResetButton() {
+		adminView.resetButton.addActionListener(actionEvent -> {
 			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(2);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});adminView.searchButton[2].addActionListener(e -> {			adminView.searchText.setText("검색1");
-			adminView.searchText.setText("검색3\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(3);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});adminView.searchButton[3].addActionListener(e -> {
-			adminView.searchText.setText("검색4\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(4);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
+				DatabaseInitializer.getInstance().init();
+				// 초기화 후 반환 내역과 정비고 목록 갱신 & 입력란 새로고침
+				printCampingCarRentList();
+				printGarageList();
+				adminView.refreshInput();
+				JOptionPane.showMessageDialog(null, "초기화 완료");
+			} catch (Exception e) {
+				System.out.println("데이터 입력에 오류 발생!\n" + e);
+				JOptionPane.showMessageDialog(null, "초기화 실패");
 			}
 		});
 	}

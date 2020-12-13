@@ -3,9 +3,17 @@ package view;
 import model.dataClass.CustomerDataClass;
 import model.dataClass.ResultStateDataClass;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 
 public class CustomerView extends AbstractView<CustomerDataClass>{
 

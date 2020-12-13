@@ -11,7 +11,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class UserView extends JFrame{
-
+	// 싱글턴 기법으로 하나의 인스턴스만 반환
 	public static UserView getInstance() {
 		return UserViewHolder.instance;
 	}
@@ -19,22 +19,8 @@ public class UserView extends JFrame{
 	private static class UserViewHolder {
 		private static final UserView instance = new UserView();
 	}
-
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserView frame = new UserView();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-	*/
-
+	
+	// View 변수 모음 -- 
 	public JTextField searchCampingCar = new JTextField();
     public JButton returnButton = new JButton("반환하러가기"); 
     JTextArea listarea = new JTextArea();
@@ -44,11 +30,13 @@ public class UserView extends JFrame{
 	public JButton rentButton,backButton,searchButton,refreshButton;
 	JRadioButton idRadio,nameRadio,seatRadio,manufactureRadio,mileageRadio,priceRadio;
 	public ButtonGroup radioGroup;
-		
+	
+	// 생성자
 	public UserView() {
 		addComponent();
 	}
-
+	
+	// 스윙 컴포넌트 붙이기
 	private void addComponent() {
 		setTitle("캠핑카프로젝트 리팩토링");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -250,6 +238,7 @@ public class UserView extends JFrame{
 		contentPane.add(rentButton);
 	}
 	
+	// Getter
 	private String getCampingCarColumnList() {
 		return "캠핑카ID \t 차명 \t 차량번호 \t 승차인원수 \t 제조회사 \t 제조연도 \t 누적주행거리 \t 대여비용 \t캠핑카등록일자 \t 대여회사ID \n";
 	}
@@ -258,14 +247,45 @@ public class UserView extends JFrame{
 		return "번호 \t 캠핑카ID \t 금액 \n";
 	}
 	
-	public String getSearchCampingCar() {
+	public String getSearchTerm() {
 		return searchCampingCar.getText();
 	}
 	
-	public ButtonGroup getRadioGroup() {
-		return radioGroup;
+	public RentDataClass getRentInput() {
+		RentDataClass rent = new RentDataClass();
+		
+		rent.campingCarID = campingCarID.getText();
+		rent.license = license.getText();
+		rent.rentStartDate = rentStartDate.getText();
+		rent.rentPeriod = rentPeriod.getText();
+		rent.rentEndDate = rentEndDate.getText();
+		rent.extraGoods = extraGoods.getText();
+		rent.extraGoodsPrice = extraGoodsPrice.getText();
+		
+		return rent;
 	}
 	
+	public String getCheckedRadio() {
+		String checkedRadio = "";
+		
+		try {
+			checkedRadio = radioGroup.getSelection().getActionCommand();
+		} catch(Exception e) {
+			System.out.println("검색 실패 : "+e);
+		}
+		
+		return checkedRadio;
+	}
+	
+	public boolean isCheckedRadioNull(String checkedRadio) {
+		if(checkedRadio.length()==0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	// 컨트롤러를 통해서 받은 결과를 View에 출력
 	public void readRentableCampingCarList(ArrayList<CampingCarDataClass> rentableCampingCarList) {
 		listarea.setText("");
 		String list = getCampingCarColumnList();
@@ -286,6 +306,7 @@ public class UserView extends JFrame{
 		starea.append(list);
 	}
 	
+	// 컨트롤러를 통해서 받은 데이터 클래스를 스트링으로 변환
 	private String toStringFromCampingCarInfo(CampingCarDataClass campingCar) {
 		return  campingCar.campingCarId + '\t' +
 				campingCar.campingCarName + '\t' +
@@ -301,24 +322,11 @@ public class UserView extends JFrame{
 	
 	private String toStringFromRentInfo(RentDataClass rent) {
 		return  '\t' + 
-			rent.campingCarID + '\t' +
-			rent.rentPrice + '\n';	
+				rent.campingCarID + '\t' +
+				rent.rentPrice + '\n';		
 	}
 	
-	public RentDataClass getRentInput() {
-		RentDataClass rent = new RentDataClass();
-		
-		rent.campingCarID = campingCarID.getText();
-		rent.license = license.getText();
-		rent.rentStartDate = rentStartDate.getText();
-		rent.rentPeriod = rentPeriod.getText();
-		rent.rentEndDate = rentEndDate.getText();
-		rent.extraGoods = extraGoods.getText();
-		rent.extraGoodsPrice = extraGoodsPrice.getText();
-		
-		return rent;
-	}
-	
+	// 결과의 상태에 따라 View에 알림창 출력
 	public void showRentResult(ResultStateDataClass result) {
 		if (result == ResultStateDataClass.SUCCESS) {
 			JOptionPane.showMessageDialog(null,"대여 완료");
@@ -327,25 +335,8 @@ public class UserView extends JFrame{
 		}
 	}
 	
-	public void showSearchFailed() {
-		JOptionPane.showMessageDialog(null,"조건 라디오 버튼을 먼저 클릭해주세요");
+	public void showSearchFailed(ResultStateDataClass result) {
+		if (result == ResultStateDataClass.FAILURE)
+			JOptionPane.showMessageDialog(null,"조건 라디오 버튼을 먼저 클릭해주세요");
 	}
-
-	/*private static void addPopup(Component component, final JPopupMenu popup) {
-		component.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			public void mouseReleased(MouseEvent e) {
-				if (e.isPopupTrigger()) {
-					showMenu(e);
-				}
-			}
-			private void showMenu(MouseEvent e) {
-				popup.show(e.getComponent(), e.getX(), e.getY());
-			}
-		});
-	}*/
 }

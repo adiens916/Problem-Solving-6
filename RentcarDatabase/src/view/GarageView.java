@@ -1,11 +1,17 @@
 package view;
 
+import model.dataClass.GarageDataClass;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import model.dataClass.GarageDataClass;
 
 public class GarageView extends AbstractView<GarageDataClass> {
 
