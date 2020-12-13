@@ -2,6 +2,7 @@ package model;
 
 import model.dataClass.CompanyDataClass;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class CompanyModel extends AbstractModel<CompanyDataClass> {
 
@@ -42,28 +43,25 @@ public class CompanyModel extends AbstractModel<CompanyDataClass> {
 	}
 
 	@Override
-	boolean isNullData(CompanyDataClass company) {
+	boolean isNullData(CompanyDataClass company) {		
 		return company.isNull();
 	}
 
 	@Override
-	CompanyDataClass toInfoFromResultSet(ResultSet resultSet) throws Exception {
-		CompanyDataClass company = new CompanyDataClass();
-		company.companyID = Integer.toString(resultSet.getInt(1));
-		company.companyName = resultSet.getString(2);
-		company.companyAddress = resultSet.getString(3);
-		company.companyPhoneNumber = resultSet.getString(4);
-		company.companyOfficerEmail = resultSet.getString(5);
-		company.companyOfficerName = resultSet.getString(6);
-		return company;
+	ArrayList<CompanyDataClass> toInfoFromResultSet(ResultSet resultSet) throws Exception {
+		ArrayList<CompanyDataClass> companyList = new ArrayList<>();
+		
+		while(resultSet.next()) {
+			CompanyDataClass company = new CompanyDataClass();
+			company.companyID = Integer.toString(resultSet.getInt(1));
+			company.companyName = resultSet.getString(2);
+			company.companyAddress = resultSet.getString(3);
+			company.companyPhoneNumber = resultSet.getString(4);
+			company.companyOfficerEmail = resultSet.getString(5);
+			company.companyOfficerName = resultSet.getString(6);
+			companyList.add(company);		
+		}
+
+		return companyList;
 	}
-
-	/*public ArrayList<CompanyInfo> refreshCompanyList() {
-		// 뷰에서 새로고침 기능
-		// Company_List를 다시 한번 실행해주기 때문에 마찬가지로 ArrayList를 반환
-		ArrayList<String> Company_List = new ArrayList<>();
-		Company_List = Company_List();
-
-		return Company_List;
-	}*/
 }
