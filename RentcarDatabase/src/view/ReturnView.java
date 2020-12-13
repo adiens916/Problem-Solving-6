@@ -45,8 +45,14 @@ public class ReturnView extends JFrame {
 	public void showReturnResult(ResultStateDataClass result) {
 		if (result == ResultStateDataClass.SUCCESS) {
 			JOptionPane.showMessageDialog(null, "반환 완료");
-		} else {
+		} else if (result == ResultStateDataClass.NULL) {
 			JOptionPane.showMessageDialog(null, "차의 모든 상태 및 캠핑카 ID를 확인해주세요.");
+		} else if (result == ResultStateDataClass.NONEXISTENT) {
+			JOptionPane.showMessageDialog(null, "대여 목록 중에 해당 ID와 일치하는 항목이 없습니다.");
+		} else if (result == ResultStateDataClass.RETURN_FAILURE) {
+			JOptionPane.showMessageDialog(null, "반환 내역에 추가하는 작업이 실패하였습니다.");
+		} else if (result == ResultStateDataClass.FAILURE) {
+			JOptionPane.showMessageDialog(null, "반환 실패");
 		}
 	}
 

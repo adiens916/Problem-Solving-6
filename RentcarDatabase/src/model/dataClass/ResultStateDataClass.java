@@ -1,5 +1,6 @@
 package model.dataClass;
 
 public enum ResultStateDataClass {
-    SUCCESS, FAILURE, NULL, REGISTERED, BACK
+    SUCCESS, BACK,
+    FAILURE, NULL, NONEXISTENT, RETURN_FAILURE , REGISTERED
 }
