@@ -184,8 +184,8 @@ public class AdminModel {
 			String query[] = new String[5];
 			query[1] = "select c_name from (select r_price,customer_license_id from repair_list where r_price >=10) rp, customer cs where cs.license_id=rp.customer_license_id group by cs.c_name;";
 			query[2] = "select c_name FROM (SELECT cc_price,c_license_id FROM customer_rent_list WHERE  cc_price >= 50) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
-			query[3] = "select g_namenfrom (select cc_manufacture, campingcar_list_id from campingcar_list where cc_manufacture_year >=2000) cl, garage g where g.garage_id = cl.campingcar_list_id group by g.g_name;";
-			query[4] = "select c_name FROM (SELECT rent_time,c_license_id FROM customer_rent_list WHERE arent_time>=10) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
+			query[3] = "select g_name from (select cc_manufacture, campingcar_list_id from campingcar_list where cc_manufacture_year >=2000) cl, garage g where g.garage_id = cl.campingcar_list_id group by g.g_name;";
+			query[4] = "select c_name FROM (SELECT rent_time, c_license_id FROM customer_rent_list WHERE rent_time>=10) rl, customer cs WHERE cs.license_id=rl.c_license_id GROUP BY cs.c_name;";
 			rs = stmt.executeQuery(query[num]);
 			int count = 1;
 			while (rs.next()) {
