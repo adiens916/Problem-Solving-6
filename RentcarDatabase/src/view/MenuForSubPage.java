@@ -1,7 +1,10 @@
 package view;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
+import javax.swing.SwingConstants;
+import java.awt.Dimension;
+import java.awt.Insets;
 
 public class MenuForSubPage extends JMenu {
     private final JMenuItem[] menuItems = new JMenuItem[3];
