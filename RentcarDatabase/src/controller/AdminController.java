@@ -36,7 +36,7 @@ public class AdminController {
 		 printGarageList();
 		 printSearch();
 		 addListenersToGoToSubPage();
-		addListenerToResetButton();
+		 addListenerToResetButton();
 		 setVisible(true);
 	}
 	public void setVisible(boolean value) {
@@ -97,56 +97,17 @@ public class AdminController {
 	}
 	
 	public void printSearch() {
-	
-		adminView.searchButton[0].addActionListener(e -> {
-			adminView.searchText.setText("검색1\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(1);
-				for (String i : search) {
-					adminView.searchText.append(i);
+		for (int i = 0; i < 4; i++) {
+			int index = i + 1;
+			adminView.searchButton[i].addActionListener(e -> {
+				try {
+					ArrayList<String> search = adminModel.getSearch(index);
+					adminView.printSearchResult(index, search);
+				} catch (Exception e1) {
+					e1.printStackTrace();
 				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
-		adminView.searchButton[1].addActionListener(e -> {
-			adminView.searchText.setText("검색2\n");
-
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(2);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
-		adminView.searchButton[2].addActionListener(e -> {		
-			adminView.searchText.setText("검색3\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(3);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
-		adminView.searchButton[3].addActionListener(e -> {
-			adminView.searchText.setText("검색4\n");
-			try {
-				ArrayList<String> search = new ArrayList<>();
-				search = adminModel.getSearch(4);
-				for (String i : search) {
-					adminView.searchText.append(i);
-				}
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
-		});
+			});
+		}
 	}
 
 	private void addListenersToGoToSubPage() {

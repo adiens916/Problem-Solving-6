@@ -10,8 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 
 public class AdminView extends JFrame {
 	
@@ -194,12 +193,6 @@ public class AdminView extends JFrame {
 		
 		//------다시 캠핑카 업체로 반환하기---------------------------------------------------------------------
 		returnButton.setFont(new Font("굴림", Font.BOLD, 18));
-		returnButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				//adminController.returnToCampingCarData(torepairId.getText());
-				//refreshInput();
-			}
-		});
 		returnButton.setBounds(889, 402, 142, 77);
 		panel.add(returnButton);
 		
@@ -291,6 +284,18 @@ public class AdminView extends JFrame {
 		else if(result ==ResultStateDataClass.SUCCESS ) JOptionPane.showMessageDialog(null, "반환 완료!");
 		else if(result ==ResultStateDataClass.NULL ) JOptionPane.showMessageDialog(null, "캠핑카ID를 입력해주세요!");
 		else JOptionPane.showMessageDialog(null, "오류");
+	}
+
+	public void printSearchResult(int index, ArrayList<String> searchResult) {
+		searchText.setText("검색" + index + "\n");
+		int count = 0;
+		for (String s : searchResult) {
+			searchText.append(s);
+			count++;
+			if (count % 5 == 0) {
+				searchText.append("\n");
+			}
+		}
 	}
 	
 	public void refreshInput() {
