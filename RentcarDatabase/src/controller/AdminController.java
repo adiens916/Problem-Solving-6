@@ -30,14 +30,15 @@ public class AdminController {
 		private static final AdminController instance = new AdminController();
 	}
 	public AdminController(){
-		 insertGarageData();	
-		 printCampingCarRentList();
-		 returnToCampingCarData();
-		 printGarageList();
-		 printSearch();
-		 addListenersToGoToSubPage();
-		 addListenerToResetButton();
-		 setVisible(true);
+		insertGarageData();
+		printCampingCarRentList();
+		returnToCampingCarData();
+		printGarageList();
+		printSearch();
+		addListenerToResetButton();
+		addListenersToGoToSubPage();
+		addListenerToBack();
+		setVisible(true);
 	}
 	public void setVisible(boolean value) {
 		adminView.setVisible(value);
@@ -110,22 +111,6 @@ public class AdminController {
 		}
 	}
 
-	private void addListenersToGoToSubPage() {
-		addListenerToEachSubPage(adminView.companyMenu, companyController);
-		addListenerToEachSubPage(adminView.campingCarMenu, campingCarController);
-		addListenerToEachSubPage(adminView.customerMenu, customerController);
-		addListenerToEachSubPage(adminView.garageMenu, garageController);
-	}
-
-	private void addListenerToEachSubPage(MenuForSubPage menu, AbstractController controller) {
-		for (JMenuItem menuItem : menu.getMenuItems()) {
-			menuItem.addActionListener(actionEvent -> {
-				AdminController.getInstance().setVisible(false);
-				controller.setVisible(true);
-			});
-		}
-	}
-
 	private void addListenerToResetButton() {
 		adminView.resetButton.addActionListener(actionEvent -> {
 			try {
@@ -139,6 +124,29 @@ public class AdminController {
 				System.out.println("데이터 입력에 오류 발생!\n" + e);
 				JOptionPane.showMessageDialog(null, "초기화 실패");
 			}
+		});
+	}
+
+	private void addListenersToGoToSubPage() {
+		addListenerToEachSubPage(adminView.companyMenu, companyController);
+		addListenerToEachSubPage(adminView.campingCarMenu, campingCarController);
+		addListenerToEachSubPage(adminView.customerMenu, customerController);
+		addListenerToEachSubPage(adminView.garageMenu, garageController);
+	}
+
+	private void addListenerToEachSubPage(MenuForSubPage menu, AbstractController controller) {
+		for (JMenuItem menuItem : menu.getMenuItems()) {
+			menuItem.addActionListener(actionEvent -> {
+				setVisible(false);
+				controller.setVisible(true);
+			});
+		}
+	}
+
+	private void addListenerToBack() {
+		adminView.backButton.addActionListener(actionEvent -> {
+			setVisible(false);
+			MainController.getInstance().setVisible(true);
 		});
 	}
 }

@@ -9,8 +9,6 @@ import java.awt.*;
 
 public class MainController {
 
-	AdminView adminView = new AdminView();
-
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
@@ -33,7 +31,6 @@ public class MainController {
 	private MainController() {
 		addListenerToGoToAdminMenu();
 		addListenerToGoToUserMenu();
-		addListenerToGoBackToMainMenu();
 	}
 
 	public void setVisible(boolean value) {
@@ -44,7 +41,6 @@ public class MainController {
 		MainView.getInstance().goToAdminButton.addActionListener(e -> {
 			setVisible(false);
 			AdminController.getInstance().setVisible(true);
-			//adminView.setVisible(true);
 		});
 	}
 
@@ -54,18 +50,4 @@ public class MainController {
 			UserController.getInstance().setVisible(true);
 		});
 	}
-
-	private void addListenerToGoBackToMainMenu() {
-		adminView.getInstance().backButton.addActionListener(e -> {
-			AdminController.getInstance().setVisible(false);
-			setVisible(true);
-		});
-		UserView.getInstance().backButton.addActionListener(e -> {
-			UserController.getInstance().setVisible(false);
-			setVisible(true);
-		});
-	}
-
-	/* 데이터 초기화 부분은 Admin 쪽으로 옮겨주기  */
-	// DatabaseInitializer.getInstance().init();
 }
