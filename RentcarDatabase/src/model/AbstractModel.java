@@ -72,10 +72,7 @@ public abstract class AbstractModel<T> {
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
-            while(resultSet.next()) {
-                T info = toInfoFromResultSet(resultSet);
-                infoList.add(info);
-            }
+            infoList = toInfoFromResultSet(resultSet);
         }catch(Exception e1) {
             e1.printStackTrace();
         }
@@ -96,5 +93,5 @@ public abstract class AbstractModel<T> {
     // 추상 클래스에선 데이터 클래스 참조 불가 -> 하위 클래스에 판단 넘김
     abstract boolean isNullData(T info);
 
-    abstract T toInfoFromResultSet(ResultSet resultSet) throws Exception;
+    abstract ArrayList<T> toInfoFromResultSet(ResultSet resultSet) throws Exception;
 }
