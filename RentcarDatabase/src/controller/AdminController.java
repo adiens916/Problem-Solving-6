@@ -1,5 +1,6 @@
 package controller;
 
+import model.DatabaseInitializer;
 import model.dataClass.AdminDataClass;
 import model.dataClass.GarageDataClass;
 import model.dataClass.ResultStateDataClass;
@@ -8,6 +9,7 @@ import view.AdminView;
 import view.MenuForSubPage;
 
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import java.util.ArrayList;
 
 
@@ -34,6 +36,7 @@ public class AdminController {
 		 printGarageList();
 		 printSearch();
 		 addListenersToGoToSubPage();
+		addListenerToResetButton();
 		 setVisible(true);
 	}
 	public void setVisible(boolean value) {
@@ -160,5 +163,21 @@ public class AdminController {
 				controller.setVisible(true);
 			});
 		}
+	}
+
+	private void addListenerToResetButton() {
+		adminView.resetButton.addActionListener(actionEvent -> {
+			try {
+				DatabaseInitializer.getInstance().init();
+				// 초기화 후 반환 내역과 정비고 목록 갱신 & 입력란 새로고침
+				printCampingCarRentList();
+				printGarageList();
+				adminView.refreshInput();
+				JOptionPane.showMessageDialog(null, "초기화 완료");
+			} catch (Exception e) {
+				System.out.println("데이터 입력에 오류 발생!\n" + e);
+				JOptionPane.showMessageDialog(null, "초기화 실패");
+			}
+		});
 	}
 }

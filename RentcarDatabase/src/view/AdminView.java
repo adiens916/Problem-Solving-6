@@ -22,8 +22,7 @@ public class AdminView extends JFrame {
 	private static class AdminViewHolder {
 		private static final AdminView instance = new AdminView();
 	}
-	
-	private JPanel contentPanel;
+
 	public JTextField repairListLog,repairListFixDate,repairListprice,repairListDuedate,repairListOtherInfo,torepairId, garageId;
 
 	//------------------------------------------
@@ -33,8 +32,8 @@ public class AdminView extends JFrame {
     public JTextArea garageText = new JTextArea();
 
     public JButton backButton = new JButton("《 뒤로가기");
-    JButton resetButton = new JButton("초기화");
-    public JButton searchButton[] = new JButton[4];
+    public JButton resetButton = new JButton("초기화");
+    public JButton[] searchButton = new JButton[4];
     /*
     JButton searchButton[0] = new JButton("검색1");
     JButton searchButton[1] = new JButton("검색2");
@@ -78,7 +77,7 @@ public class AdminView extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1094, 565);
 //영역 설정------------------------------------------------------------------------------------------		
-		contentPanel = new JPanel();
+		JPanel contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPanel);
@@ -100,7 +99,7 @@ public class AdminView extends JFrame {
 		panel.add(resetButton);
 		resetButton.setBorder(new CompoundBorder());
 		resetButton.setBackground(new Color(205, 133, 63));
-		
+
 		//뒤로가기 버튼--------------------------------------------------------------------------------
 		backButton.setForeground(Color.WHITE);
 		backButton.setBounds(513, 13, 66, 19);
@@ -267,11 +266,6 @@ public class AdminView extends JFrame {
 		repairListOtherInfo.setColumns(10);
 		repairListOtherInfo.setBounds(727, 461, 150, 21);
 		panel.add(repairListOtherInfo);
-
-		resetButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 	}
 	
 	public AdminDataClass getAdminInput() {
