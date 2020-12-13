@@ -1,21 +1,25 @@
 package controller;
 
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JTextArea;
-
 import model.dataClass.AdminDataClass;
 import model.dataClass.GarageDataClass;
 import model.dataClass.ResultStateDataClass;
-import view.AdminView;
 import model.AdminModel;
+import view.AdminView;
+import view.MenuForSubPage;
+
+import javax.swing.JMenuItem;
+import java.util.ArrayList;
+
 
 public class AdminController {
 	private final AdminModel adminModel = new AdminModel();
 	private final AdminView adminView = AdminView.getInstance();
-	
+
+	CompanyController companyController = new CompanyController();
+	CampingCarController campingCarController = new CampingCarController();
+	CustomerController customerController = new CustomerController();
+	GarageController garageController = new GarageController();
+
 	public static AdminController getInstance() {
 		return AdminControllerHolder.instance;
 	}
@@ -29,6 +33,7 @@ public class AdminController {
 		 returnToCampingCarData();
 		 printGarageList();
 		 printSearch();
+		 addListenersToGoToSubPage();
 		 setVisible(true);
 	}
 	public void setVisible(boolean value) {
@@ -139,5 +144,21 @@ public class AdminController {
 				e1.printStackTrace();
 			}
 		});
+	}
+
+	private void addListenersToGoToSubPage() {
+		addListenerToEachSubPage(adminView.companyMenu, companyController);
+		addListenerToEachSubPage(adminView.campingCarMenu, campingCarController);
+		addListenerToEachSubPage(adminView.customerMenu, customerController);
+		addListenerToEachSubPage(adminView.garageMenu, garageController);
+	}
+
+	private void addListenerToEachSubPage(MenuForSubPage menu, AbstractController controller) {
+		for (JMenuItem menuItem : menu.getMenuItems()) {
+			menuItem.addActionListener(actionEvent -> {
+				AdminController.getInstance().setVisible(false);
+				controller.setVisible(true);
+			});
+		}
 	}
 }

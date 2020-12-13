@@ -1,19 +1,17 @@
 package view;
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
+
+import model.dataClass.AdminDataClass;
+import model.dataClass.ResultStateDataClass;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-
-import controller.*;
-import model.dataClass.*;
-
-import java.awt.Font;
-import java.awt.Color;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.awt.event.ActionEvent;
-import java.awt.Component;
 import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class AdminView extends JFrame {
 	
@@ -30,12 +28,6 @@ public class AdminView extends JFrame {
 
 	//------------------------------------------
 
-	CompanyController companyController = new CompanyController();
-	CampingCarController campingCarController = new CampingCarController();
-	CustomerController customerController = new CustomerController();
-	GarageController garageController = new GarageController();
-	AdminDataClass admin = new AdminDataClass();
-	
 	public JTextArea campingCarText=new JTextArea();
 	public JTextArea searchText = new JTextArea();
     public JTextArea garageText = new JTextArea();
@@ -70,12 +62,11 @@ public class AdminView extends JFrame {
 	JLabel search3 = new JLabel("3.   수리할 필요가 없는, 수리필요여부가 1인 캠핑카");
 	JLabel search4 = new JLabel("4.   대여기간이 10일이상인 고객이름");
 
-	CRUDMenu<CompanyController> menuCompany;
-	CRUDMenu<CampingCarController> menuCampingcar;
-	CRUDMenu<CustomerController> menuCustomer;
-	CRUDMenu<GarageController> menuGarage;
-	AdminController adminController;
-	
+	public MenuForSubPage companyMenu;
+	public MenuForSubPage campingCarMenu;
+	public MenuForSubPage customerMenu;
+	public MenuForSubPage garageMenu;
+
 
 	//------------------------------------------------------------
 	public AdminView() {
@@ -143,20 +134,20 @@ public class AdminView extends JFrame {
 		setJMenuBar(menuBar);
 		
 //------대여회사 메뉴 설정-------------------------------------------------------------------------------
-		menuCompany = new CRUDMenu<>("대여회사", companyController, this);
-		menuBar.add(menuCompany);
+		companyMenu = new MenuForSubPage("대여회사");
+		menuBar.add(companyMenu);
 
 //------캠핑카 메뉴 설정--------------------------------------------------------------------------------
-		menuCampingcar = new CRUDMenu<>("캠핑카", campingCarController, this);
-		menuBar.add(menuCampingcar);
+		campingCarMenu = new MenuForSubPage("캠핑카");
+		menuBar.add(campingCarMenu);
 
 //------고객 메뉴 설정---------------------------------------------------------------------------------
-		menuCustomer = new CRUDMenu<>("고객", customerController, this);
-		menuBar.add(menuCustomer);
+		customerMenu = new MenuForSubPage("고객");
+		menuBar.add(customerMenu);
 
 //------정비소 메뉴 설정---------------------------------------------------------------------------------
-		menuGarage = new CRUDMenu<>("정비소", garageController, this);
-		menuBar.add(menuGarage);
+		garageMenu = new MenuForSubPage("정비소");
+		menuBar.add(garageMenu);
 
 //------우측상단 영역 설정------------------------------------------------------------------------------	
 		searchLabel.setFont(new Font("굴림", Font.BOLD, 20));
